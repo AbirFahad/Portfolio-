@@ -163,7 +163,6 @@ section { padding: 110px 0; position: relative; }
   background: var(--card); color: var(--text); cursor: pointer; font-size: 1rem;
   margin-left: 6px;
 }
-.burger { display: none; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -336,13 +335,13 @@ section { padding: 110px 0; position: relative; }
 }
 /* outer <li>: sits at its own height and floats up and down slowly */
 .stack-item {
-  transform: translateY(var(--y, 0));
+  transform: translateY(calc(var(--y, 0px) * var(--yk, 1)));   /* --yk shrinks the ups and downs on phones */
   animation: stack-float 5s ease-in-out infinite alternate;
   animation-delay: calc(var(--i, 0) * -0.7s);
 }
 @keyframes stack-float {
-  from { transform: translateY(var(--y, 0)); }
-  to   { transform: translateY(calc(var(--y, 0) - 7px)); }
+  from { transform: translateY(calc(var(--y, 0px) * var(--yk, 1))); }
+  to   { transform: translateY(calc(var(--y, 0px) * var(--yk, 1) - 7px * var(--yk, 1))); }
 }
 /* inner tag: the visible box */
 .stack-tag {
@@ -433,6 +432,10 @@ section { padding: 110px 0; position: relative; }
 .learning { margin-top: 70px; padding: 34px; display: flex; gap: 30px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
 /* Skills page: the "Right now" strip sits at the top, above the filters */
 .learning-top { margin-top: 0; margin-bottom: 34px; }
+.learning-title { font-size: 1.6rem; }
+.rings { display: flex; gap: 26px; flex-wrap: wrap; }   /* the row of progress rings */
+.rings > div { text-align: center; }
+.rings small { color: var(--muted); }
 .ring { --p: 60; width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center;
   background: conic-gradient(var(--accent) calc(var(--p)*1%), var(--line) 0); position: relative; flex: none; }
 .ring::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--bg-2); }
@@ -935,9 +938,7 @@ textarea { min-height: 130px; resize: vertical; }
   .tiles { grid-template-columns: 1fr 1fr; }
   .nav { width: calc(100% - 40px); justify-content: space-between; padding-left: 16px; --notch-r: 14px; }
   .nav .links { display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0; flex-direction: column; padding: 12px; border-radius: 22px; background: var(--bg-2); border: 1px solid var(--line); }
-  .nav .links.open { display: flex; }
   .nav .links a.link { padding: 12px 16px; }
-  .burger { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; margin-left: 6px; }
   .theme-btn { margin-left: auto; }
   /* timeline: single column, line on left */
   .timeline::before, .timeline .fill { left: 12px; }
@@ -1255,3 +1256,182 @@ textarea { min-height: 130px; resize: vertical; }
   color: #04110d; background: var(--accent);
 }
 @media (max-width: 960px) { .g-wall { columns: 2; column-gap: 12px; } .g-item { margin-bottom: 12px; } }
+
+/* =====================================================
+   LOADING SCREEN (every page, js/main.js part 25)
+   - a soft mint/violet glow breathes behind everything (.loader::before)
+   - a glowing "comet" ring spins around your icon (.ld-ring)
+   - a thin dotted outer ring turns slowly the other way (.loader::after)
+   - your icon blinks gently and glows
+   When the page has loaded, the ring and icon grow a little as the
+   screen fades away. If scripts never run, it fades by itself after 6s.
+   ===================================================== */
+.loader {
+  position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 50%, var(--bg-2), var(--bg) 60%);
+  transition: opacity .5s ease, visibility .5s ease;
+  animation: ld-auto .5s ease 6s forwards;
+}
+.loader > *, .loader::before, .loader::after { grid-area: 1 / 1; }   /* everything shares the same centre */
+.loader.done { opacity: 0; visibility: hidden; }
+.loader.done .ld-ring, .loader.done .ld-icon { scale: 1.25; transition: scale .5s ease; }
+.loader::before {           /* breathing glow */
+  content: ""; width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(62,240,192,.22), rgba(124,140,255,.12) 45%, transparent 70%);
+  animation: ld-breathe 2.6s ease-in-out infinite;
+}
+.loader::after {            /* thin dotted outer ring, turning the other way */
+  content: ""; width: 150px; height: 150px; border-radius: 50%;
+  border: 1.5px dashed rgba(124,140,255,.45);
+  animation: ld-spin 9s linear infinite reverse;
+}
+.ld-ring {                  /* comet ring: faint track + bright gradient tail */
+  width: 112px; height: 112px; border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, transparent 0 25%, rgba(124,140,255,.9) 60%, var(--accent) 100%),
+    rgba(62,240,192,.10);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  animation: ld-spin 1.1s cubic-bezier(.5, .15, .5, .85) infinite;
+}
+.ld-icon {
+  width: 48px; height: 48px; border-radius: 12px;   /* 48px = sharpest size for the icon file */
+  animation: ld-blink 1.4s ease-in-out infinite;
+}
+[data-theme="light"] .loader::before { background: radial-gradient(circle, rgba(10,163,124,.18), rgba(74,91,224,.10) 45%, transparent 70%); }
+[data-theme="light"] .loader::after { border-color: rgba(74,91,224,.4); }
+@keyframes ld-spin { to { transform: rotate(360deg); } }
+@keyframes ld-blink {
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 10px rgba(62,240,192,.55)); }
+  50% { opacity: .45; transform: scale(.9); filter: drop-shadow(0 0 0 rgba(62,240,192,0)); }
+}
+@keyframes ld-breathe { 0%, 100% { transform: scale(.85); opacity: .6; } 50% { transform: scale(1.1); opacity: 1; } }
+@keyframes ld-auto { to { opacity: 0; visibility: hidden; } }
+
+/* "How I work" tab buttons: only used on phones and tablets (below) */
+.ws-tabs { display: none; }
+
+/* =====================================================
+   PHONES & TABLETS (up to 960px)
+   How I work: two tab buttons show one card at a time (js part 20).
+   ===================================================== */
+@media (max-width: 960px) {
+  .ws-tabs {
+    display: inline-flex; gap: 4px; padding: 5px; margin-top: 4px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--line);
+  }
+  .ws-tab {
+    border: 0; cursor: pointer; padding: 9px 16px; border-radius: 999px; font: inherit;
+    font-size: .86rem; font-weight: 600; color: var(--muted); background: transparent;
+    transition: background .3s, color .3s, box-shadow .3s;
+  }
+  .ws-tab.on { background: var(--accent); color: #04110d; box-shadow: 0 6px 20px -6px var(--accent); }
+  .ws-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .ws-grid { margin-top: 16px; }
+  .ws-grid[data-show="cycle"] [data-card="import"],
+  .ws-grid[data-show="import"] [data-card="cycle"] { display: none; }
+  .ws-card { animation: ws-fade .45s ease both; }      /* the shown card fades in */
+}
+
+/* =====================================================
+   PHONE MENU (up to 860px): no menu button. The page links sit in a row
+   under "AF." inside the notch; if they don't fit, the row slides
+   sideways (soft faded ends show there is more).
+   ===================================================== */
+@media (max-width: 860px) {
+  .nav { flex-wrap: wrap; row-gap: 4px; width: calc(100% - 32px); padding: 8px 12px 8px 16px; }
+  .nav .theme-btn { margin-left: auto; width: 34px; height: 34px; }
+  .nav .links {
+    display: flex; position: static; order: 3; width: 100%;
+    flex-direction: row; flex-wrap: nowrap; gap: 2px;
+    padding: 0 0 2px; border: 0; border-radius: 0; background: none;
+    overflow-x: auto; scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 10px), transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 10px), transparent);
+  }
+  .nav .links::-webkit-scrollbar { display: none; }
+  .nav .links a.link { flex: none; padding: 6px 11px; font-size: .8rem; white-space: nowrap; }
+  .hero { padding-top: 132px; }
+}
+
+/* =====================================================
+   SMALL PHONES (up to 600px)
+   ===================================================== */
+@media (max-width: 600px) {
+  /* Factory visits: 2 columns, every photo its own height, so the columns
+     sit out of step ("random" look) and every photo stays big enough.
+     12px rows; each tile spans a different number of rows (--span). */
+  .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 12px; gap: 0 10px; }
+  .bento .b-tile, .bento .b-tile.big, .bento .b-tile.wide {
+    grid-column: auto; grid-row: span var(--span, 14); margin-bottom: 10px;
+  }
+  .bento .b-tile:nth-child(8n+1) { --span: 16; }
+  .bento .b-tile:nth-child(8n+2) { --span: 12; }
+  .bento .b-tile:nth-child(8n+3) { --span: 14; }
+  .bento .b-tile:nth-child(8n+4) { --span: 17; }
+  .bento .b-tile:nth-child(8n+5) { --span: 13; }
+  .bento .b-tile:nth-child(8n+6) { --span: 15; }
+  .bento .b-tile:nth-child(8n+7) { --span: 17; }
+  .bento .b-tile:nth-child(8n+8) { --span: 12; }
+
+  /* Gallery page: same 2-column staggered look, closer together */
+  .g-wall { column-gap: 10px; }
+  .g-item { margin-bottom: 10px; }
+
+  /* Wins (Home) and Key highlights (Certificates): small cards, 2 per row;
+     an odd last card takes the full row */
+  .award-grid { gap: 10px; }
+  .award-grid > .award,
+  .award-grid > .award:nth-child(-n+2),
+  .award-grid > .award:nth-child(n+3):nth-child(-n+5),
+  .award-grid.even > .award { grid-column: span 6; }
+  .award-grid > .award:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .award-grid .award { padding: 12px 12px 14px; gap: 2px; }
+  .award-grid .award .award-top { margin-bottom: 4px; }
+  .award-grid .award .award-icon { width: 30px; height: 30px; font-size: .95rem; border-radius: 9px; }
+  .award-grid .award .award-kind { font-size: .52rem; padding: 3px 7px; letter-spacing: .08em; }
+  .award-grid .award .award-stat { font-size: 1.05rem; }
+  .award-grid .award .award-title { font-size: .82rem; line-height: 1.25; }
+  .award-grid .award .award-sub { font-size: .72rem; line-height: 1.35; }
+}
+
+/* =====================================================
+   SMALL PHONES (up to 600px), part 2
+   ===================================================== */
+@media (max-width: 600px) {
+  /* Core competencies: smaller tags, tighter rows, gentler ups and downs */
+  .stack-sec { padding: 14px 0 16px; }
+  .stack-head { margin-bottom: 6px; gap: 12px; }
+  .stack-title { font-size: .78rem; letter-spacing: .18em; }
+  .stack-cloud { gap: 12px 6px; padding: 6px 0; }
+  .stack-item { --yk: .45; }
+  .stack-tag { border-radius: 9px; }
+  .s-sm { font-size: .68rem; padding: 5px 9px; }
+  .s-md { font-size: .76rem; padding: 6px 11px; }
+  .s-lg { font-size: .86rem; padding: 7px 12px; }
+  .s-xl { font-size: .98rem; padding: 8px 14px; border-radius: 10px; }
+
+  /* Home hero: "See my journey" and "Download CV" side by side */
+  .hero .btns { flex-wrap: nowrap; gap: 10px; }
+  .hero .btns .btn { flex: 1 1 0; justify-content: center; padding: 12px 10px; font-size: .86rem; white-space: nowrap; }
+
+  /* Skills page "Right now": small, all 3 rings in one row */
+  .learning-top { padding: 18px 16px; gap: 14px; margin-bottom: 24px; }
+  .learning-title { font-size: 1.15rem; }
+  .learning-top .tag { margin-bottom: 6px; }
+  .rings { width: 100%; flex-wrap: nowrap; justify-content: space-around; gap: 8px; }
+  .rings small { font-size: .72rem; }
+  .ring { width: 68px; height: 68px; margin: 0 auto 6px; }
+  .ring::before { inset: 6px; }
+  .ring b { font-size: .88rem; }
+
+  /* Skills page tiles: small, 2 per row */
+  .tiles { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+  .tile { padding: 14px 12px; border-radius: 16px; }
+  .tile .emoji { font-size: 1.4rem; margin-bottom: 8px; }
+  .tile h3 { font-size: .9rem; line-height: 1.25; margin-bottom: 5px; }
+  .tile p { font-size: .74rem; line-height: 1.4; margin-bottom: 10px; }
+  .meter { gap: 4px; flex-wrap: wrap; font-size: .64rem; }
+  .meter i { width: 14px; height: 5px; }
+  .meter span { margin-left: 2px; }
+}

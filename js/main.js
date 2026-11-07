@@ -41,10 +41,14 @@
   });
 })();
 
-/* 2) MOBILE MENU */
+/* 2) PHONE MENU: on phones the page links sit in a row under "AF." (no
+   menu button). If the row is wider than the screen it slides sideways;
+   here we slide it so the current page's link is in the middle. */
 (function () {
-  var b = document.querySelector('.burger'), l = document.querySelector('.nav .links');
-  if (b && l) b.addEventListener('click', function () { l.classList.toggle('open'); });
+  var row = document.querySelector('.nav .links');
+  var on = row && row.querySelector('.link.active');
+  if (!on || row.scrollWidth <= row.clientWidth) return;
+  row.scrollLeft = on.offsetLeft - (row.clientWidth - on.offsetWidth) / 2;
 })();
 
 /* 3) SCROLL PROGRESS BAR (thin bar down the left edge) + TIMELINE FILL */
@@ -631,9 +635,33 @@
   requestAnimationFrame(tick);
 })();
 
-/* 20) (removed) How I work used to have two tabs. It is now two cards side
-   by side, so no tab switching is needed. The number is kept so the other
-   parts keep their numbers. */
+/* 20) HOW I WORK TABS (phones and tablets only)
+   On big screens the two cards sit side by side. Below 960px wide, two tab
+   buttons ("S&OP cycle" / "Import journey") show one card at a time: the
+   CSS shows the card named in the grid's data-show. Arrow keys work too. */
+(function () {
+  var grid = document.querySelector('.ws-grid');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.ws-tab'));
+  if (!grid || !tabs.length) return;
+  function open(t) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+    });
+    grid.setAttribute('data-show', t.getAttribute('data-show'));
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { open(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var n = tabs[(i + d + tabs.length) % tabs.length];
+      open(n); n.focus();
+    });
+  });
+})();
 
 /* 21) WINS & ACHIEVEMENTS cards (Home): hover effects
    When the mouse enters a card, we note where it came in (--mx / --my), so
@@ -830,4 +858,24 @@
       });
     });
   });
+})();
+
+/* 25) LOADING SCREEN: your icon blinks inside a spinning ring while the page
+   loads, then the screen fades away. It always shows for at least half a
+   second (so it doesn't just flicker), and never longer than 4 seconds. */
+(function () {
+  var l = document.querySelector('.loader');
+  if (!l) return;
+  var start = Date.now(), gone = false;
+  function hide() {
+    if (gone) return;
+    gone = true;
+    setTimeout(function () {
+      l.classList.add('done');                                   // fade out (CSS)
+      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 600);
+    }, Math.max(0, 500 - (Date.now() - start)));
+  }
+  if (document.readyState === 'complete') hide();
+  else window.addEventListener('load', hide);
+  setTimeout(hide, 4000);                                         // safety: never stuck
 })();

@@ -8,8 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48">
 <link rel="stylesheet" href="css/style.css">
+<!-- use the saved light/dark choice straight away (before the page draws) -->
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
+<!-- LOADING SCREEN: your icon blinking inside a spinning ring; fades out
+     once the page has loaded (js/main.js part 25) -->
+<div class="loader" aria-hidden="true"><span class="ld-ring"></span><img class="ld-icon" src="favicon.ico?v=2" alt="" width="48" height="48"></div>
 <div class="progress"></div>
 
 <!-- ===== FLOATING PILL NAV (same on every page) ===== -->
@@ -24,7 +29,6 @@
       <a class="link" href="contact.html">Contact</a>
   </div>
   <button class="theme-btn" aria-label="Toggle theme">☀️</button>
-  <button class="burger" aria-label="Menu">☰</button>
 </nav>
 
 

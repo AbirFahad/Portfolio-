@@ -8,8 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48">
 <link rel="stylesheet" href="css/style.css">
+<!-- use the saved light/dark choice straight away (before the page draws) -->
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
+<!-- LOADING SCREEN: your icon blinking inside a spinning ring; fades out
+     once the page has loaded (js/main.js part 25) -->
+<div class="loader" aria-hidden="true"><span class="ld-ring"></span><img class="ld-icon" src="favicon.ico?v=2" alt="" width="48" height="48"></div>
 <div class="progress"></div>
 
 <!-- ===== FLOATING PILL NAV (same on every page) ===== -->
@@ -24,7 +29,6 @@
       <a class="link" href="contact.html">Contact</a>
   </div>
   <button class="theme-btn" aria-label="Toggle theme">☀️</button>
-  <button class="burger" aria-label="Menu">☰</button>
 </nav>
 
 
@@ -140,10 +144,15 @@
   <div class="wrap">
     <span class="tag reveal">How I work</span>
     <h2 class="title reveal d1">Planning, Import & Manage.</h2>
-    <div class="ws-grid reveal d2">
+    <!-- TABS (phones and tablets only): show one card at a time (js/main.js part 20) -->
+    <div class="ws-tabs reveal d2" role="tablist" aria-label="How I work">
+      <button class="ws-tab on" type="button" role="tab" data-show="cycle" aria-selected="true"><span aria-hidden="true">🔄</span> S&amp;OP cycle</button>
+      <button class="ws-tab" type="button" role="tab" data-show="import" aria-selected="false" tabindex="-1"><span aria-hidden="true">🚢</span> Import journey</button>
+    </div>
+    <div class="ws-grid reveal d2" data-show="cycle">
 
       <!-- CARD 1: the monthly S&OP cycle -->
-      <article class="ws-card glass">
+      <article class="ws-card glass" data-card="cycle">
         <div class="ws-head">
           <span class="ws-badge" aria-hidden="true">🔄</span>
           <div><h3>S&amp;OP cycle</h3><p>Every month, sales, supply and production agree one plan.</p></div>
@@ -170,7 +179,7 @@
       </article>
 
       <!-- CARD 2: the import journey -->
-      <article class="ws-card glass">
+      <article class="ws-card glass" data-card="import">
         <div class="ws-head">
           <span class="ws-badge" aria-hidden="true">🚢</span>
           <div><h3>Import journey</h3><p>How raw material and packaging get from the sea to the line.</p></div>
@@ -375,18 +384,12 @@
 </section>
 
 <!-- ===== FACTORY VISITS: photo grid + lightbox =====
-     HOW TO ADD YOUR PHOTOS
-     1. Save your photos in the folder  site/img/factory/
-        named exactly: visit-1.jpg, visit-2.jpg ... visit-8.jpg
-        (tile 1 is the big one, tile 6 is the wide one). Only photos you
-        have permission to share.
-     2. To change a caption, edit BOTH the data-caption="..." text and the
-        text inside <span class="b-title"> on the same tile (and the alt="...",
-        which describes the photo for people who can't see it).
-     3. Date and place of each visit: change data-date="..." and data-place="..."
-        on the tile AND the two lines inside <span class="b-meta">. When a value
-        is real, remove class="ph-date" (that's what draws the dashed outline).
-     Until a photo is there, its tile shows a soft gradient with a camera.
+     5 tiles: tile 1 is the big one. Photos live in site/images/ (tile 1 = mahtab.jpg).
+     TO ADD A PHOTO: copy one <button class="b-tile ..."> block and change its
+     img src, alt, data-caption and the text in <span class="b-title">.
+     Date and place: change data-date / data-place AND the lines inside
+     <span class="b-meta">. When a value is real, remove class="ph-date"
+     (that's what draws the dashed outline).
      Clicking a tile opens it big (js/main.js part 13). -->
 <section class="factory">
   <div class="wrap">
@@ -394,67 +397,38 @@
     <h2 class="title reveal d1">Factory visits.</h2>
     <p class="sub reveal d2">Where the plan meets the production floor. Tap a photo to open it.</p>
     <div class="bento">
-      <button class="b-tile ph big reveal" style="--i:0" type="button" data-date="Month 2026" data-place="Location" data-caption="Mahtab Flexipac Ltd · Foil Factory">
-        <img src="mahtab.jpg" alt="Mahtab Flexipac Ltd · Foil Factory" loading="lazy" data-ph>
+      <button class="b-tile ph big reveal" style="--i:0" type="button" data-date="October 2026" data-place="Singair, Manikganj" data-caption="Mahtab Flexible Printing Ltd. · Foil Factory">
+        <img src="mahtab.jpg" alt="Mahtab Flexible Printing Ltd. · Foil Factory" loading="lazy" data-ph>
         <span class="b-cap">
-          <span class="b-title">Mahtab Flexipac Ltd · Foil Factory</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
-          <span class="b-meta"><span>📅 October 2026</span><span class="ph-date">📍 Tongi</span></span>
+          <span class="b-title">Mahtab Flexible Printing Ltd. · Foil Factory</span>
+          <span class="b-meta"><span>📅 October 2026</span><span>📍 Singair, Manikganj</span></span>
         </span>
       </button>
-      <button class="b-tile ph  reveal" style="--i:1" type="button" data-date="Month 2026" data-place="Location" data-caption="KR Flexipack · Foil production">
-        <img src="img/factory/visit-2.jpg" alt="KR Flexipack · Foil production" loading="lazy" data-ph>
+      <button class="b-tile ph reveal" style="--i:1" type="button" data-date="September 2026" data-place="Sitakunda, Chattogram" data-caption="KR Flexipack · Foil production">
+        <img src="images/KR_Flexpack_factory_floor_process_flowchart.jpeg" alt="KR Flexipack · Foil production" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="b-title">KR Flexipack · Foil production</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
-          <span class="b-meta"><span>📅 September 2026</span><span class="ph-date">📍 Chottogram</span></span>
+          <span class="b-meta"><span>📅 September 2026</span><span>📍 Sitakunda, Chattogram</span></span>
         </span>
       </button>
-      <button class="b-tile ph  reveal" style="--i:2" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 3 · Add your caption">
-        <img src="img/factory/visit-3.jpg" alt="Visit 3 · Add your caption" loading="lazy" data-ph>
+      <button class="b-tile ph reveal" style="--i:2" type="button" data-date="Month 2026" data-place="Location" data-caption="Biscuit production line">
+        <img src="images/Biscuit_production_line_conveyor.jpeg" alt="Biscuit production line" loading="lazy" data-ph>
         <span class="b-cap">
-          <span class="b-title">Visit 3 · Add your caption</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-title">Biscuit production line</span>
           <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
         </span>
       </button>
-      <button class="b-tile ph  reveal" style="--i:3" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 4 · Add your caption">
-        <img src="img/factory/visit-4.jpg" alt="Visit 4 · Add your caption" loading="lazy" data-ph>
+      <button class="b-tile ph reveal" style="--i:3" type="button" data-date="Month 2026" data-place="Location" data-caption="On the production floor">
+        <img src="images/Selfie_in_factory_with_hairnet.jpeg" alt="On the production floor" loading="lazy" style="object-position:50% 62%" data-ph>
         <span class="b-cap">
-          <span class="b-title">Visit 4 · Add your caption</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-title">On the production floor</span>
           <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
         </span>
       </button>
-      <button class="b-tile ph  reveal" style="--i:4" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 5 · Add your caption">
-        <img src="img/factory/visit-5.jpg" alt="Visit 5 · Add your caption" loading="lazy" data-ph>
+      <button class="b-tile ph reveal" style="--i:4" type="button" data-date="Month 2026" data-place="Location" data-caption="Outside the factory at night">
+        <img src="images/Selfie_outside_factory_building_at_night.jpeg" alt="Outside the factory at night" loading="lazy" data-ph>
         <span class="b-cap">
-          <span class="b-title">Visit 5 · Add your caption</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
-          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
-        </span>
-      </button>
-      <button class="b-tile ph wide reveal" style="--i:5" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 6 · Add your caption">
-        <img src="img/factory/visit-6.jpg" alt="Visit 6 · Add your caption" loading="lazy" data-ph>
-        <span class="b-cap">
-          <span class="b-title">Visit 6 · Add your caption</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
-          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
-        </span>
-      </button>
-      <button class="b-tile ph  reveal" style="--i:6" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 7 · Add your caption">
-        <img src="img/factory/visit-7.jpg" alt="Visit 7 · Add your caption" loading="lazy" data-ph>
-        <span class="b-cap">
-          <span class="b-title">Visit 7 · Add your caption</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
-          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
-        </span>
-      </button>
-      <button class="b-tile ph  reveal" style="--i:7" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 8 · Add your caption">
-        <img src="img/factory/visit-8.jpg" alt="Visit 8 · Add your caption" loading="lazy" data-ph>
-        <span class="b-cap">
-          <span class="b-title">Visit 8 · Add your caption</span>
-          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-title">Outside the factory at night</span>
           <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
         </span>
       </button>
