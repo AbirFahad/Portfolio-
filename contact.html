@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Abdullah Al Fahad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="progress"></div>
+
+<!-- ===== FLOATING PILL NAV (same on every page) ===== -->
+<nav class="nav">
+  <a class="logo" href="index.html">AF<span>.</span></a>
+  <div class="links">
+      <a class="link" href="index.html">Home</a>
+      <a class="link" href="skills.html">Skills</a>
+      <a class="link" href="experience.html">Experience</a>
+      <a class="link" href="certificates.html">Certificates</a>
+      <a class="link" href="gallery.html">Gallery</a>
+      <a class="link active" href="contact.html">Contact</a>
+  </div>
+  <button class="theme-btn" aria-label="Toggle theme">☀️</button>
+  <button class="burger" aria-label="Menu">☰</button>
+</nav>
+
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="tag reveal">Contact</span>
+    <h1 class="title reveal d1">Let's talk.</h1>
+    <p class="sub reveal d2">Supply chain, planning, LinkedIn content, or just hi.</p>
+  </div>
+</header>
+<section style="padding-top:0">
+  <div class="wrap contact-grid">
+    <div>
+      <!-- Your email and LinkedIn (from content.md) -->
+      <a class="c-card glass reveal" href="mailto:abirfahad2003@gmail.com"><div class="ci">✉️</div><div><small>Email</small>abirfahad2003@gmail.com</div></a>
+      <a class="c-card glass reveal d1" href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener"><div class="ci">💼</div><div><small>LinkedIn</small>/in/abdullah-al-fahad1</div></a>
+      <div class="c-card glass reveal d2"><div class="ci">📍</div><div><small>Based in</small>Dhaka, Bangladesh</div></div>
+      <div class="clock glass reveal d3"><small>Local time in Dhaka</small><div class="time" id="dhakaTime">--:--</div></div>
+    </div>
+    <form id="contactForm" class="glass reveal d2">
+      <h3 style="font-size:1.5rem">Send a message</h3>
+      <input name="name" placeholder="Your name" required>
+      <input name="email" type="email" placeholder="Your email" required>
+      <input name="subject" placeholder="Subject">
+      <textarea name="message" placeholder="Say something..." required></textarea>
+      <button class="btn primary" type="submit">Send →</button>
+    </form>
+  </div>
+</section>
+
+
+<!-- ===== FOOTER (same on every page) =====
+     A glass card with three columns: who you are, quick links, and how to
+     reach you, plus a copyright line along the bottom. aria-current="page"
+     marks the page you're on in the Quick links list. -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-card glass">
+
+      <!-- WHO YOU ARE -->
+      <div class="foot-brand">
+        <a class="foot-name" href="index.html">Abdullah Al <span class="grad">Fahad.</span></a>
+        <p class="foot-intro">Supply chain executive in Dhaka. I plan materials and packaging so production never waits.</p>
+        <p class="foot-status"><span class="dot"></span> Open to ideas &amp; collabs</p>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <nav class="foot-col" aria-label="Footer">
+        <h4>Quick links</h4>
+        <ul class="foot-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- GET IN TOUCH -->
+      <div class="foot-col">
+        <h4>Get in touch</h4>
+        <ul class="foot-contact">
+          <li><a href="mailto:abirfahad2003@gmail.com"><span class="fi" aria-hidden="true">✉️</span>abirfahad2003@gmail.com</a></li>
+          <li><a href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener"><span class="fi" aria-hidden="true">💼</span>LinkedIn profile</a></li>
+          <li><span class="fi" aria-hidden="true">📍</span>Dhaka, Bangladesh</li>
+        </ul>
+        <!-- Download CV: put your CV in the site folder named cv.pdf -->
+        <a class="btn primary foot-cv" href="cv.pdf" download>Download CV ↓</a>
+      </div>
+
+      <!-- BOTTOM LINE -->
+      <div class="foot-bottom">
+        <span>© 2026 Abdullah Al Fahad. All rights reserved.</span>
+        <span>Built with HTML, CSS and a little JS</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

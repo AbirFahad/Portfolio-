@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abdullah Al Fahad · Supply Chain Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="progress"></div>
+
+<!-- ===== FLOATING PILL NAV (same on every page) ===== -->
+<nav class="nav">
+  <a class="logo" href="index.html">AF<span>.</span></a>
+  <div class="links">
+      <a class="link active" href="index.html">Home</a>
+      <a class="link" href="skills.html">Skills</a>
+      <a class="link" href="experience.html">Experience</a>
+      <a class="link" href="certificates.html">Certificates</a>
+      <a class="link" href="gallery.html">Gallery</a>
+      <a class="link" href="contact.html">Contact</a>
+  </div>
+  <button class="theme-btn" aria-label="Toggle theme">☀️</button>
+  <button class="burger" aria-label="Menu">☰</button>
+</nav>
+
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="wrap grid">
+    <div>
+      <!-- STATUS PILL: the line inside changes every 3.5 seconds (js/main.js part 22).
+           Edit the lines in data-lines, separated by | -->
+      <div class="hello glass reveal" data-lines="Open to ideas &amp; collabs|Happy to talk S&amp;OP and planning|Based in Dhaka, Bangladesh"><span class="dot"></span><span class="hello-text">Open to ideas &amp; collabs</span></div>
+      <h1 class="reveal d1">Hi, I'm <span class="grad">Fahad.</span></h1>
+      <p class="role reveal d2"><b id="typed"></b><span class="cursor"></span></p>
+      <div class="btns reveal d3">
+        <a class="btn primary" href="experience.html">See my journey →</a>
+        <!-- Download CV: put your CV in the site folder named cv.pdf -->
+        <a class="btn" href="cv.pdf" download>Download CV</a>
+      </div>
+      <!-- CORE TOOLS: the software you use most, sliding sideways (pauses on hover).
+           Icons come from Google's free icon service (needs internet).
+           Hermes ERP has a small "H" badge (.tool-mark) until a logo is added.
+           Hovering slows the strip down (js/main.js part 16); it never stops.
+           To add a tool: copy one <span class="tool"> line into BOTH lists and
+           change the name and the domain= part (the tool's website). -->
+      <div class="core-tools reveal d4">
+        <span class="core-label">Core tools</span>
+        <div class="tools-strip">
+          <div class="tools-track">
+            <div class="tools-set">
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=excel.cloud.microsoft&amp;sz=128" alt="" width="22" height="22">Excel</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=powerbi.com&amp;sz=128" alt="" width="22" height="22">Power BI</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=dreamapps.com&amp;sz=128" alt="" width="22" height="22">DreamApps ERP++</span>
+              <span class="tool"><span class="tool-mark" aria-hidden="true">H</span>Hermes ERP</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=microsoft365.com&amp;sz=128" alt="" width="22" height="22">MS Office Suite</span>
+              <span class="tool"><img src="https://www.gstatic.com/images/branding/product/2x/sheets_2020q4_48dp.png" alt="" width="22" height="22">Google Sheets</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=claude.ai&amp;sz=128" alt="" width="22" height="22">Claude</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&amp;sz=128" alt="" width="22" height="22">Gemini</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=canva.com&amp;sz=128" alt="" width="22" height="22">Canva</span>
+            </div>
+            <div class="tools-set" aria-hidden="true">
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=excel.cloud.microsoft&amp;sz=128" alt="" width="22" height="22">Excel</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=powerbi.com&amp;sz=128" alt="" width="22" height="22">Power BI</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=dreamapps.com&amp;sz=128" alt="" width="22" height="22">DreamApps ERP++</span>
+              <span class="tool"><span class="tool-mark" aria-hidden="true">H</span>Hermes ERP</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=microsoft365.com&amp;sz=128" alt="" width="22" height="22">MS Office Suite</span>
+              <span class="tool"><img src="https://www.gstatic.com/images/branding/product/2x/sheets_2020q4_48dp.png" alt="" width="22" height="22">Google Sheets</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=claude.ai&amp;sz=128" alt="" width="22" height="22">Claude</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&amp;sz=128" alt="" width="22" height="22">Gemini</span>
+              <span class="tool"><img src="https://www.google.com/s2/favicons?domain=canva.com&amp;sz=128" alt="" width="22" height="22">Canva</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- avatar + floating stat chips -->
+    <div class="avatar-stage reveal d2">
+      <div class="avatar">
+        <!-- Your photo (images/headshot.jpg). To change it, replace that file. -->
+        <img class="avatar-photo" src="images/headshot.jpg" alt="Abdullah Al Fahad in a dark suit and blue tie." width="640" height="640">
+      </div>
+      <div class="chip glass c1"><strong>140+</strong> SKUs planned</div>
+      <div class="chip glass c2"><strong>5</strong> categories</div>
+      <div class="chip glass c3">🚢 LC &amp; imports</div>
+      <div class="chip glass c4">📍 Dhaka</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CORE STACK (tools & know-how) =====
+     A "Core stack" heading, then tags in mixed sizes at slightly uneven
+     heights that float gently, each in its own colour. Hover a tag: it pops,
+     tilts and fills with that colour. The two .beam lines are the section's top and bottom borders:
+     a mint light with a small glowing circle at its head runs across the full
+     page width, rests, and repeats (pure CSS, see css/style.css).
+     To add a tag: copy one <li> line. Change the words, the size (s-sm, s-md,
+     s-lg, s-xl), --y (how far up or down it sits) and the colour
+     (c-mint, c-amber, c-violet, c-sky, c-pink, c-coral). -->
+<div class="beam" style="--beam-delay:0s" aria-hidden="true"></div>
+<section class="stack-sec" aria-labelledby="stack-title">
+  <div class="wrap">
+    <div class="stack-head reveal">
+      <h2 class="stack-title" id="stack-title">Core competencies</h2>
+      <span class="stack-line" aria-hidden="true"></span>
+    </div>
+    <ul class="stack-cloud reveal d1">
+      <li class="stack-item" style="--y:-6px;--i:0"><span class="stack-tag s-xl c-mint">Excel</span></li>
+      <li class="stack-item" style="--y:8px;--i:1"><span class="stack-tag s-md c-amber">Power BI</span></li>
+      <li class="stack-item" style="--y:-10px;--i:2"><span class="stack-tag s-lg c-violet">S&amp;OP</span></li>
+      <li class="stack-item" style="--y:6px;--i:3"><span class="stack-tag s-sm c-sky">Incoterms</span></li>
+      <li class="stack-item" style="--y:-4px;--i:4"><span class="stack-tag s-md c-pink">Letter of Credit</span></li>
+      <li class="stack-item" style="--y:10px;--i:5"><span class="stack-tag s-sm c-coral">BOM</span></li>
+      <li class="stack-item" style="--y:-8px;--i:6"><span class="stack-tag s-lg c-mint">Demand Planning</span></li>
+      <li class="stack-item" style="--y:4px;--i:7"><span class="stack-tag s-md c-amber">Claude</span></li>
+      <li class="stack-item" style="--y:-6px;--i:8"><span class="stack-tag s-sm c-violet">ERP</span></li>
+      <li class="stack-item" style="--y:6px;--i:9"><span class="stack-tag s-lg c-sky">Data Analysis</span></li>
+      <li class="stack-item" style="--y:-8px;--i:10"><span class="stack-tag s-md c-pink">Shortage Analysis</span></li>
+      <li class="stack-item" style="--y:8px;--i:11"><span class="stack-tag s-md c-coral">Supplier Coordination</span></li>
+      <li class="stack-item" style="--y:-4px;--i:12"><span class="stack-tag s-sm c-mint">RFQ Management</span></li>
+      <li class="stack-item" style="--y:4px;--i:13"><span class="stack-tag s-lg c-amber">Price Negotiation</span></li>
+    </ul>
+  </div>
+</section>
+<div class="beam" style="--beam-delay:3.5s" aria-hidden="true"></div>
+
+<!-- ===== HOW I WORK: two cards side by side (stacked on phones) =====
+     Left card: the monthly S&OP cycle. A dot travels round the ring and the
+     step it reaches is shown in the caption under it (js/main.js part 18).
+     Hover or tap a step on the ring to stop on it.
+     Right card: the import journey, a simple drawing (not to scale). A cargo
+     marker travels sea -> port -> road; the caption shows the current step
+     (js/main.js part 19). Only the current step's words are shown, so the
+     section stays short. Change the words in the <li> lines. -->
+<section class="work-sec">
+  <div class="wrap">
+    <span class="tag reveal">How I work</span>
+    <h2 class="title reveal d1">Planning, Import & Manage.</h2>
+    <div class="ws-grid reveal d2">
+
+      <!-- CARD 1: the monthly S&OP cycle -->
+      <article class="ws-card glass">
+        <div class="ws-head">
+          <span class="ws-badge" aria-hidden="true">🔄</span>
+          <div><h3>S&amp;OP cycle</h3><p>Every month, sales, supply and production agree one plan.</p></div>
+        </div>
+        <div class="cycle">
+          <div class="cyc-ring">
+            <svg class="cyc-track" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg>
+            <div class="cyc-orbit" aria-hidden="true"><span class="cyc-dot"></span></div>
+            <div class="cyc-center" aria-hidden="true"><span class="cyc-big">S&amp;OP</span><span class="cyc-small">monthly cycle</span></div>
+            <button class="cyc-node" type="button" style="--a:0deg" data-step="0" aria-label="Step 1: Gather the numbers"><span aria-hidden="true">📊</span></button>
+            <button class="cyc-node" type="button" style="--a:72deg" data-step="1" aria-label="Step 2: Demand review"><span aria-hidden="true">📈</span></button>
+            <button class="cyc-node" type="button" style="--a:144deg" data-step="2" aria-label="Step 3: Supply review"><span aria-hidden="true">📦</span></button>
+            <button class="cyc-node" type="button" style="--a:216deg" data-step="3" aria-label="Step 4: Balance the gaps"><span aria-hidden="true">⚖️</span></button>
+            <button class="cyc-node" type="button" style="--a:288deg" data-step="4" aria-label="Step 5: Agree the plan"><span aria-hidden="true">✅</span></button>
+          </div>
+          <ol class="cyc-list ws-cap" aria-live="off">
+            <li class="cyc-step" data-step="0"><span class="cyc-num">01</span><div><strong>Gather the numbers</strong><p>Sales history, stock on hand and open orders for every SKU.</p></div></li>
+            <li class="cyc-step" data-step="1"><span class="cyc-num">02</span><div><strong>Demand review</strong><p>Check the forecast against linear regression and exponential smoothing.</p></div></li>
+            <li class="cyc-step" data-step="2"><span class="cyc-num">03</span><div><strong>Supply review</strong><p>Turn demand into raw material and packaging needs from the BOMs, with lead times and MOQs.</p></div></li>
+            <li class="cyc-step" data-step="3"><span class="cyc-num">04</span><div><strong>Balance the gaps</strong><p>Spot shortages early and line up suppliers with RFQs.</p></div></li>
+            <li class="cyc-step" data-step="4"><span class="cyc-num">05</span><div><strong>Agree the plan</strong><p>One plan everyone follows, then POs go out.</p></div></li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- CARD 2: the import journey -->
+      <article class="ws-card glass">
+        <div class="ws-head">
+          <span class="ws-badge" aria-hidden="true">🚢</span>
+          <div><h3>Import journey</h3><p>How raw material and packaging get from the sea to the line.</p></div>
+        </div>
+        <div class="imp">
+          <div class="imp-map">
+            <svg viewBox="0 0 600 420" role="img" aria-label="Simple drawing of an import route: ship from the Bay of Bengal to Chattogram port, then by truck to the warehouse and the factory.">
+              <defs>
+                <pattern id="imp-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="imp-dotfill"/></pattern>
+              </defs>
+              <!-- land (dotted), sea and coastline -->
+              <path class="imp-land" d="M0 0 H600 V250 C560 262 540 300 505 318 C470 336 450 300 410 312 C360 326 330 296 280 306 C230 316 200 290 150 300 C100 310 60 288 0 296 Z"/>
+              <path class="imp-sea" d="M0 296 C60 288 100 310 150 300 C200 290 230 316 280 306 C330 296 360 326 410 312 C450 300 470 336 505 318 C540 300 560 262 600 250 V420 H0 Z"/>
+              <path class="imp-coast" d="M0 296 C60 288 100 310 150 300 C200 290 230 316 280 306 C330 296 360 326 410 312 C450 300 470 336 505 318 C540 300 560 262 600 250"/>
+              <!-- faint rivers -->
+              <path class="imp-river" d="M120 0 C150 80 210 120 250 190 C280 240 300 270 300 304"/>
+              <path class="imp-river" d="M360 0 C340 70 320 120 300 170"/>
+              <!-- map labels -->
+              <text class="imp-region" x="40" y="350">Bay of Bengal</text>
+              <text class="imp-region" x="200" y="62">Dhaka area</text>
+              <!-- the route: faint full route, then the bright "done" part drawn on top -->
+              <path id="imp-sea-leg" class="imp-route sea" d="M230 388 C320 385 410 360 478 312"/>
+              <path id="imp-road-leg" class="imp-route road" d="M478 312 C460 250 400 220 330 185 C300 170 270 150 240 125"/>
+              <path class="imp-done sea" d="M230 388 C320 385 410 360 478 312"/>
+              <path class="imp-done road" d="M478 312 C460 250 400 220 330 185 C300 170 270 150 240 125"/>
+              <!-- places -->
+              <g class="imp-pin" data-pin="2" transform="translate(478 312)"><circle r="7"/><text x="-12" y="26" text-anchor="end">Chattogram port</text></g>
+              <g class="imp-pin" data-pin="3" transform="translate(330 185)"><circle r="7"/><text x="14" y="5">Warehouse</text></g>
+              <g class="imp-pin" data-pin="4" transform="translate(240 125)"><circle r="7"/><text x="-14" y="-12" text-anchor="end">Factory</text></g>
+              <!-- the moving cargo marker -->
+              <g class="imp-cargo" transform="translate(240 125)"><circle r="17"/><text class="imp-emoji" text-anchor="middle" y="6">🏭</text></g>
+            </svg>
+            <span class="imp-note">Simple drawing, not to scale</span>
+          </div>
+          <ol class="legs ws-cap" aria-live="off">
+            <li class="leg" data-leg="0"><span class="leg-icon" aria-hidden="true">🏦</span><div><strong>LC opened</strong><p>Supplier, price and Incoterms agreed; the bank opens the Letter of Credit.</p></div></li>
+            <li class="leg" data-leg="1"><span class="leg-icon" aria-hidden="true">🚢</span><div><strong>At sea</strong><p>Goods are shipped and the Bill of Lading (B/L) is issued.</p></div></li>
+            <li class="leg" data-leg="2"><span class="leg-icon" aria-hidden="true">⚓</span><div><strong>Chattogram port</strong><p>Customs clearance, with an eye on demurrage days.</p></div></li>
+            <li class="leg" data-leg="3"><span class="leg-icon" aria-hidden="true">🚚</span><div><strong>On the road</strong><p>Trucks bring the goods to the warehouse.</p></div></li>
+            <li class="leg" data-leg="4"><span class="leg-icon" aria-hidden="true">🏭</span><div><strong>Into production</strong><p>Material is ready on the line, on time.</p></div></li>
+          </ol>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE & EDUCATION (two glowing panels) =====
+     Left panel: work (mint). Right panel: education (amber).
+     A band of light keeps travelling around each panel's border; on hover the
+     panel lifts and glows brighter, and the row under the mouse slides over.
+     To add an entry: copy one <li class="xp-row"> block and change the words.
+     DATES: each row has a 📅 line. Dates with a dashed outline (class="ph-date")
+     are placeholders: type the real date in and remove class="ph-date".
+     Under each entry: 2-3 bullet points (work: what you do there; education:
+     Major/Group and grade). Grades shown with a dashed outline are
+     placeholders: type the real one in and remove class="ph-date".
+     The full timeline with filters is on experience.html. -->
+<section class="xp">
+  <div class="wrap">
+    <span class="tag reveal">Journey</span>
+    <h2 class="title reveal d1">Experience &amp; education.</h2>
+    <div class="xp-grid reveal d2">
+
+      <!-- EXPERIENCE PANEL (newest first) -->
+      <div class="xp-panel work glass">
+        <h3 class="xp-head"><span aria-hidden="true">💼</span> Experience</h3>
+        <ol class="xp-list">
+          <li class="xp-row">
+            <span class="xp-when">Now</span>
+            <strong>Executive, Supply Chain</strong>
+            <span class="xp-where"><img class="co-logo wide" src="img/logos/goldmark.png" alt="" width="64" height="26">Rani Food Industries Ltd. · Promoted from MTO</span>
+            <span class="xp-date">📅 October 2026 – Present</span>
+            <ul class="pts">
+              <li>Run S&amp;OP for 140+ SKUs across biscuits, cakes, toast, cookies and culinary.</li>
+              <li>Plan raw material and packaging needs from BOMs, lead times and MOQs.</li>
+              <li>Handle supplier RFQs, PIs, POs and price revisions; check shortage claims with data.</li>
+            </ul>
+          </li>
+          <li class="xp-row">
+            <span class="xp-when">Apr 2026</span>
+            <strong>Management Trainee Officer - SCM</strong>
+            <span class="xp-where"><img class="co-logo wide" src="img/logos/goldmark.png" alt="" width="64" height="26">Rani Food Industries Ltd.</span>
+            <span class="xp-date">📅 Apr 2026 – April 2026</span>
+            <ul class="pts">
+              <li>Built my own S&amp;OP workbook covering 140+ SKUs.</li>
+              <li>Checked forecasts against linear regression and exponential smoothing.</li>
+            </ul>
+          </li>
+          <li class="xp-row">
+            <span class="xp-when">Dec 2025</span>
+            <strong>ISD Operations Intern</strong>
+            <span class="xp-where"><img class="co-logo" src="https://www.google.com/s2/favicons?domain=pathao.com&amp;sz=128" alt="" width="26" height="26">Pathao Ltd.</span>
+            <span class="xp-date">📅 Dec 2025 – April 2026</span>
+            <ul class="pts">
+              <li>Led a hub QR scan project across 6 hubs: scan rate rose from about 15% to 43%.</li>
+              <li>Made agent retention calls and prepared the Eid-ul-Fitr incentive report.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+
+      <!-- EDUCATION PANEL (newest first) -->
+      <div class="xp-panel edu glass">
+        <h3 class="xp-head"><span aria-hidden="true">🎓</span> Education</h3>
+        <ol class="xp-list">
+          <li class="xp-row">
+            <span class="xp-when">Diploma</span>
+            <strong>Post Graduate Diploma in Supply Chain Management</strong>
+            <span class="xp-where">International Supply Chain Education Alliance (ISCEA), Bangladesh</span>
+            <span class="xp-date">📅 2026</span>
+            <ul class="pts">
+              <li><b>Scholarship:</b> 70% (ISCEA Global Case Competition 2025)</li>
+              <li><b>Result:</b> Passed (2026)</li>
+            </ul>
+          </li>
+          <li class="xp-row">
+            <span class="xp-when">Bachelors</span>
+            <strong>Bachelor of Business Administration (BBA)</strong>
+            <span class="xp-where">Bangladesh University of Business and Technology (BUBT)</span>
+            <span class="xp-date">📅 2022 – 2026</span>
+            <ul class="pts">
+              <li><b>Major:</b> Marketing</li>
+              <li><b>CGPA:</b> 3.54</li>
+            </ul>
+          </li>
+          <li class="xp-row">
+            <span class="xp-when">HSC</span>
+            <strong>Higher Secondary Certificate (HSC)</strong>
+            <span class="xp-where">Mohammadpur Preparatory School &amp; College</span>
+            <span class="xp-date">📅 2021</span>
+            <ul class="pts">
+              <li><b>Group:</b> Science</li>
+              <li><b>GPA:</b> 4.61 out of 5.00</li>
+            </ul>
+          </li>
+          <li class="xp-row">
+            <span class="xp-when">SSC</span>
+            <strong>Secondary School Certificate (SSC)</strong>
+            <span class="xp-where">BCSIR High School</span>
+            <span class="xp-date">📅 2019</span>
+            <ul class="pts">
+              <li><b>Group:</b> Science</li>
+              <li><b>GPA:</b> 4.58 out of 5.00</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <p class="reveal" style="margin-top:32px"><a class="btn" href="experience.html">Full journey →</a></p>
+  </div>
+</section>
+
+
+<!-- ===== WINS & ACHIEVEMENTS =====
+     A grid of 5 cards on computers: 2 wide on top, 3 below.
+     (Leadership & volunteering cards live on certificates.html, "Highlights".)
+     Each card has its own colour (c-amber, c-violet, c-mint, c-sky, c-pink,
+     c-coral), a big headline, and a shine that sweeps across now and then.
+     Hover: colour slowly fills the card in a growing circle from where the
+     mouse came in, and the card tilts a little toward the mouse (js part 21).
+     To add one: copy an <li class="award ..."> block and change the words.
+     Only add real wins (no made-up numbers). -->
+<section class="awards">
+  <div class="wrap">
+    <span class="tag reveal">Wins</span>
+    <h2 class="title reveal d1">Wins &amp; achievements.</h2>
+    <ul class="award-grid reveal d2">
+      <li class="award glass c-amber" style="--d:0.0s">
+        <div class="award-top"><span class="award-icon" aria-hidden="true">🥈</span><span class="award-kind">Competition</span></div>
+        <span class="award-stat">Runner-up ×2</span>
+        <strong class="award-title">Bizz Masters Season 1</strong>
+        <span class="award-sub">Runner-up in two separate competitions.</span>
+      </li>
+      <li class="award glass c-violet" style="--d:1.3s">
+        <div class="award-top"><span class="award-icon" aria-hidden="true">🎓</span><span class="award-kind">Scholarship</span></div>
+        <span class="award-stat">70%</span>
+        <strong class="award-title">ISCEA Global Case Competition 2025</strong>
+        <span class="award-sub">Scholarship for the Post Graduate Diploma in SCM.</span>
+      </li>
+      <li class="award glass c-mint" style="--d:2.6s">
+        <div class="award-top"><span class="award-icon" aria-hidden="true">🚀</span><span class="award-kind">Career</span></div>
+        <span class="award-stat">MTO → Executive</span>
+        <strong class="award-title">Promoted at Rani Food Industries</strong>
+        <span class="award-sub">Joined as Management Trainee Officer in April 2026.</span>
+      </li>
+      <li class="award glass c-sky" style="--d:3.9s">
+        <div class="award-top"><span class="award-icon" aria-hidden="true">📈</span><span class="award-kind">Impact</span></div>
+        <span class="award-stat">15% → 43%</span>
+        <strong class="award-title">Hub QR scan rate, Pathao</strong>
+        <span class="award-sub">Scan project across 6 hubs as an ISD Operations Intern.</span>
+      </li>
+      <li class="award glass c-pink" style="--d:5.2s">
+        <div class="award-top"><span class="award-icon" aria-hidden="true">📊</span><span class="award-kind">Built</span></div>
+        <span class="award-stat">S&amp;OP + BOM</span>
+        <strong class="award-title">Created for the SCM department</strong>
+        <span class="award-sub">One planning workbook and BOMs across 140+ SKUs.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== FACTORY VISITS: photo grid + lightbox =====
+     HOW TO ADD YOUR PHOTOS
+     1. Save your photos in the folder  site/img/factory/
+        named exactly: visit-1.jpg, visit-2.jpg ... visit-8.jpg
+        (tile 1 is the big one, tile 6 is the wide one). Only photos you
+        have permission to share.
+     2. To change a caption, edit BOTH the data-caption="..." text and the
+        text inside <span class="b-title"> on the same tile (and the alt="...",
+        which describes the photo for people who can't see it).
+     3. Date and place of each visit: change data-date="..." and data-place="..."
+        on the tile AND the two lines inside <span class="b-meta">. When a value
+        is real, remove class="ph-date" (that's what draws the dashed outline).
+     Until a photo is there, its tile shows a soft gradient with a camera.
+     Clicking a tile opens it big (js/main.js part 13). -->
+<section class="factory">
+  <div class="wrap">
+    <span class="tag reveal">On the ground</span>
+    <h2 class="title reveal d1">Factory visits.</h2>
+    <p class="sub reveal d2">Where the plan meets the production floor. Tap a photo to open it.</p>
+    <div class="bento">
+      <button class="b-tile ph big reveal" style="--i:0" type="button" data-date="Month 2026" data-place="Location" data-caption="Mahtab Flexipac Ltd · Foil Factory">
+        <img src="mahtab.jpg" alt="Mahtab Flexipac Ltd · Foil Factory" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Mahtab Flexipac Ltd · Foil Factory</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span>📅 October 2026</span><span class="ph-date">📍 Tongi</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph  reveal" style="--i:1" type="button" data-date="Month 2026" data-place="Location" data-caption="KR Flexipack · Foil production">
+        <img src="img/factory/visit-2.jpg" alt="KR Flexipack · Foil production" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">KR Flexipack · Foil production</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span>📅 September 2026</span><span class="ph-date">📍 Chottogram</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph  reveal" style="--i:2" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 3 · Add your caption">
+        <img src="img/factory/visit-3.jpg" alt="Visit 3 · Add your caption" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Visit 3 · Add your caption</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph  reveal" style="--i:3" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 4 · Add your caption">
+        <img src="img/factory/visit-4.jpg" alt="Visit 4 · Add your caption" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Visit 4 · Add your caption</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph  reveal" style="--i:4" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 5 · Add your caption">
+        <img src="img/factory/visit-5.jpg" alt="Visit 5 · Add your caption" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Visit 5 · Add your caption</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph wide reveal" style="--i:5" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 6 · Add your caption">
+        <img src="img/factory/visit-6.jpg" alt="Visit 6 · Add your caption" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Visit 6 · Add your caption</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph  reveal" style="--i:6" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 7 · Add your caption">
+        <img src="img/factory/visit-7.jpg" alt="Visit 7 · Add your caption" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Visit 7 · Add your caption</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
+        </span>
+      </button>
+      <button class="b-tile ph  reveal" style="--i:7" type="button" data-date="Month 2026" data-place="Location" data-caption="Visit 8 · Add your caption">
+        <img src="img/factory/visit-8.jpg" alt="Visit 8 · Add your caption" loading="lazy" data-ph>
+        <span class="b-cap">
+          <span class="b-title">Visit 8 · Add your caption</span>
+          <!-- EDIT ME: date and location (also change data-date and data-place above). Remove class="ph-date" once real. -->
+          <span class="b-meta"><span class="ph-date">📅 Month 2026</span><span class="ph-date">📍 Location</span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== LINKEDIN POSTS: flat looping carousel (last section on purpose) =====
+     The cards slide slowly right to left in an endless loop. Hover (or touch)
+     pauses it. js/main.js (part 10) copies the cards once so the loop has no gap.
+     To add or change a post: edit one <a class="post"> block below.
+     POST PICTURES: save them in site/img/posts/ as post-1.jpg, post-2.jpg ...
+     post-8.jpg (in card order, left to right). Until a picture is there, the
+     card shows a soft placeholder with a camera. Landscape pictures work best. -->
+<section class="carousel-sec">
+  <div class="wrap" style="text-align:center">
+    <span class="tag reveal">Latest LinkedIn content</span>
+    <h2 class="title reveal d1">Stuff I post.</h2>
+    <p class="sub reveal d2" style="margin-inline:auto">Hover to pause, use the arrows to slide, tap a card to read it.</p>
+  </div>
+  <!-- FRAME around the strip: RGB light flows along the top edge (left to
+       right) and the bottom edge (right to left). See .post-frame in css/style.css. -->
+  <div class="post-frame">
+  <div class="post-marquee" aria-label="LinkedIn posts">
+    <div class="post-track">
+      <!-- Each card has its own colour: tone-1 to tone-6 (set in css/style.css) -->
+      <a class="post tone-1" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-1.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">S&amp;OP</div>
+        <div><h4>Sales and Operations Planning, explained like a human</h4><p>Why the monthly meeting matters more than the spreadsheet.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-2" href="https://lnkd.in/p/gcQ9DZaA" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-2.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">90</div>
+        <div><h4>The first 90 days framework</h4><p>How to land in a new role and not drown.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-3" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-3.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">🤝</div>
+        <div><h4>Networking without the cringe</h4><p>Real talk for freshers who hate small talk.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-6" href="https://lnkd.in/p/gukyWyep" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-4.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">CGPA</div>
+        <div><h4>Average CGPA, good job</h4><p>Why interviews beat grades in 2026.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-4" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-5.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">25</div>
+        <div><h4>Cornell Notes</h4><p>The note system that actually sticks.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-5" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-6.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">🍅</div>
+        <div><h4>Pomodoro, but make it work</h4><p>Focus tricks I use at my desk.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-2" href="https://lnkd.in/p/gKc2zkNy" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-7.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">🔄</div>
+        <div><h4>Think in reverse</h4><p>Inversion: find how you'd fail, then avoid it.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+      <a class="post tone-6" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
+        <div class="post-img ph"><img src="img/posts/post-8.jpg" alt="" loading="lazy" data-ph></div>
+        <div class="num">📦</div>
+        <div><h4>What supply chain really is</h4><p>Hint: it is not just trucks.</p></div>
+        <div class="go">Read on LinkedIn →</div>
+      </a>
+    </div>
+  </div>
+  </div>
+  <!-- ARROWS: slide the cards one step left or right (js/main.js part 10).
+       The button in the middle opens all your LinkedIn posts in a new tab. -->
+  <div class="post-ctrl">
+    <button class="post-arrow" type="button" data-dir="-1" aria-label="Previous posts">←</button>
+    <a class="post-all" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">All posts on LinkedIn <span aria-hidden="true">↗</span></a>
+    <button class="post-arrow" type="button" data-dir="1" aria-label="Next posts">→</button>
+  </div>
+</section>
+
+
+<!-- ===== FOOTER (same on every page) =====
+     A glass card with three columns: who you are, quick links, and how to
+     reach you, plus a copyright line along the bottom. aria-current="page"
+     marks the page you're on in the Quick links list. -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-card glass">
+
+      <!-- WHO YOU ARE -->
+      <div class="foot-brand">
+        <a class="foot-name" href="index.html">Abdullah Al <span class="grad">Fahad.</span></a>
+        <p class="foot-intro">Supply chain executive in Dhaka. I plan materials and packaging so production never waits.</p>
+        <p class="foot-status"><span class="dot"></span> Open to ideas &amp; collabs</p>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <nav class="foot-col" aria-label="Footer">
+        <h4>Quick links</h4>
+        <ul class="foot-links">
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- GET IN TOUCH -->
+      <div class="foot-col">
+        <h4>Get in touch</h4>
+        <ul class="foot-contact">
+          <li><a href="mailto:abirfahad2003@gmail.com"><span class="fi" aria-hidden="true">✉️</span>abirfahad2003@gmail.com</a></li>
+          <li><a href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener"><span class="fi" aria-hidden="true">💼</span>LinkedIn profile</a></li>
+          <li><span class="fi" aria-hidden="true">📍</span>Dhaka, Bangladesh</li>
+        </ul>
+        <!-- Download CV: put your CV in the site folder named cv.pdf -->
+        <a class="btn primary foot-cv" href="cv.pdf" download>Download CV ↓</a>
+      </div>
+
+      <!-- BOTTOM LINE -->
+      <div class="foot-bottom">
+        <span>© 2026 Abdullah Al Fahad. All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
