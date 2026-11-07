@@ -34,12 +34,16 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+/* nothing may make the page wider than the screen (phones would get a
+   sideways swipe and a cut-off menu). "clip" trims without adding a scrollbar. */
+html { overflow-x: clip; }
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   line-height: 1.55;
   overflow-x: hidden;
+  overflow-x: clip;
   transition: background .4s, color .4s;
 }
 a { color: inherit; text-decoration: none; }
@@ -630,7 +634,7 @@ section { padding: 110px 0; position: relative; }
    caption slides up. As you scroll, each tile glides in from the left or
    right, tied to the scroll, starting low on the screen (js/main.js part 17).
    ===================================================== */
-.factory { padding-top: 40px; }
+.factory { padding-top: 40px; overflow-x: clip; }   /* photos waiting at the sides never widen the page */
 .bento {
   display: grid; grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 180px; gap: 14px; margin-top: 40px; grid-auto-flow: dense;

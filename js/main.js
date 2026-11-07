@@ -707,8 +707,10 @@
    float gently in the side margins, behind everything (pointer-events none,
    so nothing is blocked). Scrolling moves them at different speeds (near
    ones faster, like depth), and a fast scroll makes them spin and tilt a
-   bit, then settle. They only show when the side margins are wide enough
-   (big screens), and they stand still with "reduce motion" on.
+   bit, then settle. On big screens they stay in the side margins; on
+   phones and small screens (no side margins) a few smaller, fainter ones
+   are scattered across the whole screen instead, so text stays readable.
+   They stand still with "reduce motion" on.
    Colours and look: .scm-float / .scm-p in css/style.css. */
 (function () {
   var ICONS = {
@@ -741,24 +743,24 @@
     parts = [];
     var w = Math.min(1120, window.innerWidth * .92);              // page width, same as .wrap in the CSS
     gutter = (window.innerWidth - w) / 2;
-    if (gutter < 90) { layer.style.display = 'none'; return; }   // not enough side space
-    layer.style.display = '';
+    var scatter = gutter < 90;                                     // phone / small screen: no side margins
     H = window.innerHeight + 160;                                  // loop height (a bit taller than the screen)
-    var perSide = Math.max(5, Math.min(8, Math.round(window.innerHeight / 120)));
-    ['left', 'right'].forEach(function (side) {
+    var perSide = scatter ? Math.max(7, Math.min(10, Math.round(window.innerHeight / 90)))
+                          : Math.max(5, Math.min(8, Math.round(window.innerHeight / 120)));
+    (scatter ? ['all'] : ['left', 'right']).forEach(function (side) {
       for (var i = 0; i < perSide; i++) {
-        var size = Math.round(rnd(18, Math.min(38, gutter - 40)));
+        var size = Math.round(scatter ? rnd(16, 26) : rnd(18, Math.min(38, gutter - 40)));
         var el = document.createElement('span');
         el.className = 'scm-p';
         el.style.width = el.style.height = size + 'px';
         el.style.setProperty('--c', COLORS[Math.floor(Math.random() * COLORS.length)]);
-        el.style.setProperty('--o', rnd(.16, .34).toFixed(2));
+        el.style.setProperty('--o', (scatter ? rnd(.08, .18) : rnd(.16, .34)).toFixed(2));   // fainter over text
         el.innerHTML = '<svg viewBox="0 0 24 24">' + ICONS[names[Math.floor(Math.random() * names.length)]] + '</svg>';
         layer.appendChild(el);
-        var x = rnd(14, gutter - size - 18);
+        var x = scatter ? rnd(4, window.innerWidth - size - 4) : rnd(14, gutter - size - 18);
         parts.push({
           el: el,
-          x: side === 'left' ? x : window.innerWidth - x - size,
+          x: side === 'right' ? window.innerWidth - x - size : x,
           y: (i + rnd(.1, .9)) * (H / perSide),                    // spread out from top to bottom
           speed: rnd(.12, .55),                                    // how much scrolling moves it (depth)
           spin: rnd(.3, 1) * (Math.random() < .5 ? -1 : 1),
@@ -790,8 +792,12 @@
   }
 
   build();
-  var timer;
-  window.addEventListener('resize', function () { clearTimeout(timer); timer = setTimeout(build, 200); });
+  var timer, lastW = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth === lastW) return;    // phones resize the height while scrolling: ignore that
+    lastW = window.innerWidth;
+    clearTimeout(timer); timer = setTimeout(build, 200);
+  });
   if (still) {
     window.addEventListener('scroll', function () { draw(0); }, { passive: true });   // just follow the scroll
   } else {
