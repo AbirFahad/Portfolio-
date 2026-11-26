@@ -1647,13 +1647,14 @@ textarea { min-height: 130px; resize: vertical; }
 }
 .t-drop-play .ch { animation: t-drop .6s cubic-bezier(.25,1.45,.45,1) both; animation-delay: calc(.2s + var(--i) * 45ms); }
 .t-drop-play + .t-pallet { animation: t-slide .35s ease-out both; }
-/* Skills replays (every 5s after the first drop): each word pops up in turn
-   with a short mint glow */
+/* POP title (Home "Wins & achievements.", Gallery, and the Skills replays
+   every 5s after the first drop): each word pops up in turn with a short
+   mint glow */
 .t-pop-w { display: inline-block; }
 .t-pop-play .t-pop-w { animation: t-pop .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(var(--i) * .28s); }
 @keyframes t-pop {
   0%   { transform: none; text-shadow: none; }
-  40%  { transform: translateY(-8px) scale(1.14); text-shadow: 0 0 22px rgba(var(--accent-rgb), .7); }
+  40%  { transform: translateY(-6px) scale(1.07); text-shadow: 0 0 18px rgba(var(--accent-rgb), .65); }
   100% { transform: none; text-shadow: none; }
 }
 @keyframes t-drop { from { opacity: 0; transform: translateY(-70px) rotate(var(--r, 0deg)); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }

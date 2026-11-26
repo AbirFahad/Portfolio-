@@ -1052,6 +1052,13 @@
     },
     // Skills: letters drop onto the pallet (first time only; after that see 'pop' below)
     drop: function (el) { split(el); void el.offsetWidth; el.classList.add('t-drop-play'); },
+    // Home "Wins & achievements." and Gallery: each word pops up in turn
+    // with a small mint glow (also the Skills replay)
+    pop: function (el) {
+      var words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(function (w, k) { return '<span class="t-pop-w" style="--i:' + k + '">' + w + '</span>'; }).join(' ');
+      void el.offsetWidth; el.classList.add('t-pop-play');
+    },
     // Experience: words rise, the route draws, a dot travels along it
     route: function (el) {
       var words = el.textContent.trim().split(/\s+/);
@@ -1129,11 +1136,7 @@
   // titles that replay with a lighter animation after the first full one
   var REPLAY = {
     // Skills "The toolkit.": each word pops up one after another
-    drop: function (el) {
-      var words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map(function (w, k) { return '<span class="t-pop-w" style="--i:' + k + '">' + w + '</span>'; }).join(' ');
-      void el.offsetWidth; el.classList.add('t-pop-play');
-    }
+    drop: function (el) { players.pop(el); }
   };
   function reset(el) {
     el.innerHTML = el._orig;
