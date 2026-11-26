@@ -241,27 +241,29 @@
   strip.addEventListener('focusout', function () { paused = false; });
 })();
 
-/* 11) LIVE DHAKA CLOCK + SKY (contact page): the big time, a line about the
-   time of day, the date, and the little sky scene (day / evening / night)
-   all follow the time in Dhaka. */
+/* 11) LIVE DHAKA CLOCK + DAY ROUTE (contact page): the big time, a line
+   about the time of day, the date, and the 24-hour route bar (the truck
+   moves to the current time; the part of the day still to come is dimmed).
+   Everything follows the time in Dhaka and updates every 10 seconds. */
 (function () {
   var el = document.getElementById('dhakaTime');
   if (!el) return;
-  var sky = document.getElementById('dhakaSky');
-  var badge = document.getElementById('skyBadge'), line = document.getElementById('skyLine'), date = document.getElementById('skyDate');
+  var card = document.getElementById('dhakaDay');
+  var badge = document.getElementById('dayBadge'), line = document.getElementById('dayLine'), date = document.getElementById('dayDate');
   function tick() {
     var now = new Date();
     var time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: '2-digit' });
     el.textContent = time;
-    if (!sky) return;
-    var h = +now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', hour12: false }) % 24;
-    var phase = (h >= 6 && h < 17) ? 'day' : (h >= 17 && h < 19) ? 'evening' : 'night';
-    sky.dataset.phase = phase;
-    var names = { day: 'Daytime in Dhaka', evening: 'Evening in Dhaka', night: 'Night in Dhaka' };
-    var lines = { day: "It's " + time + " here. Daytime in Dhaka.", evening: "It's " + time + " here. The sun is setting.", night: "It's " + time + " here. Night time in Dhaka." };
-    badge.textContent = (phase === 'night' ? '🌙 ' : '☀️ ') + names[phase];
-    line.textContent = lines[phase];
-    date.textContent = 'Dhaka, Bangladesh · GMT+6 · ' + now.toLocaleDateString('en-GB', { timeZone: 'Asia/Dhaka', weekday: 'long', day: 'numeric', month: 'short' });
+    if (!card) return;
+    var parts = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', hour12: false }).split(':');
+    var h = (+parts[0]) % 24, m = +parts[1];
+    var phase = (h >= 5 && h < 12) ? 'morning' : (h >= 12 && h < 17) ? 'afternoon' : (h >= 17 && h < 20) ? 'evening' : 'night';
+    card.dataset.phase = phase;
+    card.style.setProperty('--p', ((h * 60 + m) / 1440 * 100).toFixed(2) + '%');
+    var names = { morning: '🌅 Morning in Dhaka', afternoon: '☀️ Afternoon in Dhaka', evening: '🌇 Evening in Dhaka', night: '🌙 Night in Dhaka' };
+    badge.textContent = names[phase];
+    line.textContent = "It's " + time + ' here, ' + phase + ' in Dhaka.';
+    date.textContent = 'Dhaka, Bangladesh · ' + now.toLocaleDateString('en-GB', { timeZone: 'Asia/Dhaka', weekday: 'long', day: 'numeric', month: 'short' });
   }
   tick(); setInterval(tick, 10000);
 })();

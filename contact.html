@@ -100,24 +100,24 @@
         </details>
         <details>
           <summary>Where are you based?</summary>
-          <p>Dhaka, Bangladesh (GMT+6). The sky below shows whether it's day or night here right now.</p>
+          <p>Dhaka, Bangladesh (GMT+6). The card below shows the time here right now.</p>
         </details>
       </div>
 
-      <!-- live Dhaka sky: changes with the time in Dhaka (js part 11) -->
-      <div class="ct-sky glass reveal" id="dhakaSky" data-phase="day">
-        <div class="sky-scene" aria-hidden="true">
-          <span class="sky-sun"></span><span class="sky-moon"></span>
-          <span class="sky-stars"></span>
-          <span class="sky-cloud c1"></span><span class="sky-cloud c2"></span>
-          <svg class="sky-city" viewBox="0 0 400 60" preserveAspectRatio="none"><path d="M0 60V38h18V26h14v12h10V18h20v20h8V30h16v-8h12v38h6V14h22v46h8V34h14V22h10v-8h12v46h10V28h18v32h6V20h16v40h10V32h12V12h18v48h8V36h16V24h14v36h12V30h20v30h14V40h22v20Z"/></svg>
-          <span class="sky-badge" id="skyBadge">Daytime in Dhaka</span>
+      <!-- DHAKA DAY ROUTE (replaced the sky card, Nov 2026): the time in
+           Dhaka, plus a 24-hour "route" bar where a little truck shows how far
+           through the day it is (js part 11). Colours: night, morning,
+           afternoon, evening. -->
+      <div class="ct-day glass reveal" id="dhakaDay" data-phase="morning">
+        <div class="day-top"><span class="day-badge" id="dayBadge">Morning in Dhaka</span><small>GMT+6</small></div>
+        <div class="time" id="dhakaTime">--:--</div>
+        <p id="dayLine">Local time in Dhaka</p>
+        <div class="day-track" aria-hidden="true">
+          <div class="day-bar"><i class="day-rest"></i></div>
+          <span class="day-truck">🚚</span>
+          <div class="day-ticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
         </div>
-        <div class="sky-info">
-          <div class="time" id="dhakaTime">--:--</div>
-          <p id="skyLine">Local time in Dhaka</p>
-          <small id="skyDate">Dhaka, Bangladesh · GMT+6</small>
-        </div>
+        <small id="dayDate">Dhaka, Bangladesh</small>
       </div>
     </div>
 
