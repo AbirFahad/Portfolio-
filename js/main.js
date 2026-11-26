@@ -972,40 +972,63 @@
   document.querySelectorAll('[data-anim="paper"]').forEach(function (el) { el.classList.add('t-print-wait'); });
 
   var players = {
-    // Home name: outlines fill in as a scanner gate checks each letter
+    // Home name: a rectangle cursor types the letters (as outlines), then a
+    // scanner gate checks each letter: it fills in and a ✓ pops above it,
+    // and the counter ends on "QC 12/12 passed ✓"
     qc: function (el) {
-      var chars = split(el);
+      var chars = split(el), total = chars.length;
+      var block = document.createElement('span'); block.className = 't-block'; block.setAttribute('aria-hidden', 'true');
       var gate = document.createElement('span'); gate.className = 't-gate'; gate.setAttribute('aria-hidden', 'true');
       var count = document.createElement('span'); count.className = 't-count'; count.setAttribute('aria-hidden', 'true');
-      el.appendChild(gate); el.appendChild(count);
-      el.classList.add('t-qc-run');
-      var total = chars.length, i = 0;
-      function at(c) {
+      el.appendChild(block); el.appendChild(gate); el.appendChild(count);
+      el.classList.add('t-qc-run', 't-qc-typing');
+      function box(c) {
         var h = el.getBoundingClientRect(), r = c.getBoundingClientRect();
-        return { x: r.left - h.left + r.width / 2, top: r.top - h.top };
+        return { left: r.left - h.left, right: r.right - h.left, x: r.left - h.left + r.width / 2, top: r.top - h.top, h: r.height };
       }
-      gate.style.transform = 'translateX(' + at(chars[0]).x + 'px)';
-      gate.classList.add('on'); count.classList.add('on');
-      count.textContent = 'QC 0/' + total;
-      var timer = setInterval(function () {
-        var c = chars[i], p = at(c);
-        gate.style.transform = 'translateX(' + p.x + 'px)';
-        c.classList.add('ok');
-        var tick = document.createElement('span');
-        tick.className = 't-tick'; tick.setAttribute('aria-hidden', 'true'); tick.textContent = '✓';
-        tick.style.left = p.x + 'px'; tick.style.top = (p.top - 18) + 'px';
-        el.appendChild(tick);
-        setTimeout(function () { tick.remove(); }, 800);
-        i++;
-        count.textContent = 'QC ' + i + '/' + total;
-        if (i >= total) {
-          clearInterval(timer);
-          count.textContent = 'QC ' + total + '/' + total + ' passed ✓';
-          setTimeout(function () { gate.classList.remove('on'); el.classList.remove('t-qc-run'); }, 400);
-          setTimeout(function () { count.classList.remove('on'); }, 2600);
-          setTimeout(function () { gate.remove(); count.remove(); }, 3200);
-        }
-      }, 120);
+      function moveBlock(x, b) {
+        block.style.height = (b.h * 0.74) + 'px';
+        block.style.transform = 'translate(' + x + 'px,' + (b.top + b.h * 0.14) + 'px)';
+      }
+      // 1) typing: one letter every 75ms, the block sits after the last letter
+      var first = box(chars[0]);
+      moveBlock(first.left, first);
+      block.classList.add('on');
+      var k = 0;
+      var typing = setInterval(function () {
+        var c = chars[k]; c.classList.add('typed');
+        var b = box(c); moveBlock(b.right + 3, b);
+        k++;
+        if (k >= total) { clearInterval(typing); setTimeout(scan, 600); }
+      }, 75);
+      // 2) scanning: the gate passes each letter, it fills in with a ✓
+      function scan() {
+        block.classList.remove('on');
+        el.classList.remove('t-qc-typing');
+        var i = 0;
+        gate.style.transform = 'translateX(' + box(chars[0]).x + 'px)';
+        gate.classList.add('on'); count.classList.add('on');
+        count.textContent = 'QC 0/' + total;
+        var timer = setInterval(function () {
+          var c = chars[i], p = box(c);
+          gate.style.transform = 'translateX(' + p.x + 'px)';
+          c.classList.add('ok');
+          var tick = document.createElement('span');
+          tick.className = 't-tick'; tick.setAttribute('aria-hidden', 'true'); tick.textContent = '✓';
+          tick.style.left = p.x + 'px'; tick.style.top = (p.top - 18) + 'px';
+          el.appendChild(tick);
+          setTimeout(function () { tick.remove(); }, 800);
+          i++;
+          count.textContent = 'QC ' + i + '/' + total;
+          if (i >= total) {
+            clearInterval(timer);
+            count.textContent = 'QC ' + total + '/' + total + ' passed ✓';
+            count.classList.add('pass');
+            setTimeout(function () { gate.classList.remove('on'); el.classList.remove('t-qc-run'); }, 400);
+            setTimeout(function () { count.classList.remove('on'); }, 2600);
+          }
+        }, 110);
+      }
     },
     // Home "Wins & achievements.": barcode stripes, laser reveals the words
     scan: function (el) {
@@ -1087,6 +1110,7 @@
   // Before each replay the title is put back exactly as it was before its
   // first play (saved in el._orig / el._cls).
   var LOOP_MS = 9000;
+  var LOOP = { qc: 11000 };   // the Home name takes longer (typing + scan), so it waits a bit more
   function reset(el) {
     el.innerHTML = el._orig;
     el.className = el._cls;
@@ -1100,7 +1124,7 @@
     setInterval(function () {
       if (!el._visible || document.hidden) return;
       reset(el); play(el);
-    }, LOOP_MS);
+    }, LOOP[el.dataset.anim] || LOOP_MS);
   }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
