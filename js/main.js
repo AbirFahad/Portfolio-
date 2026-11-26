@@ -1066,7 +1066,12 @@
     },
     // Certificates "The paperwork.": a printer head prints the words line
     // by line, then a graduation seal lands beside them (seal stays)
-    paper: function (el) { el.classList.remove('t-print-wait'); void el.offsetWidth; el.classList.add('t-print-play'); },
+    paper: function (el) {
+      el.classList.remove('t-print-wait');
+      var w = el.querySelector('.t-words');                   // the printer line is only as wide as the words
+      if (w) el.style.setProperty('--pw', (w.getBoundingClientRect().width + 20) + 'px');
+      void el.offsetWidth; el.classList.add('t-print-play');
+    },
     // Experience "Key highlights.": the VERIFIED stamp thumps down
     stamp: function (el) { el.classList.add('t-stamp-play'); },
     // Gallery: shutter blink + flash over the page heading, the title develops
