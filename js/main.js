@@ -886,3 +886,218 @@
   Promise.race([fontsDone, new Promise(function (r) { setTimeout(r, 1500); })]).then(hide);
   setTimeout(hide, 2500);                                         // safety: never stuck
 })();
+
+
+/* 26) TITLE ANIMATIONS: every page title (and some Home headings) has
+   data-anim="..." and plays its own short animation ONCE, the first time it
+   comes into view, after the loading screen and the fade-up have finished.
+   The looks are in css/style.css, "TITLE ANIMATIONS". The words shown on
+   the stamp, the scan tag and the QC counter are in content.md.
+   With "reduce motion" on, nothing moves and the finished title shows. */
+(function () {
+  var titles = document.querySelectorAll('[data-anim]');
+  if (!titles.length) return;
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // wrap each letter in <span class="ch"> (spaces stay as plain text)
+  function split(el) {
+    var n = 0;
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+        if (c.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          Array.from(c.textContent).forEach(function (t) {
+            if (/\s/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
+            var s = document.createElement('span');
+            s.className = 'ch'; s.textContent = t;
+            s.style.setProperty('--i', n); s.style.setProperty('--r', (n % 2 ? -12 : 10) + 'deg');
+            n++;
+            frag.appendChild(s);
+          });
+          node.replaceChild(frag, c);
+        } else if (c.nodeType === 1 && !c.hasAttribute('aria-hidden')) { walk(c); }
+      });
+    })(el);
+    return el.querySelectorAll('.ch');
+  }
+  // put the heading's words in one span, so they can move without moving the heading
+  function wrapWords(el) {
+    var w = document.createElement('span'); w.className = 't-words';
+    while (el.firstChild) w.appendChild(el.firstChild);
+    el.appendChild(w);
+    return w;
+  }
+
+  // parts that also show when nothing moves (the pallet, the route, the stamp)
+  titles.forEach(function (el) {
+    var a = el.dataset.anim;
+    if (a === 'drop') el.insertAdjacentHTML('afterend', '<span class="t-pallet" aria-hidden="true"></span>');
+    if (a === 'route') el.insertAdjacentHTML('afterend',
+      '<svg class="t-route" viewBox="0 0 400 40" aria-hidden="true">' +
+      '<path class="road" d="M8 28 C 80 4, 140 36, 200 20 S 320 4, 392 22"/>' +
+      '<path class="trail" pathLength="1" d="M8 28 C 80 4, 140 36, 200 20 S 320 4, 392 22"/>' +
+      '<circle class="pin p1" cx="8" cy="28" r="5"/><circle class="pin p2" cx="200" cy="20" r="5"/><circle class="pin p3" cx="392" cy="22" r="5"/>' +
+      '<circle class="dot" r="4"><animateMotion dur="1.3s" begin="indefinite" fill="freeze" path="M8 28 C 80 4, 140 36, 200 20 S 320 4, 392 22"/></circle>' +
+      '</svg>');
+    if (a === 'stamp') { wrapWords(el); el.insertAdjacentHTML('beforeend', '<span class="t-stamp" aria-hidden="true">VERIFIED ✓</span>'); }
+  });
+  if (calm) return;
+
+  var players = {
+    // Home name: outlines fill in as a scanner gate checks each letter
+    qc: function (el) {
+      var chars = split(el);
+      var gate = document.createElement('span'); gate.className = 't-gate'; gate.setAttribute('aria-hidden', 'true');
+      var count = document.createElement('span'); count.className = 't-count'; count.setAttribute('aria-hidden', 'true');
+      el.appendChild(gate); el.appendChild(count);
+      el.classList.add('t-qc-run');
+      var total = chars.length, i = 0;
+      function at(c) {
+        var h = el.getBoundingClientRect(), r = c.getBoundingClientRect();
+        return { x: r.left - h.left + r.width / 2, top: r.top - h.top };
+      }
+      gate.style.transform = 'translateX(' + at(chars[0]).x + 'px)';
+      gate.classList.add('on'); count.classList.add('on');
+      count.textContent = 'QC 0/' + total;
+      var timer = setInterval(function () {
+        var c = chars[i], p = at(c);
+        gate.style.transform = 'translateX(' + p.x + 'px)';
+        c.classList.add('ok');
+        var tick = document.createElement('span');
+        tick.className = 't-tick'; tick.setAttribute('aria-hidden', 'true'); tick.textContent = '✓';
+        tick.style.left = p.x + 'px'; tick.style.top = (p.top - 18) + 'px';
+        el.appendChild(tick);
+        setTimeout(function () { tick.remove(); }, 800);
+        i++;
+        count.textContent = 'QC ' + i + '/' + total;
+        if (i >= total) {
+          clearInterval(timer);
+          count.textContent = 'QC ' + total + '/' + total + ' passed ✓';
+          setTimeout(function () { gate.classList.remove('on'); el.classList.remove('t-qc-run'); }, 400);
+          setTimeout(function () { count.classList.remove('on'); }, 2600);
+          setTimeout(function () { gate.remove(); count.remove(); }, 3200);
+        }
+      }, 120);
+    },
+    // Home "Wins & achievements.": barcode stripes, laser reveals the words
+    scan: function (el) {
+      var box = document.createElement('span'); box.className = 't-scan';
+      var text = document.createElement('span'); text.className = 't-scan-text';
+      while (el.firstChild) text.appendChild(el.firstChild);
+      box.appendChild(text);
+      box.insertAdjacentHTML('beforeend', '<span class="t-bars" aria-hidden="true"></span><span class="t-laser" aria-hidden="true"></span><span class="t-chip" aria-hidden="true">SCANNED ✓</span>');
+      el.appendChild(box);
+      void box.offsetWidth; box.classList.add('play');
+    },
+    // Skills: letters drop onto the pallet
+    drop: function (el) { split(el); void el.offsetWidth; el.classList.add('t-drop-play'); },
+    // Experience: words rise, the route draws, a dot travels along it
+    route: function (el) {
+      var words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(function (w, k) { return '<span class="word" style="--i:' + k + '">' + w + '</span>'; }).join(' ');
+      el.classList.add('t-route-play');
+      var svg = el.nextElementSibling;
+      if (svg && svg.classList.contains('t-route')) {
+        svg.classList.add('play');
+        var m = svg.querySelector('animateMotion');
+        if (m && m.beginElement) setTimeout(function () { m.beginElement(); }, 300);
+      }
+    },
+    // Certificates: the VERIFIED stamp thumps down
+    stamp: function (el) { el.classList.add('t-stamp-play'); },
+    // Gallery: shutter blink + flash over the page heading, the title develops
+    shutter: function (el) {
+      var head = el.closest('.page-head') || el.parentElement;
+      if (getComputedStyle(head).position === 'static') head.style.position = 'relative';
+      var sh = document.createElement('span'); sh.className = 't-shutter'; sh.setAttribute('aria-hidden', 'true');
+      sh.innerHTML = '<span class="t-lid top"></span><span class="t-lid bot"></span><span class="t-flash"></span>';
+      head.appendChild(sh);
+      wrapWords(el);
+      void sh.offsetWidth; sh.classList.add('play'); el.classList.add('t-develop');
+      setTimeout(function () { sh.remove(); }, 1200);
+    },
+    // Contact: letters flip like a port arrivals board
+    board: function (el) {
+      var text = el.textContent;
+      el.setAttribute('aria-label', text);
+      var board = document.createElement('span'); board.className = 't-board'; board.setAttribute('aria-hidden', 'true');
+      el.textContent = ''; el.appendChild(board);
+      var abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      Array.from(text).forEach(function (t, k) {
+        var f = document.createElement('span');
+        f.className = 't-flap' + (t === ' ' ? ' space' : '');
+        f.textContent = t;
+        board.appendChild(f);
+        if (t === ' ') return;
+        f.classList.add('spin');
+        var stopAt = Date.now() + 300 + k * 100;
+        var id = setInterval(function () {
+          if (Date.now() >= stopAt) { clearInterval(id); f.textContent = t; f.classList.remove('spin'); return; }
+          f.textContent = abc[Math.floor(Math.random() * abc.length)];
+        }, 45);
+      });
+    },
+    // other section headings: one band of light sweeps across
+    sheen: function (el) { el.classList.add('t-sheen', 'play'); setTimeout(function () { el.classList.remove('play'); }, 1500); }
+  };
+
+  // start only once the loading screen is gone and the fade-up has finished
+  function whenReady(el, fn) {
+    var tries = 0;
+    (function wait() {
+      var loading = document.querySelector('.loader');
+      var fading = el.classList.contains('reveal') && !el.classList.contains('in');
+      if ((loading || fading) && tries++ < 40) return setTimeout(wait, 100);
+      setTimeout(fn, el.classList.contains('reveal') ? 350 : 0);
+    })();
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      var el = en.target, play = players[el.dataset.anim];
+      if (play) whenReady(el, function () { play(el); });
+    });
+  }, { threshold: 0.5 });
+  titles.forEach(function (el) { io.observe(el); });
+})();
+
+/* 27) COUNT-UP NUMBERS: the numbers on the Wins cards (Home) count up from
+   zero the first time they come into view, e.g. "15% → 43%". Only the
+   digits change; the words stay. Nothing moves with "reduce motion". */
+(function () {
+  var stats = document.querySelectorAll('.award-stat');
+  if (!stats.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function run(el) {
+    var original = el.textContent;
+    if (!/\d/.test(original)) return;
+    var start = null, ms = 1100;
+    function frame(t) {
+      if (start === null) start = t;
+      var p = Math.max(0, Math.min(1, (t - start) / ms)), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = original.replace(/\d+/g, function (d) { return Math.round(+d * e); });
+      if (p < 1) requestAnimationFrame(frame); else el.textContent = original;
+    }
+    requestAnimationFrame(frame);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); run(en.target); } });
+  }, { threshold: 0.6 });
+  stats.forEach(function (s) { io.observe(s); });
+})();
+
+/* 28) MAGNETIC BUTTONS: on computers with a mouse, the hero buttons (See my
+   journey, Download CV) lean a little toward the mouse. Phones are unchanged. */
+(function () {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.hero .btns .btn').forEach(function (b) {
+    b.classList.add('magnet');
+    b.addEventListener('mousemove', function (e) {
+      var r = b.getBoundingClientRect();
+      var x = e.clientX - (r.left + r.width / 2), y = e.clientY - (r.top + r.height / 2);
+      b.style.transform = 'translate(' + (x * 0.2).toFixed(1) + 'px,' + (y * 0.3 - 3).toFixed(1) + 'px)';
+    });
+    b.addEventListener('mouseleave', function () { b.style.transform = ''; });
+  });
+})();

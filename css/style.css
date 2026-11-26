@@ -1513,3 +1513,205 @@ textarea { min-height: 130px; resize: vertical; }
   .foot-cv { margin-top: 14px; min-height: 44px; width: 100%; justify-content: center; }
   .foot-bottom { padding-top: 14px; }
 }
+
+/* =====================================================
+   TITLE ANIMATIONS (js/main.js part 26)
+   Each page title (and some Home headings) has data-anim="..." and plays
+   its own short animation ONCE, when it first comes into view, after the
+   loading screen and the fade-up have finished. Only letters and small
+   added parts move, never the heading itself (it already fades up).
+   With "reduce motion" on, the finished title just shows.
+     qc      Home name: letters start as outlines, a scanner gate checks
+             them one by one (each fills in, a tick pops up), a counter ticks
+     scan    Home "Wins & achievements.": barcode stripes + laser sweep
+     drop    Skills: letters drop onto a pallet like cartons
+     route   Experience: a shipping route draws under the title
+     stamp   Certificates: a VERIFIED stamp thumps down
+     shutter Gallery: camera shutter blink + flash, title develops
+     board   Contact: letters flip like a port arrivals board
+     sheen   other section headings: one soft band of light sweeps across
+   ===================================================== */
+[data-anim] { position: relative; }
+[data-anim] .ch { display: inline-block; }
+.hero h1 .grad .ch {
+  background: inherit; -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* qc: outlines fill in as the scanner gate passes */
+.t-qc-run .ch { transition: color .15s; }
+.t-qc-run .ch:not(.ok) { color: transparent; -webkit-text-stroke: 1.5px var(--muted); }
+.t-qc-run .grad .ch:not(.ok) { background: none; }
+.t-gate {
+  position: absolute; left: 0; top: -4%; height: 108%; width: 2px; pointer-events: none;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent); opacity: 0;
+  transition: transform .11s linear, opacity .3s;
+}
+.t-gate::before, .t-gate::after {
+  content: ""; position: absolute; left: -5px; width: 12px; height: 2px; background: var(--accent);
+}
+.t-gate::before { top: 0; }
+.t-gate::after { bottom: 0; }
+.t-gate.on { opacity: 1; }
+.t-tick {
+  position: absolute; pointer-events: none; font: 700 1rem/1 var(--font-body); color: var(--accent);
+  animation: t-tick .7s ease-out forwards;
+}
+@keyframes t-tick {
+  0% { opacity: 0; transform: translate(-50%, 6px) scale(.5); }
+  30% { opacity: 1; transform: translate(-50%, -4px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -14px); }
+}
+.t-count {
+  position: absolute; left: 0; top: calc(100% + 2px); white-space: nowrap; pointer-events: none;
+  font: 600 .72rem/1 var(--font-body); letter-spacing: .1em; color: var(--accent);
+  opacity: 0; transition: opacity .35s;
+}
+.t-count.on { opacity: 1; }
+
+/* scan: barcode stripes, a laser sweeps and reveals the words */
+.t-scan { position: relative; display: inline-block; max-width: 100%; }
+.t-bars, .t-laser, .t-chip { pointer-events: none; }
+.t-bars {
+  position: absolute; inset: 8% 0; opacity: 0;
+  background: repeating-linear-gradient(90deg, var(--muted) 0 2px, transparent 2px 5px, var(--muted) 5px 6px, transparent 6px 8px, var(--muted) 8px 11px, transparent 11px 13px);
+}
+.t-laser { position: absolute; top: -10%; bottom: -10%; left: 0; width: 2px; opacity: 0; background: var(--accent); box-shadow: 0 0 12px 2px var(--accent); }
+.t-chip {
+  position: absolute; left: calc(100% + 12px); top: 50%; white-space: nowrap;
+  font: 600 .68rem/1 var(--font-body); letter-spacing: .08em; color: #04110d; background: var(--accent);
+  border-radius: 999px; padding: 5px 9px; opacity: 0; transform: translateY(-50%);
+}
+.t-scan.play .t-scan-text { animation: t-reveal 1.1s cubic-bezier(.6,0,.3,1) both; }
+.t-scan.play .t-bars { animation: t-bars 1.1s cubic-bezier(.6,0,.3,1) both; }
+.t-scan.play .t-laser { animation: t-laser 1.1s cubic-bezier(.6,0,.3,1) both; }
+.t-scan.play .t-chip { animation: t-chip 2.4s 1.1s ease both; }
+@keyframes t-reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes t-bars { from { opacity: 1; clip-path: inset(0 0 0 0); } to { opacity: 1; clip-path: inset(0 0 0 100%); } }
+@keyframes t-laser { 0% { left: 0; opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes t-chip {
+  0% { opacity: 0; transform: translateY(-50%) scale(.6); }
+  15%, 80% { opacity: 1; transform: translateY(-50%) scale(1); }
+  100% { opacity: 0; transform: translateY(-50%); }
+}
+@media (max-width: 600px) {
+  .t-chip { left: auto; right: 0; top: calc(100% + 6px); transform: none; }
+  @keyframes t-chip { 0% { opacity: 0; } 15%, 80% { opacity: 1; } 100% { opacity: 0; } }
+}
+
+/* drop: letters fall onto a pallet */
+.t-pallet {
+  display: block; height: 6px; width: min(100%, 300px); margin: -4px 0 16px; border-radius: 3px; transform-origin: left;
+  background: repeating-linear-gradient(90deg, var(--accent-2) 0 24px, transparent 24px 32px);
+}
+.t-drop-play .ch { animation: t-drop .6s cubic-bezier(.25,1.45,.45,1) both; animation-delay: calc(.2s + var(--i) * 45ms); }
+.t-drop-play + .t-pallet { animation: t-slide .35s ease-out both; }
+@keyframes t-drop { from { opacity: 0; transform: translateY(-70px) rotate(var(--r, 0deg)); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes t-slide { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* route: a shipping route draws under the title */
+.t-route { display: block; width: min(100%, 440px); height: auto; margin: -4px 0 14px; overflow: visible; }
+.t-route .road { fill: none; stroke: var(--line); stroke-width: 3; stroke-linecap: round; }
+.t-route .trail { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.t-route .pin { fill: var(--accent-2); transform-box: fill-box; transform-origin: center; }
+.t-route .dot { fill: var(--accent); opacity: 0; }   /* only shown while it travels */
+.t-route.play .dot { opacity: 1; }
+.t-route-play .word { display: inline-block; animation: t-rise .5s cubic-bezier(.2,.8,.3,1) both; animation-delay: calc(var(--i) * 90ms); }
+.t-route.play .trail { animation: t-draw 1.3s .3s cubic-bezier(.5,0,.3,1) both; }
+.t-route.play .pin { animation: t-pin .3s cubic-bezier(.2,1.6,.4,1) both; }
+.t-route.play .p1 { animation-delay: .3s; }
+.t-route.play .p2 { animation-delay: .9s; }
+.t-route.play .p3 { animation-delay: 1.55s; }
+@keyframes t-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes t-pin { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes t-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* stamp: VERIFIED thumps down beside the title */
+.t-stamp {
+  display: inline-block; vertical-align: middle; margin-left: .35em;
+  font: 700 clamp(.62rem, 1.4vw, .82rem)/1 var(--font-body); letter-spacing: .14em; color: var(--accent-2);
+  border: 2px solid var(--accent-2); outline: 1px solid var(--accent-2); outline-offset: 3px;
+  border-radius: 6px; padding: 7px 10px; transform: rotate(-8deg); white-space: nowrap;
+}
+.t-stamp-play .t-words { display: inline-block; animation: t-thud .3s .55s ease-out both; }
+.t-stamp-play .t-stamp { animation: t-stamp .32s .35s cubic-bezier(.5,0,.75,0) both; }
+@keyframes t-stamp { from { opacity: 0; transform: scale(2.6) rotate(-20deg); } to { opacity: 1; transform: scale(1) rotate(-8deg); } }
+@keyframes t-thud { 0%, 100% { transform: none; } 30% { transform: translateY(3px); } 60% { transform: translateY(-1px); } }
+
+/* shutter: lids close and open over the page heading, a flash, the title develops */
+.t-shutter { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 2; }
+.t-lid { position: absolute; left: 0; right: 0; height: 50%; background: var(--bg); }
+.t-lid.top { top: 0; transform: translateY(-100%); }
+.t-lid.bot { bottom: 0; transform: translateY(100%); }
+.t-flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+.t-shutter.play .t-lid.top { animation: t-lid-top .55s cubic-bezier(.6,0,.4,1) both; }
+.t-shutter.play .t-lid.bot { animation: t-lid-bot .55s cubic-bezier(.6,0,.4,1) both; }
+.t-shutter.play .t-flash { animation: t-flash .5s .26s ease-out both; }
+.t-develop .t-words { display: inline-block; animation: t-develop 1s .45s ease-out both; }
+@keyframes t-lid-top { 0% { transform: translateY(-100%); } 45%, 55% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
+@keyframes t-lid-bot { 0% { transform: translateY(100%); } 45%, 55% { transform: translateY(0); } 100% { transform: translateY(100%); } }
+@keyframes t-flash { 0% { opacity: 0; } 15% { opacity: .55; } 100% { opacity: 0; } }
+@keyframes t-develop { from { filter: blur(12px) grayscale(1); } to { filter: none; } }
+
+/* board: letters flip like a port arrivals board */
+.t-board { display: inline-flex; flex-wrap: wrap; gap: .08em; }
+.t-flap {
+  position: relative; display: inline-grid; place-items: center; min-width: .66em; padding: .04em .05em;
+  border-radius: .14em; background: var(--card); border: 1px solid var(--line);
+}
+.t-flap::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+.t-flap.space { background: transparent; border-color: transparent; min-width: .3em; }
+.t-flap.space::after { display: none; }
+.t-flap.spin { color: var(--muted); }
+
+/* sheen: one soft band of light sweeps across a heading */
+.t-sheen.play {
+  background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,.85) 50%, transparent 60%) 120% 0 / 250% 100% no-repeat,
+              linear-gradient(var(--text), var(--text));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: t-sheen 1.2s ease-in-out both;
+}
+[data-theme="light"] .t-sheen.play {
+  background: linear-gradient(110deg, transparent 40%, var(--accent) 50%, transparent 60%) 120% 0 / 250% 100% no-repeat,
+              linear-gradient(var(--text), var(--text));
+  -webkit-background-clip: text; background-clip: text;
+}
+@keyframes t-sheen { from { background-position: 120% 0, 0 0; } to { background-position: -20% 0, 0 0; } }
+
+/* =====================================================
+   LIGHT EXTRAS (November 2026)
+   ===================================================== */
+
+/* Smooth page changes: moving between pages fades and slides instead of
+   flashing white. Browsers without support just open the page. The menu
+   stays still while the page changes. */
+@view-transition { navigation: auto; }
+.nav { view-transition-name: site-nav; }
+::view-transition-old(root) { animation: vt-out .22s ease-in both; }
+::view-transition-new(root) { animation: vt-in .32s ease-out both; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-10px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(12px); } }
+
+/* Scanner hover: a thin mint line runs down a photo tile when you point at it */
+.b-tile::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 2;
+  background: var(--accent); box-shadow: 0 0 10px var(--accent); opacity: 0; pointer-events: none;
+}
+@media (hover: hover) { .b-tile:hover::after { animation: tile-scan .9s ease-in-out; } }
+@keyframes tile-scan { 0% { top: 0; opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+/* Drawn underline: footer email and LinkedIn links draw a mint line under
+   their words on hover (the words are in span class="ul") */
+.foot-contact .ul {
+  background: linear-gradient(var(--accent), var(--accent)) left bottom / 0 2px no-repeat;
+  padding-bottom: 2px; transition: background-size .3s ease;
+}
+.foot-contact a:hover .ul, .foot-contact a:focus-visible .ul { background-size: 100% 2px; }
+
+/* Magnetic buttons (js part 28): the hero buttons lean toward the mouse */
+.hero .btns .btn.magnet { transition: transform .2s ease-out; }
+
+/* Less motion: the extras stay still too */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  .b-tile:hover::after { animation: none; }
+}
