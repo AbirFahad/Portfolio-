@@ -51,28 +51,6 @@
   row.scrollLeft = on.offsetLeft - (row.clientWidth - on.offsetWidth) / 2;
 })();
 
-/* 2b) PHONE MENU HIDES WHILE SCROLLING DOWN: on phones and tablets (up to
-   860px) the menu now shows all six links in two rows, so it is taller.
-   It slides up out of the way while you scroll down, and comes back as
-   soon as you scroll up, or when you're near the top of the page.
-   (The .nav-hidden look is in css/style.css, "PHONE IMPROVEMENTS".) */
-(function () {
-  var nav = document.querySelector('.nav');
-  if (!nav) return;
-  var phone = window.matchMedia('(max-width: 860px)');
-  var lastY = scrollY, waiting = false;
-  function check() {
-    waiting = false;
-    var y = scrollY;
-    if (!phone.matches || y < 120 || y < lastY - 4) nav.classList.remove('nav-hidden');
-    else if (y > lastY + 4) nav.classList.add('nav-hidden');
-    lastY = y;
-  }
-  addEventListener('scroll', function () {
-    if (!waiting) { waiting = true; requestAnimationFrame(check); }
-  }, { passive: true });
-})();
-
 /* 3) SCROLL PROGRESS BAR (thin bar down the left edge) + TIMELINE FILL */
 (function () {
   var bar = document.querySelector('.progress');

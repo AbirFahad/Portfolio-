@@ -1467,24 +1467,12 @@ textarea { min-height: 130px; resize: vertical; }
    PHONE IMPROVEMENTS (November 2026 audit: ideas A, B and C)
    ===================================================== */
 
-/* B) PHONE MENU: all six page links are visible at once, in two rows of
-   three inside the notch, each big enough to tap with a thumb (about 40px
-   tall). The menu slides up out of the way while you scroll DOWN and comes
-   back when you scroll UP (js/main.js part 2 adds .nav-hidden). */
+/* B) PHONE MENU: one row of page links under "AF." that you can swipe
+   sideways (soft faded ends show there is more). Links are a little taller
+   than before so they are easier to tap. (The two-row menu tried in the
+   November 2026 audit was removed at the owner's request.) */
 @media (max-width: 860px) {
-  .nav .links {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
-    overflow: visible; padding: 2px 0 4px;
-    -webkit-mask-image: none; mask-image: none;
-  }
-  .nav .links a.link {
-    display: flex; align-items: center; justify-content: center;
-    min-height: 40px; padding: 6px 4px; font-size: .86rem; text-align: center;
-  }
-  .nav { transition: transform .35s ease, opacity .35s ease; }
-  .nav.nav-hidden { transform: translate(-50%, calc(-100% - 12px)); opacity: 0; }
-  .nav:focus-within { transform: translateX(-50%); opacity: 1; }   /* keyboard users always see it */
-  .hero { padding-top: 160px; }
+  .nav .links a.link { display: inline-flex; align-items: center; min-height: 36px; }
 }
 
 /* A) PHONE HERO: your name comes first. The text column's pieces and the
@@ -1493,7 +1481,11 @@ textarea { min-height: 130px; resize: vertical; }
    smaller), then Core tools. Your name and the buttons fit on the first
    screen; the photo starts right below. */
 @media (max-width: 600px) {
-  .hero .grid { gap: 0; }
+  /* one column that is never wider than the screen: without minmax(0, 1fr)
+     the long sliding Core tools strip stretched the column past the screen
+     edge and cut off the photo and the Download CV button */
+  .hero .grid { gap: 0; grid-template-columns: minmax(0, 1fr); }
+  .hero .grid > * { min-width: 0; max-width: 100%; }
   .hero .grid > div:first-child { display: contents; }
   .hero .hello      { order: 1; justify-self: start; }
   .hero h1          { order: 2; }
