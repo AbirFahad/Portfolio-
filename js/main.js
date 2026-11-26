@@ -1220,7 +1220,7 @@
   if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var tags = Array.prototype.slice.call(sec.querySelectorAll('.stack-tag'));
   if (!tags.length) return;
-  var n = tags.length, home = [], t0 = performance.now(), running = false;
+  var n = tags.length, home = [], t0 = performance.now(), running = false, eased = null;
   sec.classList.add('gather-on');
 
   // where each tag normally sits, measured from the band's centre
@@ -1234,23 +1234,28 @@
 
   function frame(now) {
     var b = sec.getBoundingClientRect(), vh = innerHeight;
-    // 0 when the band's middle is at the bottom of the screen, 1 when it reaches 45% from the top
-    var p = clamp01((vh - (b.top + b.height / 2)) / (vh * 0.55));
+    // 0 when the band's middle is just below the screen, 1 when it reaches 20% from the top:
+    // a long stretch of scrolling, so the tags travel slowly and in step with you
+    var target = clamp01((vh * 1.05 - (b.top + b.height / 2)) / (vh * 0.85));
+    // follow the scroll smoothly (no jumps when you flick the wheel)
+    eased = eased === null ? target : eased + (target - eased) * 0.09;
+    if (Math.abs(target - eased) < 0.0005) eased = target;
+    var p = eased;
     var t = (now - t0) / 1000, W = b.width;
     var RX = Math.min(W * 0.42, 540), RY = Math.max(60, b.height * 0.42), allHome = true;   // ring stays close to the band
     tags.forEach(function (tag, i) {
-      var g = ease(clamp01((p - i * 0.035) / 0.5));          // each tag leaves its spot in the ring a moment after the last
+      var g = ease(clamp01((p - i * 0.025) / 0.66));         // each tag leaves the ring a moment after the last
       if (g < 1) allHome = false;
-      var a = (i / n) * Math.PI * 2 + t * 0.15, z = Math.sin(a), depth = (z + 1) / 2;
+      var a = (i / n) * Math.PI * 2 + t * 0.07, z = Math.sin(a), depth = (z + 1) / 2;
       var rx = Math.cos(a) * RX, ry = z * RY - 0.06 * rx;     // tilted ring around the band's middle
-      var dx = (rx - home[i].x) * (1 - g), dy = (ry - home[i].y) * (1 - g) - Math.sin(g * Math.PI) * 24;
+      var dx = (rx - home[i].x) * (1 - g), dy = (ry - home[i].y) * (1 - g) - Math.sin(g * Math.PI) * 16;
       tag.style.translate = dx.toFixed(1) + 'px ' + dy.toFixed(1) + 'px';
       tag.style.scale = (0.72 + depth * 0.36 + (1 - (0.72 + depth * 0.36)) * g).toFixed(3);
       var op0 = 0.2 + depth * 0.7;                              // far side of the ring is faint
       tag.style.opacity = (op0 + (1 - op0) * g).toFixed(3);
       tag.parentNode.style.zIndex = g > .5 ? 2 : (depth > .5 ? 3 : 1);
     });
-    if (allHome) { running = false; return; }               // all in place: stop until the next scroll
+    if (allHome && eased === target) { running = false; return; }   // all in place: stop until the next scroll
     requestAnimationFrame(frame);
   }
   function wake() { if (!running) { running = true; requestAnimationFrame(frame); } }
