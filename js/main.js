@@ -982,6 +982,16 @@
       var count = document.createElement('span'); count.className = 't-count'; count.setAttribute('aria-hidden', 'true');
       el.appendChild(block); el.appendChild(gate); el.appendChild(count);
       el.classList.add('t-qc-run', 't-qc-typing');
+      // give each "Fahad." letter its own slice of the name gradient (see CSS)
+      var g = el.querySelector('.grad');
+      if (g) {
+        var gr = g.getBoundingClientRect();
+        g.querySelectorAll('.ch').forEach(function (c) {
+          var r = c.getBoundingClientRect();
+          c.style.setProperty('--gw', gr.width + 'px');
+          c.style.setProperty('--gx', (gr.left - r.left) + 'px');
+        });
+      }
       function box(c) {
         var h = el.getBoundingClientRect(), r = c.getBoundingClientRect();
         return { left: r.left - h.left, right: r.right - h.left, x: r.left - h.left + r.width / 2, top: r.top - h.top, h: r.height };

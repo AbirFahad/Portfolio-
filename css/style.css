@@ -1579,7 +1579,16 @@ textarea { min-height: 130px; resize: vertical; }
 }
 .t-count.on { opacity: 1; }
 /* qc typing: letters appear one by one behind a blinking rectangle cursor */
-.t-qc-typing .ch:not(.typed) { opacity: 0; }
+.t-qc-typing .ch:not(.typed) { opacity: 0; visibility: hidden; }
+/* while the QC check runs, "Fahad." loses its one big gradient (it would show
+   through hidden or outlined letters); each checked letter gets its own slice
+   of the same gradient instead (--gw / --gx set by js part 26), so it looks
+   seamless, and the big gradient returns when the check ends */
+.t-qc-run .grad { background: none !important; }
+.t-qc-run .grad .ch.ok {
+  background: var(--name-grad) no-repeat; background-size: var(--gw, 100%) 100%; background-position: var(--gx, 0) 0;
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 0;
+}
 .t-block {
   position: absolute; left: 0; top: 0; width: .42em; height: .8em; border-radius: 3px; pointer-events: none;
   background: var(--accent); box-shadow: 0 0 16px rgba(var(--accent-rgb), .7); opacity: 0;
