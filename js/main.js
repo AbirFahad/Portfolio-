@@ -1050,7 +1050,7 @@
       el.appendChild(box);
       void box.offsetWidth; box.classList.add('play');
     },
-    // Skills: letters drop onto the pallet
+    // Skills: letters drop onto the pallet (first time only; after that see 'pop' below)
     drop: function (el) { split(el); void el.offsetWidth; el.classList.add('t-drop-play'); },
     // Experience: words rise, the route draws, a dot travels along it
     route: function (el) {
@@ -1120,7 +1120,16 @@
   // Before each replay the title is put back exactly as it was before its
   // first play (saved in el._orig / el._cls).
   var LOOP_MS = 9000;
-  var LOOP = { qc: 11000 };   // the Home name takes longer (typing + scan), so it waits a bit more
+  var LOOP = { qc: 11000, drop: 5000 };   // Home name takes longer; Skills pops come more often
+  // titles that replay with a lighter animation after the first full one
+  var REPLAY = {
+    // Skills "The toolkit.": each word pops up one after another
+    drop: function (el) {
+      var words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(function (w, k) { return '<span class="t-pop-w" style="--i:' + k + '">' + w + '</span>'; }).join(' ');
+      void el.offsetWidth; el.classList.add('t-pop-play');
+    }
+  };
   function reset(el) {
     el.innerHTML = el._orig;
     el.className = el._cls;
@@ -1133,7 +1142,7 @@
     play(el);
     setInterval(function () {
       if (!el._visible || document.hidden) return;
-      reset(el); play(el);
+      reset(el); (REPLAY[el.dataset.anim] || play)(el);
     }, LOOP[el.dataset.anim] || LOOP_MS);
   }
   var io = new IntersectionObserver(function (entries) {

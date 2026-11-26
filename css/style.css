@@ -1368,6 +1368,18 @@ textarea { min-height: 130px; resize: vertical; }
   .hero { padding-top: 132px; }
 }
 
+/* PHONE MENU, CENTRED (owner asked, Nov 2026): "AF." sits in the middle of
+   the notch like on computers, the sun/moon button stays on the right, and
+   the page links are centred when they fit (the auto margins on the first
+   and last link do this, and still let the row slide when it is too wide) */
+@media (max-width: 860px) {
+  .nav { justify-content: center; padding-left: 12px; }
+  .nav .logo { min-height: 34px; display: inline-flex; align-items: center; }
+  .nav .theme-btn { position: absolute; right: 12px; top: 8px; margin: 0; }
+  .nav .links a.link:first-child { margin-left: auto; }
+  .nav .links a.link:last-child { margin-right: auto; }
+}
+
 /* =====================================================
    SMALL PHONES (up to 600px)
    ===================================================== */
@@ -1635,6 +1647,15 @@ textarea { min-height: 130px; resize: vertical; }
 }
 .t-drop-play .ch { animation: t-drop .6s cubic-bezier(.25,1.45,.45,1) both; animation-delay: calc(.2s + var(--i) * 45ms); }
 .t-drop-play + .t-pallet { animation: t-slide .35s ease-out both; }
+/* Skills replays (every 5s after the first drop): each word pops up in turn
+   with a short mint glow */
+.t-pop-w { display: inline-block; }
+.t-pop-play .t-pop-w { animation: t-pop .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(var(--i) * .28s); }
+@keyframes t-pop {
+  0%   { transform: none; text-shadow: none; }
+  40%  { transform: translateY(-8px) scale(1.14); text-shadow: 0 0 22px rgba(var(--accent-rgb), .7); }
+  100% { transform: none; text-shadow: none; }
+}
 @keyframes t-drop { from { opacity: 0; transform: translateY(-70px) rotate(var(--r, 0deg)); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
 @keyframes t-slide { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
