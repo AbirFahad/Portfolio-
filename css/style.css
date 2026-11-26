@@ -1735,15 +1735,15 @@ html:not([data-theme="light"]) {
   --mint-light: #B9FFF0;
 
   /* the site's own colour names, pointed at the palette */
-  --bg: #000230;
-  --bg-2: #001351;
+  --bg: #03124a;                      /* a little lighter than #000230 (owner asked) */
+  --bg-2: #0a2064;
   --card: rgba(3, 54, 144, .16);      /* dark blue glass cards */
   --line: #18366B;                    /* borders */
   --text: #F4FAFF;
   --muted: #B7C6DF;
   --accent: #3ef0c0;                  /* brand mint, unchanged */
   --accent-3: #00B8E8;                /* cyan replaces the old violet touches */
-  --notch: #001351;                   /* the hanging menu */
+  --notch: #0a2064;                   /* the hanging menu */
 
   /* faint cyan grid, mint glow under the mouse, blue light around it */
   --grid-line: rgba(0, 184, 232, .045);
