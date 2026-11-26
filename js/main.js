@@ -914,7 +914,8 @@
 
 /* 26) TITLE ANIMATIONS: every page title (and some Home headings) has
    data-anim="..." and plays its own short animation ONCE, the first time it
-   comes into view, after the loading screen and the fade-up have finished.
+   comes into view, after the loading screen and the fade-up have finished,
+   then plays again every 9 seconds while it is on screen (see LOOP below).
    The looks are in css/style.css, "TITLE ANIMATIONS". The words shown on
    the stamp, the scan tag and the QC counter are in content.md.
    With "reduce motion" on, nothing moves and the finished title shows. */
@@ -1081,12 +1082,34 @@
       setTimeout(fn, el.classList.contains('reveal') ? 350 : 0);
     })();
   }
+  // LOOP (owner asked, Nov 2026): after the first play, each title plays
+  // again every LOOP_MS, but only while it is on screen and the tab is open.
+  // Before each replay the title is put back exactly as it was before its
+  // first play (saved in el._orig / el._cls).
+  var LOOP_MS = 9000;
+  function reset(el) {
+    el.innerHTML = el._orig;
+    el.className = el._cls;
+    var next = el.nextElementSibling;                       // the route drawing under the Experience name
+    if (next && next.classList.contains('t-route')) next.classList.remove('play');
+    void el.offsetWidth;                                    // lets the browser restart the animation
+  }
+  function start(el, play) {
+    el._orig = el.innerHTML; el._cls = el.className;
+    play(el);
+    setInterval(function () {
+      if (!el._visible || document.hidden) return;
+      reset(el); play(el);
+    }, LOOP_MS);
+  }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
-      if (!en.isIntersecting) return;
-      io.unobserve(en.target);
-      var el = en.target, play = players[el.dataset.anim];
-      if (play) whenReady(el, function () { play(el); });
+      var el = en.target;
+      el._visible = en.isIntersecting;
+      if (!en.isIntersecting || el._started) return;
+      el._started = true;
+      var play = players[el.dataset.anim];
+      if (play) whenReady(el, function () { start(el, play); });
     });
   }, { threshold: 0.5 });
   titles.forEach(function (el) { io.observe(el); });

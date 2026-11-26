@@ -14,13 +14,13 @@
   --accent: #4d8dff;        /* electric blue — main accent (was mint until Nov 2026) */
   --accent-rgb: 77,141,255; /* the same blue as numbers, for see-through glows */
   --accent-2: #ffb340;      /* amber — second accent */
-  --accent-3: #22d3ee;      /* cyan — small touches (no purple: owner, Nov 2026) */
-  --accent-3-rgb: 34,211,238;
-  /* filled buttons and pills: blue to deep cyan, white text */
-  --accent-fill: linear-gradient(135deg, #2563eb, #0e7490);
+  --accent-3: #7fb2ff;      /* light blue — small touches (no purple, no cyan: owner, Nov 2026) */
+  --accent-3-rgb: 127,178,255;
+  /* filled buttons and pills: bright blue to royal blue, white text */
+  --accent-fill: linear-gradient(135deg, #3b7bff, #1d4ed8 60%, #1e3a8a);
   --on-accent: #ffffff;
-  /* the "Fahad." gradient: blue, sky, ice white */
-  --name-grad: linear-gradient(100deg, #4d8dff, #38bdf8 55%, #c7f3ff);
+  /* the "Fahad." gradient: ice blue to bright blue to royal blue */
+  --name-grad: linear-gradient(100deg, #bcd6ff, #6aa4ff 45%, #2f6bff);
   --radius: 20px;
   --font-head: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -37,10 +37,10 @@
   --accent: #2f5fe0;
   --accent-rgb: 47,95,224;
   --accent-2: #d98200;
-  --accent-3: #0891b2;
-  --accent-3-rgb: 8,145,178;
-  --accent-fill: linear-gradient(135deg, #1d4ed8, #0e7490);
-  --name-grad: linear-gradient(100deg, #1d4ed8, #0284c7 55%, #0e7490);
+  --accent-3: #1e40af;
+  --accent-3-rgb: 30,64,175;
+  --accent-fill: linear-gradient(135deg, #2f6bff, #1d4ed8 60%, #1e3a8a);
+  --name-grad: linear-gradient(100deg, #1e3a8a, #1d4ed8 50%, #3b7bff);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,7 +75,7 @@ body::after  { width: 480px; height: 480px; background: var(--accent-3); bottom:
       doesn't scroll). Works even without JavaScript.
    2) js/main.js (part 15) adds a .spotlight layer and moves --mouse-x /
       --mouse-y with the mouse: the grid lines under the cursor glow mint,
-      with a soft blue-to-cyan light. It fades out when the mouse leaves
+      with a soft blue light. It fades out when the mouse leaves
       the window. It never catches clicks (pointer-events: none).
    ===================================================== */
 :root {
@@ -282,7 +282,7 @@ section { padding: 110px 0; position: relative; }
 .tool-mark {
   display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px;
   font-family: var(--font-head); font-size: .78rem; font-weight: 800; color: #fff;
-  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+  background: linear-gradient(135deg, #1d4ed8, #3b7bff);
 }
 /* with "reduce motion" on: no sliding, the tools just wrap onto lines */
 @media (prefers-reduced-motion: reduce) {
@@ -375,13 +375,13 @@ section { padding: 110px 0; position: relative; }
 .c-mint   { --hc: #4d8dff; --hc-rgb: 77,141,255; }   /* blue now (name kept) */
 .c-amber  { --hc: #ffb340; --hc-rgb: 255,179,64; }
 .c-violet { --hc: #94a3b8; --hc-rgb: 148,163,184; }   /* slate now (name kept) */
-.c-sky    { --hc: #4cc3ff; --hc-rgb: 76,195,255; }
+.c-sky    { --hc: #8ab8ff; --hc-rgb: 138,184,255; }   /* light blue (no cyan) */
 .c-pink   { --hc: #dbe7f5; --hc-rgb: 219,231,245; }   /* ice white now (name kept) */
 .c-coral  { --hc: #ff8a65; --hc-rgb: 255,138,101; }
 [data-theme="light"] .c-mint   { --hc: #2f5fe0; --hc-rgb: 47,95,224; }
 [data-theme="light"] .c-amber  { --hc: #c77600; --hc-rgb: 199,118,0; }
 [data-theme="light"] .c-violet { --hc: #475569; --hc-rgb: 71,85,105; }
-[data-theme="light"] .c-sky    { --hc: #0a84c6; --hc-rgb: 10,132,198; }
+[data-theme="light"] .c-sky    { --hc: #1e40af; --hc-rgb: 30,64,175; }
 [data-theme="light"] .c-pink   { --hc: #334155; --hc-rgb: 51,65,85; }
 [data-theme="light"] .c-coral  { --hc: #d4532b; --hc-rgb: 212,83,43; }
 .stack-tag[class*="c-"] {
@@ -507,7 +507,7 @@ section { padding: 110px 0; position: relative; }
 /* =====================================================
    GLOWING LIGHT-BEAM BORDERS (top and bottom of the Core stack band on Home)
    Each is a faint 1px line across the full page width. A light beam in the
-   site's colours (cyan tail into blue) with a small glowing circle at its
+   site's colours (light-blue tail into blue) with a small glowing circle at its
    head travels left to right in about 4 seconds, rests for about 3, then
    goes again. --beam-delay staggers the two lines.
    With "reduce motion" on, only the faint line shows.
@@ -522,7 +522,7 @@ section { padding: 110px 0; position: relative; }
   background:
     /* the small circle at the head: light centre, mint ring */
     radial-gradient(circle at calc(100% - 4.5px) 50%, #eafff8 0 2px, var(--accent) 2.5px 4px, transparent 4.5px),
-    /* the tail: fades in from cyan to blue */
+    /* the tail: fades in from light blue to blue */
     linear-gradient(90deg, transparent, var(--accent-3) 45%, var(--accent)) center / 100% 2px no-repeat;
   filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent));
   animation: beam-run 7s cubic-bezier(.4, 0, .2, 1) infinite;
@@ -736,7 +736,7 @@ section { padding: 110px 0; position: relative; }
 .post-frame::before, .post-frame::after {
   content: ""; position: absolute; left: 28px; right: 28px; height: 2px; border-radius: 2px;
   pointer-events: none; z-index: 1;
-  background: linear-gradient(90deg, #2563eb, #4d8dff, #22d3ee, #e0f2fe, #22d3ee, #4d8dff, #2563eb);
+  background: linear-gradient(90deg, #1d4ed8, #4d8dff, #9cc3ff, #eaf2ff, #9cc3ff, #4d8dff, #1d4ed8);
   background-size: 600px 100%;
   filter: drop-shadow(0 0 6px rgba(255,255,255,.35));
   animation: rgb-right 4s linear infinite;          /* top: left to right */
@@ -816,7 +816,7 @@ section { padding: 110px 0; position: relative; }
 .post.tone-2 { background: linear-gradient(160deg, #4a3210, #1a1208); }  /* amber */
 .post.tone-3 { background: linear-gradient(160deg, #1c3566, #0b1226); }  /* navy */
 .post.tone-4 { background: linear-gradient(160deg, #263445, #0d131b); }  /* slate */
-.post.tone-5 { background: linear-gradient(160deg, #0f3a4d, #08171e); }  /* teal */
+.post.tone-5 { background: linear-gradient(160deg, #1a2f5a, #0a1222); }  /* deep blue */
 .post.tone-6 { background: linear-gradient(160deg, #4d2a1c, #1b0e09); }  /* rust */
 
 /* =====================================================
@@ -1145,16 +1145,16 @@ textarea { min-height: 130px; resize: vertical; }
 .imp-map svg { display: block; width: 100%; height: auto; border-radius: 14px; }
 .imp-dotfill { fill: var(--muted); opacity: .35; }
 .imp-land { fill: url(#imp-dots); }
-.imp-sea { fill: rgba(76,195,255,.09); }
-.imp-coast { fill: none; stroke: rgba(76,195,255,.5); stroke-width: 1.6; }
-.imp-river { fill: none; stroke: rgba(76,195,255,.28); stroke-width: 1.6; stroke-linecap: round; }
+.imp-sea { fill: rgba(127,178,255,.09); }
+.imp-coast { fill: none; stroke: rgba(127,178,255,.5); stroke-width: 1.6; }
+.imp-river { fill: none; stroke: rgba(127,178,255,.28); stroke-width: 1.6; stroke-linecap: round; }
 .imp-region {
   fill: var(--muted); font-family: var(--font-head); font-size: 13px; font-weight: 600;
   letter-spacing: .22em; text-transform: uppercase; opacity: .75;
 }
 .imp-route { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 4 7; opacity: .55; }
 .imp-done { fill: none; stroke-width: 3.5; stroke-linecap: round; }
-.imp-done.sea  { stroke: #4cc3ff; filter: drop-shadow(0 0 5px rgba(76,195,255,.8)); }
+.imp-done.sea  { stroke: #7fb2ff; filter: drop-shadow(0 0 5px rgba(127,178,255,.8)); }
 .imp-done.road { stroke: var(--accent); filter: drop-shadow(0 0 5px var(--accent)); }
 .imp-pin circle { fill: var(--bg-2); stroke: var(--muted); stroke-width: 2; transition: fill .3s, stroke .3s; }
 .imp-pin text { fill: var(--text); font-family: var(--font-head); font-size: 14px; font-weight: 600; }
@@ -1270,7 +1270,7 @@ textarea { min-height: 130px; resize: vertical; }
 
 /* =====================================================
    LOADING SCREEN (every page, js/main.js part 25)
-   - a soft blue/cyan glow breathes behind everything (.loader::before)
+   - a soft blue glow breathes behind everything (.loader::before)
    - a glowing "comet" ring spins around your icon (.ld-ring)
    - a thin dotted outer ring turns slowly the other way (.loader::after)
    - your icon blinks gently and glows
