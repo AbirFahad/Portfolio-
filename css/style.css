@@ -14,12 +14,13 @@
   --accent: #4d8dff;        /* electric blue — main accent (was mint until Nov 2026) */
   --accent-rgb: 77,141,255; /* the same blue as numbers, for see-through glows */
   --accent-2: #ffb340;      /* amber — second accent */
-  --accent-3: #8b6cff;      /* violet — small touches */
-  /* filled buttons and pills: blue to violet, white text */
-  --accent-fill: linear-gradient(135deg, #3366f0, #7444f5);
+  --accent-3: #22d3ee;      /* cyan — small touches (no purple: owner, Nov 2026) */
+  --accent-3-rgb: 34,211,238;
+  /* filled buttons and pills: blue to deep cyan, white text */
+  --accent-fill: linear-gradient(135deg, #2563eb, #0e7490);
   --on-accent: #ffffff;
-  /* the "Fahad." gradient: blue, violet, pink */
-  --name-grad: linear-gradient(100deg, #4d8dff, #8b6cff 55%, #d16bff);
+  /* the "Fahad." gradient: blue, sky, ice white */
+  --name-grad: linear-gradient(100deg, #4d8dff, #38bdf8 55%, #c7f3ff);
   --radius: 20px;
   --font-head: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -36,9 +37,10 @@
   --accent: #2f5fe0;
   --accent-rgb: 47,95,224;
   --accent-2: #d98200;
-  --accent-3: #6b46d9;
-  --accent-fill: linear-gradient(135deg, #2f5fe0, #6b46d9);
-  --name-grad: linear-gradient(100deg, #2f5fe0, #6b46d9 55%, #a63ad1);
+  --accent-3: #0891b2;
+  --accent-3-rgb: 8,145,178;
+  --accent-fill: linear-gradient(135deg, #1d4ed8, #0e7490);
+  --name-grad: linear-gradient(100deg, #1d4ed8, #0284c7 55%, #0e7490);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -73,7 +75,7 @@ body::after  { width: 480px; height: 480px; background: var(--accent-3); bottom:
       doesn't scroll). Works even without JavaScript.
    2) js/main.js (part 15) adds a .spotlight layer and moves --mouse-x /
       --mouse-y with the mouse: the grid lines under the cursor glow mint,
-      with a soft mint-to-violet light. It fades out when the mouse leaves
+      with a soft blue-to-cyan light. It fades out when the mouse leaves
       the window. It never catches clicks (pointer-events: none).
    ===================================================== */
 :root {
@@ -81,13 +83,13 @@ body::after  { width: 480px; height: 480px; background: var(--accent-3); bottom:
   --grid-line: rgba(255,255,255,.035);        /* faint grid, dark mode */
   --spot-line: rgba(var(--accent-rgb),.30);          /* glowing grid under the mouse */
   --spot-glow-1: rgba(var(--accent-rgb),.13);
-  --spot-glow-2: rgba(124,140,255,.08);
+  --spot-glow-2: rgba(var(--accent-3-rgb),.08);
 }
 [data-theme="light"] {
   --grid-line: rgba(12,26,36,.032);
   --spot-line: rgba(var(--accent-rgb),.35);
   --spot-glow-1: rgba(var(--accent-rgb),.10);
-  --spot-glow-2: rgba(74,91,224,.06);
+  --spot-glow-2: rgba(var(--accent-3-rgb),.06);
 }
 html::before {
   content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
@@ -280,7 +282,7 @@ section { padding: 110px 0; position: relative; }
 .tool-mark {
   display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px;
   font-family: var(--font-head); font-size: .78rem; font-weight: 800; color: #fff;
-  background: linear-gradient(135deg, #3b6fd8, #7c8cff);
+  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
 }
 /* with "reduce motion" on: no sliding, the tools just wrap onto lines */
 @media (prefers-reduced-motion: reduce) {
@@ -294,7 +296,7 @@ section { padding: 110px 0; position: relative; }
 .avatar-stage { position: relative; height: 440px; }
 .avatar {
   position: absolute; inset: 30px 40px; border-radius: 36px;
-  background: linear-gradient(145deg, rgba(var(--accent-rgb),.25), rgba(124,140,255,.2));
+  background: linear-gradient(145deg, rgba(var(--accent-rgb),.25), rgba(var(--accent-3-rgb),.2));
   border: 1px solid var(--line);
   display: grid; place-items: center; overflow: hidden;
 }
@@ -372,15 +374,15 @@ section { padding: 110px 0; position: relative; }
    --hc-rgb = the same colour as numbers for the soft tints */
 .c-mint   { --hc: #4d8dff; --hc-rgb: 77,141,255; }   /* blue now (name kept) */
 .c-amber  { --hc: #ffb340; --hc-rgb: 255,179,64; }
-.c-violet { --hc: #8b98ff; --hc-rgb: 139,152,255; }
+.c-violet { --hc: #94a3b8; --hc-rgb: 148,163,184; }   /* slate now (name kept) */
 .c-sky    { --hc: #4cc3ff; --hc-rgb: 76,195,255; }
-.c-pink   { --hc: #ff6fc8; --hc-rgb: 255,111,200; }
+.c-pink   { --hc: #dbe7f5; --hc-rgb: 219,231,245; }   /* ice white now (name kept) */
 .c-coral  { --hc: #ff8a65; --hc-rgb: 255,138,101; }
 [data-theme="light"] .c-mint   { --hc: #2f5fe0; --hc-rgb: 47,95,224; }
 [data-theme="light"] .c-amber  { --hc: #c77600; --hc-rgb: 199,118,0; }
-[data-theme="light"] .c-violet { --hc: #4a5be0; --hc-rgb: 74,91,224; }
+[data-theme="light"] .c-violet { --hc: #475569; --hc-rgb: 71,85,105; }
 [data-theme="light"] .c-sky    { --hc: #0a84c6; --hc-rgb: 10,132,198; }
-[data-theme="light"] .c-pink   { --hc: #c8318f; --hc-rgb: 200,49,143; }
+[data-theme="light"] .c-pink   { --hc: #334155; --hc-rgb: 51,65,85; }
 [data-theme="light"] .c-coral  { --hc: #d4532b; --hc-rgb: 212,83,43; }
 .stack-tag[class*="c-"] {
   color: var(--hc);
@@ -505,7 +507,7 @@ section { padding: 110px 0; position: relative; }
 /* =====================================================
    GLOWING LIGHT-BEAM BORDERS (top and bottom of the Core stack band on Home)
    Each is a faint 1px line across the full page width. A light beam in the
-   site's colours (violet tail into mint) with a small glowing circle at its
+   site's colours (cyan tail into blue) with a small glowing circle at its
    head travels left to right in about 4 seconds, rests for about 3, then
    goes again. --beam-delay staggers the two lines.
    With "reduce motion" on, only the faint line shows.
@@ -520,7 +522,7 @@ section { padding: 110px 0; position: relative; }
   background:
     /* the small circle at the head: light centre, mint ring */
     radial-gradient(circle at calc(100% - 4.5px) 50%, #eafff8 0 2px, var(--accent) 2.5px 4px, transparent 4.5px),
-    /* the tail: fades in from violet to mint */
+    /* the tail: fades in from cyan to blue */
     linear-gradient(90deg, transparent, var(--accent-3) 45%, var(--accent)) center / 100% 2px no-repeat;
   filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent));
   animation: beam-run 7s cubic-bezier(.4, 0, .2, 1) infinite;
@@ -677,7 +679,7 @@ section { padding: 110px 0; position: relative; }
 .b-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* placeholder tiles: each gets its own soft colour mix */
 .b-tile.ph-missing:nth-child(3n+2) { background: linear-gradient(135deg, rgba(255,179,64,.24), rgba(var(--accent-rgb),.16)); }
-.b-tile.ph-missing:nth-child(3n)   { background: linear-gradient(135deg, rgba(124,140,255,.26), rgba(255,179,64,.14)); }
+.b-tile.ph-missing:nth-child(3n)   { background: linear-gradient(135deg, rgba(var(--accent-3-rgb),.26), rgba(255,179,64,.14)); }
 /* touch screens have no hover: always show the caption */
 @media (hover: none) {
   .b-tile::before { opacity: 1; }
@@ -734,7 +736,7 @@ section { padding: 110px 0; position: relative; }
 .post-frame::before, .post-frame::after {
   content: ""; position: absolute; left: 28px; right: 28px; height: 2px; border-radius: 2px;
   pointer-events: none; z-index: 1;
-  background: linear-gradient(90deg, #ff4d4d, #ffb340, #ffe14d, #3ef0c0, #3bb4ff, #7c8cff, #ff5fd2, #ff4d4d);
+  background: linear-gradient(90deg, #2563eb, #4d8dff, #22d3ee, #e0f2fe, #22d3ee, #4d8dff, #2563eb);
   background-size: 600px 100%;
   filter: drop-shadow(0 0 6px rgba(255,255,255,.35));
   animation: rgb-right 4s linear infinite;          /* top: left to right */
@@ -810,10 +812,10 @@ section { padding: 110px 0; position: relative; }
 .post .go { font-size: .8rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 /* 6 card colours. Each card picks one with class="post tone-N", so a card
    and its copy always match and the loop never changes colour mid-way. */
-.post.tone-1 { background: linear-gradient(160deg, #0f3d34, #0a1a1f); }  /* green */
+.post.tone-1 { background: linear-gradient(160deg, #133a5e, #0a1520); }  /* ocean blue */
 .post.tone-2 { background: linear-gradient(160deg, #4a3210, #1a1208); }  /* amber */
-.post.tone-3 { background: linear-gradient(160deg, #262e6b, #0e1128); }  /* indigo */
-.post.tone-4 { background: linear-gradient(160deg, #3d1f4d, #150c1c); }  /* plum */
+.post.tone-3 { background: linear-gradient(160deg, #1c3566, #0b1226); }  /* navy */
+.post.tone-4 { background: linear-gradient(160deg, #263445, #0d131b); }  /* slate */
 .post.tone-5 { background: linear-gradient(160deg, #0f3a4d, #08171e); }  /* teal */
 .post.tone-6 { background: linear-gradient(160deg, #4d2a1c, #1b0e09); }  /* rust */
 
@@ -826,7 +828,7 @@ section { padding: 110px 0; position: relative; }
 .ph { position: relative; overflow: hidden; background: var(--bg-2); }
 .ph.ph-missing {
   display: grid; place-items: center;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb),.22), rgba(124,140,255,.22) 55%, rgba(255,179,64,.18));
+  background: linear-gradient(135deg, rgba(var(--accent-rgb),.22), rgba(var(--accent-3-rgb),.22) 55%, rgba(255,179,64,.18));
 }
 .ph.ph-missing::after { content: "📷"; font-size: 2rem; opacity: .85; }
 
@@ -1268,7 +1270,7 @@ textarea { min-height: 130px; resize: vertical; }
 
 /* =====================================================
    LOADING SCREEN (every page, js/main.js part 25)
-   - a soft mint/violet glow breathes behind everything (.loader::before)
+   - a soft blue/cyan glow breathes behind everything (.loader::before)
    - a glowing "comet" ring spins around your icon (.ld-ring)
    - a thin dotted outer ring turns slowly the other way (.loader::after)
    - your icon blinks gently and glows
@@ -1289,18 +1291,18 @@ textarea { min-height: 130px; resize: vertical; }
 .loader.done .ld-ring, .loader.done .ld-icon { scale: 1.25; transition: scale .5s ease; }
 .loader::before {           /* breathing glow */
   content: ""; width: 220px; height: 220px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--accent-rgb),.22), rgba(124,140,255,.12) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--accent-rgb),.22), rgba(var(--accent-3-rgb),.12) 45%, transparent 70%);
   animation: ld-breathe 2.6s ease-in-out infinite;
 }
 .loader::after {            /* thin dotted outer ring, turning the other way */
   content: ""; width: 150px; height: 150px; border-radius: 50%;
-  border: 1.5px dashed rgba(124,140,255,.45);
+  border: 1.5px dashed rgba(var(--accent-3-rgb),.45);
   animation: ld-spin 9s linear infinite reverse;
 }
 .ld-ring {                  /* comet ring: faint track + bright gradient tail */
   width: 112px; height: 112px; border-radius: 50%;
   background:
-    conic-gradient(from 0deg, transparent 0 25%, rgba(124,140,255,.9) 60%, var(--accent) 100%),
+    conic-gradient(from 0deg, transparent 0 25%, rgba(var(--accent-3-rgb),.9) 60%, var(--accent) 100%),
     rgba(var(--accent-rgb),.10);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
           mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
@@ -1310,8 +1312,8 @@ textarea { min-height: 130px; resize: vertical; }
   width: 48px; height: 48px; border-radius: 12px;   /* 48px = sharpest size for the icon file */
   animation: ld-blink 1.4s ease-in-out infinite;
 }
-[data-theme="light"] .loader::before { background: radial-gradient(circle, rgba(var(--accent-rgb),.18), rgba(74,91,224,.10) 45%, transparent 70%); }
-[data-theme="light"] .loader::after { border-color: rgba(74,91,224,.4); }
+[data-theme="light"] .loader::before { background: radial-gradient(circle, rgba(var(--accent-rgb),.18), rgba(var(--accent-3-rgb),.10) 45%, transparent 70%); }
+[data-theme="light"] .loader::after { border-color: rgba(var(--accent-3-rgb),.4); }
 @keyframes ld-spin { to { transform: rotate(360deg); } }
 @keyframes ld-blink {
   0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 10px rgba(var(--accent-rgb),.55)); }
@@ -1791,7 +1793,7 @@ textarea { min-height: 130px; resize: vertical; }
   background: linear-gradient(180deg, #2e8ff0, #8fd0ff);
   transition: background 1s;
 }
-.ct-sky[data-phase="evening"] .sky-scene { background: linear-gradient(180deg, #3b3a8c, #f08a5d 85%); }
+.ct-sky[data-phase="evening"] .sky-scene { background: linear-gradient(180deg, #1e3a6e, #f08a5d 85%); }
 .ct-sky[data-phase="night"] .sky-scene { background: linear-gradient(180deg, #050a1f, #142a5c); }
 .sky-sun { position: absolute; width: 46px; height: 46px; border-radius: 50%; right: 22%; top: 22px; background: radial-gradient(circle, #fff3b0, #ffc43d 60%); box-shadow: 0 0 40px 10px rgba(255, 200, 60, .55); animation: sky-bob 6s ease-in-out infinite; }
 .ct-sky[data-phase="evening"] .sky-sun { top: 70px; background: radial-gradient(circle, #ffe0a0, #ff7a3d 65%); box-shadow: 0 0 40px 12px rgba(255, 120, 60, .5); }
@@ -1883,7 +1885,7 @@ textarea { min-height: 130px; resize: vertical; }
    EXPERIENCE PAGE: RÉSUMÉ LAYOUT (November 2026)
    Computers: a side menu that stays on screen (left) + the main column.
    Below 960px the side menu becomes a sideways row of pills at the top.
-   The name is a big blue-violet-pink gradient. Work entries are blue,
+   The name is a big blue-sky-ice gradient. Work entries are blue,
    education entries amber (class is-edu on the list). Each entry: date
    column on the left, glass card on the right, joined by a line.
    ===================================================== */
