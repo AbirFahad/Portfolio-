@@ -44,30 +44,127 @@
 </nav>
 
 
-<header class="page-head">
-  <div class="wrap">
-    <span class="tag reveal">Contact</span>
-    <h1 class="title reveal d1" data-anim="board">Let's talk.</h1>
-    <p class="sub reveal d2">Supply chain, planning, LinkedIn content, or just hi.</p>
-  </div>
-</header>
-<section style="padding-top:0">
-  <div class="wrap contact-grid">
-    <div>
-      <!-- Your email and LinkedIn (from content.md) -->
-      <a class="c-card glass reveal" href="mailto:abirfahad2003@gmail.com"><div class="ci">✉️</div><div><small>Email</small>abirfahad2003@gmail.com</div></a>
-      <a class="c-card glass reveal d1" href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener"><div class="ci">💼</div><div><small>LinkedIn</small>/in/abdullah-al-fahad1</div></a>
-      <div class="c-card glass reveal d2"><div class="ci">📍</div><div><small>Based in</small>Dhaka, Bangladesh</div></div>
-      <div class="clock glass reveal d3"><small>Local time in Dhaka</small><div class="time" id="dhakaTime">--:--</div></div>
+<!-- ===== CONTACT PAGE (redesigned Nov 2026) =====
+     Left: title, quick facts, status, email/LinkedIn/CV cards, questions,
+     and a live Dhaka sky. Right: the message form and "What happens next".
+     Words are in content.md. -->
+<section class="ct-page">
+  <div class="wrap ct-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="ct-left">
+      <span class="tag reveal">Contact</span>
+      <h1 class="title reveal d1" data-anim="board">Let's talk.</h1>
+      <p class="sub reveal d2">Supply chain, planning, LinkedIn content, or just hi.</p>
+
+      <!-- quick facts -->
+      <ul class="ct-chips reveal d2">
+        <li>📍 Dhaka · GMT+6</li>
+        <li>📦 Supply chain &amp; S&amp;OP</li>
+        <li>✍️ Writes on LinkedIn</li>
+      </ul>
+
+      <!-- status -->
+      <p class="ct-status glass reveal d3"><span class="dot"></span><span><b>Open to ideas &amp; collabs</b><small>Happy to talk S&amp;OP and planning</small></span></p>
+
+      <!-- ways to reach me -->
+      <div class="ct-cards">
+        <div class="ct-card glass reveal">
+          <span class="ct-ic" aria-hidden="true">✉️</span>
+          <a class="ct-main" href="mailto:abirfahad2003@gmail.com"><small>Email</small><span>abirfahad2003@gmail.com</span></a>
+          <button class="ct-copy" type="button" data-copy="abirfahad2003@gmail.com" aria-label="Copy email address">Copy</button>
+        </div>
+        <div class="ct-card glass reveal d1">
+          <span class="ct-ic" aria-hidden="true">💼</span>
+          <a class="ct-main" href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener"><small>LinkedIn</small><span>/in/abdullah-al-fahad1</span><em>Where I post for students &amp; young professionals</em></a>
+          <span class="ct-go" aria-hidden="true">↗</span>
+        </div>
+        <div class="ct-card glass reveal d2">
+          <span class="ct-ic" aria-hidden="true">📄</span>
+          <!-- Download CV: put your CV in the site folder named cv.pdf -->
+          <a class="ct-main" href="cv.pdf" download><small>CV</small><span>Download my CV</span></a>
+          <span class="ct-go" aria-hidden="true">↓</span>
+        </div>
+      </div>
+
+      <!-- questions (open/close; answers only use facts from content.md) -->
+      <h2 class="ct-h reveal">Quick questions</h2>
+      <div class="ct-faq reveal d1">
+        <details>
+          <summary>What do you work on?</summary>
+          <p>Raw material and packaging planning, and S&amp;OP across 140+ SKUs at Rani Food Industries Ltd. in Dhaka.</p>
+        </details>
+        <details>
+          <summary>What can we talk about?</summary>
+          <p>S&amp;OP and planning, imports and LCs, Excel, or starting out in supply chain. I also write LinkedIn posts for students and young professionals.</p>
+        </details>
+        <details>
+          <summary>Where are you based?</summary>
+          <p>Dhaka, Bangladesh (GMT+6). The sky below shows whether it's day or night here right now.</p>
+        </details>
+      </div>
+
+      <!-- live Dhaka sky: changes with the time in Dhaka (js part 11) -->
+      <div class="ct-sky glass reveal" id="dhakaSky" data-phase="day">
+        <div class="sky-scene" aria-hidden="true">
+          <span class="sky-sun"></span><span class="sky-moon"></span>
+          <span class="sky-stars"></span>
+          <span class="sky-cloud c1"></span><span class="sky-cloud c2"></span>
+          <svg class="sky-city" viewBox="0 0 400 60" preserveAspectRatio="none"><path d="M0 60V38h18V26h14v12h10V18h20v20h8V30h16v-8h12v38h6V14h22v46h8V34h14V22h10v-8h12v46h10V28h18v32h6V20h16v40h10V32h12V12h18v48h8V36h16V24h14v36h12V30h20v30h14V40h22v20Z"/></svg>
+          <span class="sky-badge" id="skyBadge">Daytime in Dhaka</span>
+        </div>
+        <div class="sky-info">
+          <div class="time" id="dhakaTime">--:--</div>
+          <p id="skyLine">Local time in Dhaka</p>
+          <small id="skyDate">Dhaka, Bangladesh · GMT+6</small>
+        </div>
+      </div>
     </div>
-    <form id="contactForm" class="glass reveal d2">
-      <h3 style="font-size:1.5rem">Send a message</h3>
-      <input name="name" placeholder="Your name" required>
-      <input name="email" type="email" placeholder="Your email" required>
-      <input name="subject" placeholder="Subject">
-      <textarea name="message" placeholder="Say something..." required></textarea>
-      <button class="btn primary" type="submit">Send →</button>
-    </form>
+
+    <!-- RIGHT COLUMN -->
+    <div class="ct-right">
+      <form id="contactForm" class="ct-form glass reveal d2" novalidate>
+        <h2>Send me a message</h2>
+        <p class="ct-note">Fill it in and your email app opens with the message ready to send.</p>
+        <div class="ct-meter" aria-hidden="true"><i id="ctBar"></i><span id="ctPct">0% ready</span></div>
+
+        <fieldset class="ct-topics">
+          <legend>What's this about?</legend>
+          <label><input type="radio" name="topic" value="Job or role"><span>💼 Job or role</span></label>
+          <label><input type="radio" name="topic" value="Supply chain talk"><span>📦 Supply chain talk</span></label>
+          <label><input type="radio" name="topic" value="Collab"><span>🤝 Collab</span></label>
+          <label><input type="radio" name="topic" value="Just saying hi"><span>👋 Just saying hi</span></label>
+        </fieldset>
+
+        <div class="ct-row">
+          <label class="ct-field"><span>Your name</span><input name="name" autocomplete="name" required></label>
+          <label class="ct-field"><span>Your email</span><input name="email" type="email" autocomplete="email" required></label>
+        </div>
+        <label class="ct-field"><span>Subject</span><input name="subject"></label>
+        <label class="ct-field"><span>Message</span><textarea name="message" maxlength="1500" required></textarea><small class="ct-count" id="ctCount">0 / 1500</small></label>
+        <p class="ct-error" id="ctError" role="alert"></p>
+
+        <button class="btn primary ct-send" type="submit">Open in my email app ✈</button>
+        <p class="ct-small">Nothing is stored on this site.</p>
+
+        <div class="ct-or"><span>or skip the form</span></div>
+        <div class="ct-alt">
+          <a class="btn" href="mailto:abirfahad2003@gmail.com">✉️ Email directly</a>
+          <a class="btn" href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener">💼 Message on LinkedIn</a>
+        </div>
+      </form>
+
+      <!-- what happens next -->
+      <div class="ct-next glass reveal d3">
+        <h3>What happens next</h3>
+        <ol>
+          <li><b>You send a message</b><span>Pick a topic so I know the context.</span></li>
+          <li><b>I read it and reply</b><span>By email, or on LinkedIn if that's where you wrote.</span></li>
+          <li><b>We talk</b><span>If it fits, we plan the next step together.</span></li>
+        </ol>
+      </div>
+    </div>
+
   </div>
 </section>
 

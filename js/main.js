@@ -241,26 +241,75 @@
   strip.addEventListener('focusout', function () { paused = false; });
 })();
 
-/* 11) LIVE DHAKA CLOCK (contact page) */
+/* 11) LIVE DHAKA CLOCK + SKY (contact page): the big time, a line about the
+   time of day, the date, and the little sky scene (day / evening / night)
+   all follow the time in Dhaka. */
 (function () {
   var el = document.getElementById('dhakaTime');
   if (!el) return;
+  var sky = document.getElementById('dhakaSky');
+  var badge = document.getElementById('skyBadge'), line = document.getElementById('skyLine'), date = document.getElementById('skyDate');
   function tick() {
-    el.textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: '2-digit' });
+    var now = new Date();
+    var time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: '2-digit' });
+    el.textContent = time;
+    if (!sky) return;
+    var h = +now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', hour12: false }) % 24;
+    var phase = (h >= 6 && h < 17) ? 'day' : (h >= 17 && h < 19) ? 'evening' : 'night';
+    sky.dataset.phase = phase;
+    var names = { day: 'Daytime in Dhaka', evening: 'Evening in Dhaka', night: 'Night in Dhaka' };
+    var lines = { day: "It's " + time + " here. Daytime in Dhaka.", evening: "It's " + time + " here. The sun is setting.", night: "It's " + time + " here. Night time in Dhaka." };
+    badge.textContent = (phase === 'night' ? '🌙 ' : '☀️ ') + names[phase];
+    line.textContent = lines[phase];
+    date.textContent = 'Dhaka, Bangladesh · GMT+6 · ' + now.toLocaleDateString('en-GB', { timeZone: 'Asia/Dhaka', weekday: 'long', day: 'numeric', month: 'short' });
   }
   tick(); setInterval(tick, 10000);
 })();
 
-/* 12) CONTACT FORM — opens the visitor's email app (no server needed) */
+/* 12) CONTACT FORM: opens the visitor's email app (no server needed).
+   Also: the Copy button, the topic chips, the "ready" meter and the
+   character count. */
 (function () {
+  // Copy buttons (email card)
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.dataset.copy;
+      function done() { b.textContent = 'Copied ✓'; b.classList.add('done'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 1800); }
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
+    });
+  });
+
   var f = document.getElementById('contactForm');
   if (!f) return;
+  var bar = document.getElementById('ctBar'), pct = document.getElementById('ctPct');
+  var count = document.getElementById('ctCount'), err = document.getElementById('ctError');
+  function update() {
+    var d = new FormData(f), parts = [d.get('topic'), d.get('name'), d.get('email'), d.get('message')];
+    var filled = parts.filter(function (v) { return v && String(v).trim(); }).length;
+    var p = Math.round(filled / parts.length * 100);
+    if (bar) bar.style.width = p + '%';
+    if (pct) pct.textContent = p + '% ready';
+    if (count) count.textContent = (d.get('message') || '').length + ' / 1500';
+  }
+  f.addEventListener('input', update);
+  f.addEventListener('change', update);
+  update();
+
   f.addEventListener('submit', function (e) {
     e.preventDefault();
     var d = new FormData(f);
+    if (!String(d.get('name') || '').trim() || !String(d.get('email') || '').trim() || !String(d.get('message') || '').trim()) {
+      if (err) err.textContent = 'Add your name, email and a message, then try again.';
+      return;
+    }
+    if (f.email && !f.email.checkValidity()) { if (err) err.textContent = 'That email address looks incomplete. Check it and try again.'; return; }
+    if (err) err.textContent = '';
+    var topic = d.get('topic');
+    var subject = d.get('subject') || (topic ? topic : 'Hello from your portfolio');
+    if (topic && d.get('subject')) subject = '[' + topic + '] ' + subject;
     var body = encodeURIComponent(d.get('message') + '\n\n— ' + d.get('name') + ' (' + d.get('email') + ')');
     // Your email (from content.md)
-    location.href = 'mailto:abirfahad2003@gmail.com?subject=' + encodeURIComponent(d.get('subject') || 'Hello from your portfolio') + '&body=' + body;
+    location.href = 'mailto:abirfahad2003@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + body;
   });
 })();
 
@@ -374,58 +423,33 @@
   });
 })();
 
-/* 14) EXPERIENCE FILTER (All / Work / Education)
-   Fades the hidden cards out, then re-alternates the remaining cards
-   left/right so the timeline stays balanced. The glowing line updates too. */
+/* 14) EXPERIENCE PAGE SIDE MENU: lights up the part of the page you're
+   reading (Summary / Work / Education / Key highlights) and slides it into
+   view on phones. The Print button prints the page as a clean résumé
+   (print look at the end of css/style.css). */
 (function () {
-  var btns = document.querySelectorAll('.filters button[data-show]');
-  var items = Array.prototype.slice.call(document.querySelectorAll('.timeline .t-item'));
-  if (!btns.length || !items.length) return;
-
-  function sides() {
-    var n = 0;
-    items.forEach(function (it) {
-      if (it.classList.contains('is-hidden')) return;
-      it.classList.toggle('t-left', n % 2 === 0);
-      it.classList.toggle('t-right', n % 2 === 1);
-      n++;
+  var nav = document.querySelector('.cv-nav');
+  var pr = document.getElementById('cvPrint');
+  if (pr) pr.addEventListener('click', function () { window.print(); });
+  if (!nav) return;
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+  var parts = links.map(function (l) { return document.querySelector(l.getAttribute('href')); });
+  var current = null;
+  function onScroll() {
+    var line = innerHeight * 0.35, pick = 0;
+    parts.forEach(function (p, i) { if (p && p.getBoundingClientRect().top <= line) pick = i; });
+    if ((innerHeight + scrollY) >= document.documentElement.scrollHeight - 4) pick = parts.length - 1;   // bottom of the page
+    if (pick === current) return;
+    current = pick;
+    links.forEach(function (l, i) {
+      l.classList.toggle('on', i === pick);
+      if (i === pick) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current');
     });
-    window.dispatchEvent(new Event('scroll'));   // redraw the glowing line (part 3)
+    // phones: the menu is a sideways row, keep the lit link in view
+    var a = links[pick];
+    if (nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: 'smooth' });
   }
-
-  btns.forEach(function (b) {
-    b.addEventListener('click', function () {
-      var show = b.getAttribute('data-show');
-      btns.forEach(function (x) {
-        x.classList.toggle('on', x === b);
-        x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
-      });
-      // 1) fade out the cards that should go
-      items.forEach(function (it) {
-        var keep = show === 'all' || it.getAttribute('data-kind') === show;
-        if (!keep && !it.classList.contains('is-hidden')) it.classList.add('is-fading');
-      });
-      // 2) after the fade, hide them, bring back the others, and fade those in
-      setTimeout(function () {
-        items.forEach(function (it) {
-          var keep = show === 'all' || it.getAttribute('data-kind') === show;
-          if (keep) {
-            if (it.classList.contains('is-hidden')) {
-              it.classList.remove('is-hidden');
-              it.classList.add('is-fading', 'in');
-              requestAnimationFrame(function () {
-                requestAnimationFrame(function () { it.classList.remove('is-fading'); });
-              });
-            }
-          } else {
-            it.classList.add('is-hidden');
-            it.classList.remove('is-fading');
-          }
-        });
-        sides();
-      }, 300);
-    });
-  });
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 })();
 
 /* 15) GRID SPOTLIGHT that follows the mouse
@@ -940,8 +964,11 @@
       '<circle class="dot" r="4"><animateMotion dur="1.3s" begin="indefinite" fill="freeze" path="M8 28 C 80 4, 140 36, 200 20 S 320 4, 392 22"/></circle>' +
       '</svg>');
     if (a === 'stamp') { wrapWords(el); el.insertAdjacentHTML('beforeend', '<span class="t-stamp" aria-hidden="true">VERIFIED ✓</span>'); }
+    if (a === 'paper') { wrapWords(el); el.insertAdjacentHTML('beforeend', '<span class="t-seal" aria-hidden="true"><i>🎓</i></span>'); }
   });
   if (calm) return;
+  // the paperwork title waits unprinted until its animation starts
+  document.querySelectorAll('[data-anim="paper"]').forEach(function (el) { el.classList.add('t-print-wait'); });
 
   var players = {
     // Home name: outlines fill in as a scanner gate checks each letter
@@ -1003,7 +1030,10 @@
         if (m && m.beginElement) setTimeout(function () { m.beginElement(); }, 300);
       }
     },
-    // Certificates: the VERIFIED stamp thumps down
+    // Certificates "The paperwork.": a printer head prints the words line
+    // by line, then a graduation seal lands beside them (seal stays)
+    paper: function (el) { el.classList.remove('t-print-wait'); void el.offsetWidth; el.classList.add('t-print-play'); },
+    // Experience "Key highlights.": the VERIFIED stamp thumps down
     stamp: function (el) { el.classList.add('t-stamp-play'); },
     // Gallery: shutter blink + flash over the page heading, the title develops
     shutter: function (el) {

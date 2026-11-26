@@ -44,134 +44,197 @@
 </nav>
 
 
-<header class="page-head">
-  <div class="wrap">
-    <span class="tag reveal">Experience</span>
-    <h1 class="title reveal d1" data-anim="route">The journey so far.</h1>
-    <p class="sub reveal d2">Work and education on one line, newest first. Scroll. The line follows you.</p>
-    <!-- FILTER: show everything, only work, or only education (js/main.js part 14) -->
-    <div class="filters reveal d3" role="group" aria-label="Show">
-      <button class="on" data-show="all" aria-pressed="true">All</button>
-      <button data-show="work" aria-pressed="false">Work</button>
-      <button data-show="edu" aria-pressed="false">Education</button>
-    </div>
-  </div>
-</header>
+<!-- ===== EXPERIENCE PAGE (résumé layout, Nov 2026) =====
+     Left: a side menu that follows you down the page (lights up the part
+     you're reading, js part 14) + Download CV and Print buttons.
+     Right: big name, summary, work, education, key highlights.
+     Keep the work and education entries in step with the Home panels.
+     DATES: dashed outline (class="ph-date") = placeholder, none left now. -->
+<section class="cv-page">
+  <div class="wrap cv-layout">
 
-<!-- ===== ONE TIMELINE: work and education, newest first =====
-     Work cards (data-kind="work") are mint with a "Work" tag.
-     Education cards (data-kind="edu", class "is-edu") are amber with an "Education" tag.
-     To add an entry: copy one <div class="t-item ..."> block and put it in date order.
-     The left/right sides are set automatically, so you don't need to fix t-left/t-right.
-     DATES: each card has a 📅 line. Dates with a dashed outline (class="ph-date")
-     are placeholders: type the real date in and remove class="ph-date".
-     Each card has 2-3 bullet points: for work, what you do there; for
-     education, Major/Group and grade (dashed = placeholder to fill in).
-     Grades and years confirmed by the owner (Nov 2026). -->
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="timeline">
-      <div class="fill"></div>
-      <div class="t-item t-left" data-kind="work">
-        <span class="node"></span><span class="big">01</span>
-        <div class="t-card glass">
-          <span class="when">Now</span><span class="kind">Work</span>
-          <h3>Executive, Supply Chain</h3>
-          <div class="where"><img class="co-logo wide" src="img/logos/goldmark.png" alt="" width="64" height="26">Rani Food Industries Ltd.</div>
-          <div class="t-date">📅 October 2026 – Present</div>
-          <ul class="pts">
-            <li>Run S&amp;OP for 140+ SKUs across biscuits, cakes, toast, cookies and culinary.</li>
-            <li>Plan raw material and packaging needs from BOMs, lead times and MOQs.</li>
-            <li>Handle supplier RFQs, PIs, POs and price revisions; check shortage claims with data.</li>
-          </ul>
-          <div class="badges"><span class="badge">S&amp;OP</span><span class="badge">Import planning</span><span class="badge">RM &amp; PM</span><span class="badge">Promoted from MTO</span></div>
+    <!-- SIDE MENU -->
+    <aside class="cv-side">
+      <nav class="cv-nav" aria-label="On this page">
+        <a href="#summary" class="on">Summary</a>
+        <a href="#work">Work experience</a>
+        <a href="#education">Education</a>
+        <a href="#highlights">Key highlights</a>
+      </nav>
+      <div class="cv-actions">
+        <!-- Download CV: put your CV in the site folder named cv.pdf -->
+        <a class="btn primary" href="cv.pdf" download>⬇ Download CV</a>
+        <button class="btn" type="button" id="cvPrint">🖨 Print this page</button>
+      </div>
+    </aside>
+
+    <!-- MAIN COLUMN -->
+    <div class="cv-main">
+      <header class="cv-head" id="summary">
+        <span class="tag reveal">Experience</span>
+        <h1 class="cv-name reveal d1" data-anim="route">Abdullah Al Fahad</h1>
+        <p class="cv-role reveal d2">Executive, Supply Chain <span>·</span> Rani Food Industries Ltd.</p>
+        <ul class="cv-meta reveal d2">
+          <li>📍 Dhaka, Bangladesh</li>
+          <li><a href="mailto:abirfahad2003@gmail.com">✉️ abirfahad2003@gmail.com</a></li>
+          <li><a href="https://www.linkedin.com/in/abdullah-al-fahad1" target="_blank" rel="noopener">🔗 LinkedIn</a></li>
+          <li class="cv-pill">Updated Nov 2026</li>
+        </ul>
+      </header>
+
+      <!-- SUMMARY (facts from content.md only) -->
+      <div class="cv-block">
+        <h2 class="cv-h reveal" data-anim="sheen">Summary</h2>
+        <div class="cv-summary glass reveal d1">
+          <p>Supply chain executive at Rani Food Industries Ltd. in Dhaka, promoted from Management Trainee Officer in October 2026. I plan raw materials and packaging and run S&amp;OP across <b>140+ SKUs</b> in <b>5 categories</b>: biscuits, cakes, toast, cookies and culinary.</p>
+          <p>Before Rani, I led a hub QR scan project at Pathao across 6 hubs that lifted the scan rate from <b>about 15% to 43%</b>. I hold a BBA in Marketing from BUBT and a Post Graduate Diploma in Supply Chain Management from ISCEA, where I won a <b>70% scholarship</b>.</p>
         </div>
       </div>
-      <div class="t-item t-right" data-kind="work">
-        <span class="node"></span><span class="big">02</span>
-        <div class="t-card glass">
-          <span class="when">Apr 2026</span><span class="kind">Work</span>
-          <h3>Management Trainee Officer</h3>
-          <div class="where"><img class="co-logo wide" src="img/logos/goldmark.png" alt="" width="64" height="26">Rani Food Industries Ltd.</div>
-          <div class="t-date">📅 Apr 2026 – Oct 2026</div>
-          <ul class="pts">
-            <li>Built my own S&amp;OP workbook covering 140+ SKUs.</li>
-            <li>Checked forecasts against linear regression and exponential smoothing.</li>
-          </ul>
-          <div class="badges"><span class="badge">Joined Apr 2026</span><span class="badge">140+ SKU workbook</span><span class="badge">Planning</span></div>
-        </div>
+
+      <!-- WORK -->
+      <div class="cv-block" id="work">
+        <h2 class="cv-h reveal" data-anim="sheen">Work experience</h2>
+        <ol class="cv-list">
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span class="cv-now">Now</span><div class="t-date">📅 Oct 2026 – Present</div></div>
+            <div class="cv-card glass">
+              <h3>Executive, Supply Chain</h3>
+              <div class="where"><img class="co-logo wide" src="img/logos/goldmark.png" alt="" width="64" height="26">Rani Food Industries Ltd.</div>
+              <ul class="pts">
+                <li>Run S&amp;OP for 140+ SKUs across biscuits, cakes, toast, cookies and culinary.</li>
+                <li>Plan raw material and packaging needs from BOMs, lead times and MOQs.</li>
+                <li>Handle supplier RFQs, PIs, POs and price revisions; check shortage claims with data.</li>
+              </ul>
+              <div class="badges"><span class="badge">S&amp;OP</span><span class="badge">Import planning</span><span class="badge">RM &amp; PM</span><span class="badge">Promoted from MTO</span></div>
+            </div>
+          </li>
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span>Apr 2026</span><div class="t-date">📅 Apr 2026 – Oct 2026</div></div>
+            <div class="cv-card glass">
+              <h3>Management Trainee Officer</h3>
+              <div class="where"><img class="co-logo wide" src="img/logos/goldmark.png" alt="" width="64" height="26">Rani Food Industries Ltd.</div>
+              <ul class="pts">
+                <li>Built my own S&amp;OP workbook covering 140+ SKUs.</li>
+                <li>Checked forecasts against linear regression and exponential smoothing.</li>
+              </ul>
+              <div class="badges"><span class="badge">Joined Apr 2026</span><span class="badge">140+ SKU workbook</span><span class="badge">Planning</span></div>
+            </div>
+          </li>
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span>Internship</span><div class="t-date">📅 Dec 2025 – April 2026</div></div>
+            <div class="cv-card glass">
+              <h3>ISD Operations Intern</h3>
+              <div class="where"><img class="co-logo" src="https://www.google.com/s2/favicons?domain=pathao.com&amp;sz=128" alt="" width="26" height="26">Pathao Ltd.</div>
+              <ul class="pts">
+                <li>Led a hub QR scan project across 6 hubs: scan rate rose from about 15% to 43%.</li>
+                <li>Made agent retention calls and prepared the Eid-ul-Fitr incentive report.</li>
+              </ul>
+              <div class="badges"><span class="badge">Operations</span><span class="badge">Ride-tech</span></div>
+            </div>
+          </li>
+        </ol>
       </div>
-      <div class="t-item t-left" data-kind="work">
-        <span class="node"></span><span class="big">03</span>
-        <div class="t-card glass">
-          <span class="when">Internship</span><span class="kind">Work</span>
-          <h3>ISD Operations Intern</h3>
-          <div class="where"><img class="co-logo" src="https://www.google.com/s2/favicons?domain=pathao.com&amp;sz=128" alt="" width="26" height="26">Pathao Ltd.</div>
-          <div class="t-date">📅 Dec 2025 – April 2026</div>
-          <ul class="pts">
-            <li>Led a hub QR scan project across 6 hubs: scan rate rose from about 15% to 43%.</li>
-            <li>Made agent retention calls and prepared the Eid-ul-Fitr incentive report.</li>
-          </ul>
-          <div class="badges"><span class="badge">Operations</span><span class="badge">Ride-tech</span></div>
-        </div>
+
+      <!-- EDUCATION (amber) -->
+      <div class="cv-block" id="education">
+        <h2 class="cv-h reveal" data-anim="sheen">Education</h2>
+        <ol class="cv-list is-edu">
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span>Diploma</span><div class="t-date">📅 2026</div></div>
+            <div class="cv-card glass">
+              <h3>Post Graduate Diploma in Supply Chain Management</h3>
+              <div class="where">International Supply Chain Education Alliance (ISCEA), Bangladesh</div>
+              <ul class="pts">
+                <li><b>Scholarship:</b> 70% (ISCEA Global Case Competition 2025)</li>
+                <li><b>Result:</b> Passed (2026)</li>
+              </ul>
+            </div>
+          </li>
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span>Degree</span><div class="t-date">📅 2022 – 2026</div></div>
+            <div class="cv-card glass">
+              <h3>Bachelor of Business Administration (BBA)</h3>
+              <div class="where">Bangladesh University of Business and Technology (BUBT)</div>
+              <ul class="pts">
+                <li><b>Major:</b> Marketing</li>
+                <li><b>CGPA:</b> 3.54</li>
+              </ul>
+              <div class="badges"><span class="badge">Bizz Masters runner-up x2</span></div>
+            </div>
+          </li>
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span>HSC</span><div class="t-date">📅 2021</div></div>
+            <div class="cv-card glass">
+              <h3>Higher Secondary Certificate (HSC)</h3>
+              <div class="where">Mohammadpur Preparatory School &amp; College</div>
+              <ul class="pts">
+                <li><b>Group:</b> Science</li>
+                <li><b>GPA:</b> 4.61 out of 5.00</li>
+              </ul>
+            </div>
+          </li>
+          <li class="cv-entry reveal">
+            <div class="cv-when"><span>SSC</span><div class="t-date">📅 2019</div></div>
+            <div class="cv-card glass">
+              <h3>Secondary School Certificate (SSC)</h3>
+              <div class="where">BCSIR High School</div>
+              <ul class="pts">
+                <li><b>Group:</b> Science</li>
+                <li><b>GPA:</b> 4.58 out of 5.00</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
       </div>
-      <div class="t-item t-right is-edu" data-kind="edu">
-        <span class="node"></span><span class="big">04</span>
-        <div class="t-card glass">
-          <span class="when">Diploma</span><span class="kind">Education</span>
-          <h3>Post Graduate Diploma in Supply Chain Management</h3>
-          <div class="where">International Supply Chain Education Alliance (ISCEA), Bangladesh</div>
-          <div class="t-date">📅 2026</div>
-          <ul class="pts">
-            <li><b>Scholarship:</b> 70% (ISCEA Global Case Competition 2025)</li>
-            <li><b>Result:</b> Passed (2026)</li>
-          </ul>
-          <div class="badges"><span class="badge">Supply chain</span><span class="badge">70% scholarship (Global Case Comp 2025)</span></div>
-        </div>
-      </div>
-      <div class="t-item t-left is-edu" data-kind="edu">
-        <span class="node"></span><span class="big">05</span>
-        <div class="t-card glass">
-          <span class="when">Degree</span><span class="kind">Education</span>
-          <h3>Bachelor of Business Administration (BBA)</h3>
-          <div class="where">Bangladesh University of Business and Technology (BUBT)</div>
-          <div class="t-date">📅 2022 – 2026</div>
-          <ul class="pts">
-            <li><b>Major:</b> Marketing</li>
-            <li><b>CGPA:</b> 3.54</li>
-          </ul>
-          <div class="badges"><span class="badge">Marketing</span><span class="badge">Bizz Masters runner-up x2</span></div>
-        </div>
-      </div>
-      <div class="t-item t-right is-edu" data-kind="edu">
-        <span class="node"></span><span class="big">06</span>
-        <div class="t-card glass">
-          <span class="when">HSC</span><span class="kind">Education</span>
-          <h3>Higher Secondary Certificate (HSC)</h3>
-          <div class="where">Mohammadpur Preparatory School &amp; College</div>
-          <div class="t-date">📅 2021</div>
-          <ul class="pts">
-            <li><b>Group:</b> Science</li>
-            <li><b>GPA:</b> 4.61 out of 5.00</li>
-          </ul>
-          <div class="badges"><span class="badge">Science</span><span class="badge">Higher Secondary</span></div>
-        </div>
-      </div>
-      <div class="t-item t-left is-edu" data-kind="edu">
-        <span class="node"></span><span class="big">07</span>
-        <div class="t-card glass">
-          <span class="when">SSC</span><span class="kind">Education</span>
-          <h3>Secondary School Certificate (SSC)</h3>
-          <div class="where">BCSIR High School</div>
-          <div class="t-date">📅 2019</div>
-          <ul class="pts">
-            <li><b>Group:</b> Science</li>
-            <li><b>GPA:</b> 4.58 out of 5.00</li>
-          </ul>
-          <div class="badges"><span class="badge">Science</span><span class="badge">Secondary</span></div>
-        </div>
+
+      <!-- KEY HIGHLIGHTS (moved here from the Certificates page, Nov 2026)
+           Same card style as "Wins & achievements" on Home (colour per card
+           from its c-* class; hover fills the card, js part 21).
+           To add one: copy an <li class="award ..."> block and change the words. -->
+      <div class="cv-block" id="highlights">
+        <h2 class="cv-h reveal" data-anim="stamp">Key highlights.</h2>
+        <p class="sub reveal d1">Leadership, volunteering and recognition.</p>
+        <ul class="award-grid even compact reveal d2">
+        <li class="award glass c-coral" style="--d:0.0s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🎤</span><span class="award-kind">Leadership</span></div>
+          <span class="award-stat">Team Lead</span>
+          <strong class="award-title">TEDx Dhanmondi</strong>
+          <span class="award-sub">Technical Team Lead.</span>
+        </li>
+        <li class="award glass c-amber" style="--d:1.3s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🏆</span><span class="award-kind">Recognition</span></div>
+          <span class="award-stat">Executive</span>
+          <strong class="award-title">Hult Prize</strong>
+          <span class="award-sub">Executive Recognition.</span>
+        </li>
+        <li class="award glass c-sky" style="--d:2.6s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🌍</span><span class="award-kind">Volunteering</span></div>
+          <span class="award-stat">Service Director</span>
+          <strong class="award-title">Rotaract Club of Dhaka Dynamic</strong>
+          <span class="award-sub">International Service Director.</span>
+        </li>
+        <li class="award glass c-mint" style="--d:3.9s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">💻</span><span class="award-kind">Ambassador</span></div>
+          <span class="award-stat">Campus Ambassador</span>
+          <strong class="award-title">Creative IT Institute</strong>
+          <span class="award-sub">Promoting digital skills among students.</span>
+        </li>
+        <li class="award glass c-violet" style="--d:5.2s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🤝</span><span class="award-kind">Collaboration</span></div>
+          <span class="award-stat">AgentX</span>
+          <strong class="award-title">With NetCom Learning</strong>
+          <span class="award-sub">Worked on the AgentX competition, promoting digital skills and youth engagement.</span>
+        </li>
+        <li class="award glass c-pink" style="--d:6.5s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">💼</span><span class="award-kind">Club</span></div>
+          <span class="award-stat">General Member</span>
+          <strong class="award-title">BUBT Business Club</strong>
+          <span class="award-sub">Member of the university business club.</span>
+        </li>
+        </ul>
       </div>
     </div>
+
   </div>
 </section>
 
