@@ -286,7 +286,7 @@
   var bar = document.getElementById('ctBar'), pct = document.getElementById('ctPct');
   var count = document.getElementById('ctCount'), err = document.getElementById('ctError');
   function update() {
-    var d = new FormData(f), parts = [d.get('topic'), d.get('name'), d.get('email'), d.get('message')];
+    var d = new FormData(f), parts = [d.get('topic'), d.get('name'), d.get('email'), d.get('subject'), d.get('message')];   // 5 parts, 20% each
     var filled = parts.filter(function (v) { return v && String(v).trim(); }).length;
     var p = Math.round(filled / parts.length * 100);
     if (bar) bar.style.width = p + '%';
