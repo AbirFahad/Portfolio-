@@ -2073,3 +2073,18 @@ textarea { min-height: 130px; resize: vertical; }
   .ct-ic { width: 40px; height: 40px; font-size: 1.1rem; }
   .ct-main span { font-size: .9rem; }
 }
+
+/* =====================================================
+   CORE COMPETENCIES GATHER (js part 29): while the tags fly in from their
+   ring they may pass over the hero above and How I work below, so the band
+   sits on top of its neighbours and each tag's row can stack above others.
+   ===================================================== */
+.stack-sec.gather-on { position: relative; z-index: 2; }
+.gather-on .stack-item { position: relative; }
+.gather-on .stack-tag { will-change: translate, scale, opacity; }
+
+/* BIGGER HERO PHOTO (owner asked, Nov 2026) */
+.avatar-stage { height: 520px; }
+.avatar { inset: 20px 24px; }
+@media (max-width: 860px) { .avatar-stage { height: 440px; } }
+@media (max-width: 600px) { .hero .avatar-stage { height: 400px; } }

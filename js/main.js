@@ -1207,3 +1207,56 @@
     b.addEventListener('mouseleave', function () { b.style.transform = ''; });
   });
 })();
+
+/* 29) CORE COMPETENCIES GATHER (Home, Nov 2026, from the owner's scroll
+   video): before you scroll, the 14 tags float scattered in a slowly
+   turning, tilted 3D ring around the band. As the band rises from the
+   bottom of the screen to just past the middle, each tag flies (one after
+   another) into its usual place. Scroll back up and they scatter again.
+   Uses the separate CSS "translate" and "scale" properties, so the tags'
+   own float and hover pop still work. Nothing moves with "reduce motion". */
+(function () {
+  var sec = document.querySelector('.stack-sec');
+  if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tags = Array.prototype.slice.call(sec.querySelectorAll('.stack-tag'));
+  if (!tags.length) return;
+  var n = tags.length, home = [], t0 = performance.now(), running = false;
+  sec.classList.add('gather-on');
+
+  // where each tag normally sits, measured from the band's centre
+  function measure() {
+    tags.forEach(function (t) { t.style.translate = 'none'; t.style.scale = '1'; });
+    var b = sec.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+    home = tags.map(function (t) { var r = t.getBoundingClientRect(); return { x: r.left + r.width / 2 - cx, y: r.top + r.height / 2 - cy }; });
+  }
+  function clamp01(x) { return Math.max(0, Math.min(1, x)); }
+  function ease(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+
+  function frame(now) {
+    var b = sec.getBoundingClientRect(), vh = innerHeight;
+    // 0 when the band's middle is at the bottom of the screen, 1 when it reaches 45% from the top
+    var p = clamp01((vh - (b.top + b.height / 2)) / (vh * 0.55));
+    var t = (now - t0) / 1000, W = b.width;
+    var RX = Math.min(W * 0.42, 540), RY = Math.max(60, b.height * 0.42), allHome = true;   // ring stays close to the band
+    tags.forEach(function (tag, i) {
+      var g = ease(clamp01((p - i * 0.035) / 0.5));          // each tag leaves its spot in the ring a moment after the last
+      if (g < 1) allHome = false;
+      var a = (i / n) * Math.PI * 2 + t * 0.15, z = Math.sin(a), depth = (z + 1) / 2;
+      var rx = Math.cos(a) * RX, ry = z * RY - 0.06 * rx;     // tilted ring around the band's middle
+      var dx = (rx - home[i].x) * (1 - g), dy = (ry - home[i].y) * (1 - g) - Math.sin(g * Math.PI) * 24;
+      tag.style.translate = dx.toFixed(1) + 'px ' + dy.toFixed(1) + 'px';
+      tag.style.scale = (0.72 + depth * 0.36 + (1 - (0.72 + depth * 0.36)) * g).toFixed(3);
+      var op0 = 0.2 + depth * 0.7;                              // far side of the ring is faint
+      tag.style.opacity = (op0 + (1 - op0) * g).toFixed(3);
+      tag.parentNode.style.zIndex = g > .5 ? 2 : (depth > .5 ? 3 : 1);
+    });
+    if (allHome) { running = false; return; }               // all in place: stop until the next scroll
+    requestAnimationFrame(frame);
+  }
+  function wake() { if (!running) { running = true; requestAnimationFrame(frame); } }
+  measure(); wake();
+  addEventListener('scroll', wake, { passive: true });
+  var lastW = innerWidth;
+  addEventListener('resize', function () { if (innerWidth !== lastW) { lastW = innerWidth; measure(); wake(); } });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); wake(); });
+})();
