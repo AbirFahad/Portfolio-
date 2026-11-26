@@ -4,12 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gallery · Abdullah Al Fahad</title>
+<!-- LINK PREVIEW: the text and picture shown when this page is shared on
+     LinkedIn, WhatsApp, Facebook or Google. Words are in content.md.
+     CHECK: once the site is live, change "images/headshot.jpg" in og:image
+     to the full address, e.g. https://your-site-address/images/headshot.jpg
+     (LinkedIn needs the full address to show the picture). -->
+<meta name="description" content="Photos from factory visits, events and work by Abdullah Al Fahad.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gallery · Abdullah Al Fahad">
+<meta property="og:description" content="Photos from factory visits, events and work by Abdullah Al Fahad.">
+<meta property="og:image" content="images/headshot.jpg">
+<meta property="og:image:alt" content="Abdullah Al Fahad in a dark suit and blue tie.">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48">
 <link rel="stylesheet" href="css/style.css">
 <!-- use the saved light/dark choice straight away (before the page draws) -->
-<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);if(sessionStorage.getItem('ldSeen'))document.documentElement.classList.add('ld-seen')}catch(e){}</script>
 </head>
 <body>
 <!-- LOADING SCREEN: your icon blinking inside a spinning ring; fades out
@@ -67,7 +79,7 @@
   <div class="wrap">
     <div class="g-wall">
       <button class="b-tile g-item ph reveal" type="button" data-g="factory" style="--r:4/3;--i:0;--rot:-3deg" data-caption="Mahtab Flexible Printing Ltd. · Foil Factory" data-date="October 2026" data-place="Singair, Manikganj">
-        <img src="mahtab.jpg" alt="Mahtab Flexible Printing Ltd. · Foil Factory" loading="lazy" data-ph>
+        <img src="mahtab.jpg" srcset="images/thumbs/mahtab.jpg 600w, mahtab.jpg 1280w" sizes="(max-width: 960px) 50vw, 400px" alt="Mahtab Flexible Printing Ltd. · Foil Factory" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Factory</span>
           <span class="b-title">Mahtab Flexible Printing Ltd. · Foil Factory</span>
@@ -75,7 +87,7 @@
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:4/3;--i:1;--rot:2deg" data-caption="Speaking at the TEDxDhanmondi orientation" data-date="July 2025" data-place="">
-        <img src="images/TEDxDhanmondi_orientation_July_2025_speaking.jpg" alt="Speaking at the TEDxDhanmondi orientation" loading="lazy" data-ph>
+        <img src="images/TEDxDhanmondi_orientation_July_2025_speaking.jpg" srcset="images/thumbs/TEDxDhanmondi_orientation_July_2025_speaking.jpg 600w, images/TEDxDhanmondi_orientation_July_2025_speaking.jpg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Speaking at the TEDxDhanmondi orientation" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Speaking at the TEDxDhanmondi orientation</span>
@@ -83,42 +95,42 @@
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="factory" style="--r:3/4;--i:2;--rot:-1.5deg" data-caption="Biscuit production line" data-date="" data-place="">
-        <img src="images/Biscuit_production_line_conveyor.jpeg" alt="Biscuit production line" loading="lazy" data-ph>
+        <img src="images/Biscuit_production_line_conveyor.jpeg" srcset="images/thumbs/Biscuit_production_line_conveyor.jpeg 600w, images/Biscuit_production_line_conveyor.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="Biscuit production line" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Factory</span>
           <span class="b-title">Biscuit production line</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:0;--rot:2.5deg" data-caption="Bizz Masters Ad Maker · 1st Runner-up" data-date="" data-place="">
-        <img src="images/Bizz_Master_Ad_Maker_1st_Runner_Up.jpeg" alt="Bizz Masters Ad Maker · 1st Runner-up" loading="lazy" data-ph>
+        <img src="images/Bizz_Master_Ad_Maker_1st_Runner_Up.jpeg" srcset="images/thumbs/Bizz_Master_Ad_Maker_1st_Runner_Up.jpeg 600w, images/Bizz_Master_Ad_Maker_1st_Runner_Up.jpeg 1051w" sizes="(max-width: 960px) 50vw, 400px" alt="Bizz Masters Ad Maker · 1st Runner-up" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Bizz Masters Ad Maker · 1st Runner-up</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:4/3;--i:1;--rot:-2deg" data-caption="At the Pathao office" data-date="" data-place="">
-        <img src="images/Pathao_office_sign_portrait.jpeg" alt="At the Pathao office" loading="lazy" data-ph>
+        <img src="images/Pathao_office_sign_portrait.jpeg" srcset="images/thumbs/Pathao_office_sign_portrait.jpeg 600w, images/Pathao_office_sign_portrait.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="At the Pathao office" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">At the Pathao office</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="life" style="--r:9/16;--i:2;--rot:1.5deg" data-caption="Coffee break" data-date="" data-place="">
-        <img src="images/Selfie_drinking_coffee_at_cafe.jpeg" alt="Coffee break" loading="lazy" data-ph>
+        <img src="images/Selfie_drinking_coffee_at_cafe.jpeg" srcset="images/thumbs/Selfie_drinking_coffee_at_cafe.jpeg 600w, images/Selfie_drinking_coffee_at_cafe.jpeg 787w" sizes="(max-width: 960px) 50vw, 400px" alt="Coffee break" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Life</span>
           <span class="b-title">Coffee break</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:4/3;--i:0;--rot:-3deg" data-caption="Installation Ceremony · Dhaka Dynamic" data-date="" data-place="">
-        <img src="images/Rotary_Installation_Ceremony_Dhaka_Dynamic_group.jpeg" alt="Installation Ceremony · Dhaka Dynamic" loading="lazy" data-ph>
+        <img src="images/Rotary_Installation_Ceremony_Dhaka_Dynamic_group.jpeg" srcset="images/thumbs/Rotary_Installation_Ceremony_Dhaka_Dynamic_group.jpeg 600w, images/Rotary_Installation_Ceremony_Dhaka_Dynamic_group.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Installation Ceremony · Dhaka Dynamic" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Installation Ceremony · Dhaka Dynamic</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="factory" style="--r:3/4;--i:1;--rot:2deg" data-caption="KR Flexipack · production process flowchart" data-date="October 2026" data-place="Sitakunda, Chattogram">
-        <img src="images/KR_Flexpack_factory_floor_process_flowchart.jpeg" alt="KR Flexipack · production process flowchart" loading="lazy" data-ph>
+        <img src="images/KR_Flexpack_factory_floor_process_flowchart.jpeg" srcset="images/thumbs/KR_Flexpack_factory_floor_process_flowchart.jpeg 600w, images/KR_Flexpack_factory_floor_process_flowchart.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="KR Flexipack · production process flowchart" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Factory</span>
           <span class="b-title">KR Flexipack · production process flowchart</span>
@@ -126,133 +138,133 @@
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:4/3;--i:2;--rot:-1.5deg" data-caption="Team photo · Creative IT Institute" data-date="" data-place="">
-        <img src="images/Creative_IT_Institute_team_group_photo.jpeg" alt="Team photo · Creative IT Institute" loading="lazy" data-ph>
+        <img src="images/Creative_IT_Institute_team_group_photo.jpeg" srcset="images/thumbs/Creative_IT_Institute_team_group_photo.jpeg 600w, images/Creative_IT_Institute_team_group_photo.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Team photo · Creative IT Institute" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">Team photo · Creative IT Institute</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:9/16;--i:0;--rot:2.5deg" data-caption="Hult Prize OnCampus · Video Editor plaque" data-date="" data-place="">
-        <img src="images/Hult_Prize_OnCampus_Video_Editor_plaque.jpeg" alt="Hult Prize OnCampus · Video Editor plaque" loading="lazy" data-ph>
+        <img src="images/Hult_Prize_OnCampus_Video_Editor_plaque.jpeg" srcset="images/thumbs/Hult_Prize_OnCampus_Video_Editor_plaque.jpeg 600w, images/Hult_Prize_OnCampus_Video_Editor_plaque.jpeg 787w" sizes="(max-width: 960px) 50vw, 400px" alt="Hult Prize OnCampus · Video Editor plaque" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Hult Prize OnCampus · Video Editor plaque</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:4/3;--i:1;--rot:-2deg" data-caption="At the office" data-date="" data-place="">
-        <img src="images/WhatsApp%20Image%202026-10-15%20at%205.23.33%20PM.jpeg" alt="At the office" loading="lazy" data-ph>
+        <img src="images/At_the_office_15_Oct_2026.jpeg" srcset="images/thumbs/At_the_office_15_Oct_2026.jpeg 600w, images/At_the_office_15_Oct_2026.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="At the office" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">At the office</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="life" style="--r:3/4;--i:2;--rot:1.5deg" data-caption="By the calligraphy wall" data-date="" data-place="">
-        <img src="images/Portrait_black_shirt_calligraphy_wall.jpeg" alt="By the calligraphy wall" loading="lazy" data-ph>
+        <img src="images/Portrait_black_shirt_calligraphy_wall.jpeg" srcset="images/thumbs/Portrait_black_shirt_calligraphy_wall.jpeg 600w, images/Portrait_black_shirt_calligraphy_wall.jpeg 1051w" sizes="(max-width: 960px) 50vw, 400px" alt="By the calligraphy wall" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Life</span>
           <span class="b-title">By the calligraphy wall</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:16/9;--i:0;--rot:-3deg" data-caption="Bizz Masters Season 1 booth camp · BUBT Business Club" data-date="" data-place="">
-        <img src="images/Bizz_Master_Season1_booth_camp_BUBT_Business_Club.jpeg" alt="Bizz Masters Season 1 booth camp · BUBT Business Club" loading="lazy" data-ph>
+        <img src="images/Bizz_Master_Season1_booth_camp_BUBT_Business_Club.jpeg" srcset="images/thumbs/Bizz_Master_Season1_booth_camp_BUBT_Business_Club.jpeg 600w, images/Bizz_Master_Season1_booth_camp_BUBT_Business_Club.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Bizz Masters Season 1 booth camp · BUBT Business Club" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Bizz Masters Season 1 booth camp · BUBT Business Club</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="factory" style="--r:3/4;--i:1;--rot:2deg" data-caption="On the production floor" data-date="" data-place="">
-        <img src="images/Selfie_in_factory_with_hairnet.jpeg" alt="On the production floor" loading="lazy" data-ph>
+        <img src="images/Selfie_in_factory_with_hairnet.jpeg" srcset="images/thumbs/Selfie_in_factory_with_hairnet.jpeg 600w, images/Selfie_in_factory_with_hairnet.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="On the production floor" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Factory</span>
           <span class="b-title">On the production floor</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:4/3;--i:2;--rot:-1.5deg" data-caption="Regular meeting · Rotaract Club of Dhaka Dynamic" data-date="" data-place="">
-        <img src="images/Rotaract_Dhaka_Dynamic_regular_meeting_President_Secretary.jpeg" alt="Regular meeting · Rotaract Club of Dhaka Dynamic" loading="lazy" data-ph>
+        <img src="images/Rotaract_Dhaka_Dynamic_regular_meeting_President_Secretary.jpeg" srcset="images/thumbs/Rotaract_Dhaka_Dynamic_regular_meeting_President_Secretary.jpeg 600w, images/Rotaract_Dhaka_Dynamic_regular_meeting_President_Secretary.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Regular meeting · Rotaract Club of Dhaka Dynamic" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Regular meeting · Rotaract Club of Dhaka Dynamic</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:0;--rot:2.5deg" data-caption="ISCEA certificate at Mind Mapper" data-date="" data-place="">
-        <img src="images/ISCEA_certificate_folder_at_Mind_Mapper.jpeg" alt="ISCEA certificate at Mind Mapper" loading="lazy" data-ph>
+        <img src="images/ISCEA_certificate_folder_at_Mind_Mapper.jpeg" srcset="images/thumbs/ISCEA_certificate_folder_at_Mind_Mapper.jpeg 600w, images/ISCEA_certificate_folder_at_Mind_Mapper.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="ISCEA certificate at Mind Mapper" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">ISCEA certificate at Mind Mapper</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:4/3;--i:1;--rot:-2deg" data-caption="With the Pathao team" data-date="" data-place="">
-        <img src="images/Pathao_team_photo_with_Artisan_gift_bag.jpg" alt="With the Pathao team" loading="lazy" data-ph>
+        <img src="images/Pathao_team_photo_with_Artisan_gift_bag.jpg" srcset="images/thumbs/Pathao_team_photo_with_Artisan_gift_bag.jpg 600w, images/Pathao_team_photo_with_Artisan_gift_bag.jpg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="With the Pathao team" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">With the Pathao team</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:2;--rot:1.5deg" data-caption="TEDx Dhanmondi" data-date="" data-place="">
-        <img src="images/TEDx_Dhanmondi_sign_portrait.jpeg" alt="TEDx Dhanmondi" loading="lazy" data-ph>
+        <img src="images/TEDx_Dhanmondi_sign_portrait.jpeg" srcset="images/thumbs/TEDx_Dhanmondi_sign_portrait.jpeg 600w, images/TEDx_Dhanmondi_sign_portrait.jpeg 1071w" sizes="(max-width: 960px) 50vw, 400px" alt="TEDx Dhanmondi" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">TEDx Dhanmondi</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:4/3;--i:0;--rot:-3deg" data-caption="AI in Digital Marketing · registration booth" data-date="" data-place="">
-        <img src="images/AI_in_Digital_Marketing_registration_booth.jpeg" alt="AI in Digital Marketing · registration booth" loading="lazy" data-ph>
+        <img src="images/AI_in_Digital_Marketing_registration_booth.jpeg" srcset="images/thumbs/AI_in_Digital_Marketing_registration_booth.jpeg 600w, images/AI_in_Digital_Marketing_registration_booth.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="AI in Digital Marketing · registration booth" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">AI in Digital Marketing · registration booth</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:1;--rot:2deg" data-caption="End Polio Now · Rotaract" data-date="" data-place="">
-        <img src="images/Rotaract_End_Polio_Now_tshirt_portrait.jpeg" alt="End Polio Now · Rotaract" loading="lazy" data-ph>
+        <img src="images/Rotaract_End_Polio_Now_tshirt_portrait.jpeg" srcset="images/thumbs/Rotaract_End_Polio_Now_tshirt_portrait.jpeg 600w, images/Rotaract_End_Polio_Now_tshirt_portrait.jpeg 864w" sizes="(max-width: 960px) 50vw, 400px" alt="End Polio Now · Rotaract" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">End Polio Now · Rotaract</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="factory" style="--r:4/3;--i:2;--rot:-1.5deg" data-caption="Outside the factory at night" data-date="" data-place="">
-        <img src="images/Selfie_outside_factory_building_at_night.jpeg" alt="Outside the factory at night" loading="lazy" data-ph>
+        <img src="images/Selfie_outside_factory_building_at_night.jpeg" srcset="images/thumbs/Selfie_outside_factory_building_at_night.jpeg 600w, images/Selfie_outside_factory_building_at_night.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Outside the factory at night" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Factory</span>
           <span class="b-title">Outside the factory at night</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:3/4;--i:0;--rot:2.5deg" data-caption="Internship report · Dept. of Marketing, BUBT" data-date="" data-place="">
-        <img src="images/BUBT_internship_report_Dept_of_Marketing.jpeg" alt="Internship report · Dept. of Marketing, BUBT" loading="lazy" data-ph>
+        <img src="images/BUBT_internship_report_Dept_of_Marketing.jpeg" srcset="images/thumbs/BUBT_internship_report_Dept_of_Marketing.jpeg 600w, images/BUBT_internship_report_Dept_of_Marketing.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="Internship report · Dept. of Marketing, BUBT" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">Internship report · Dept. of Marketing, BUBT</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:4/3;--i:1;--rot:-2deg" data-caption="Team photo in the conference room" data-date="" data-place="">
-        <img src="images/Team_group_photo_in_conference_room.jpeg" alt="Team photo in the conference room" loading="lazy" data-ph>
+        <img src="images/Team_group_photo_in_conference_room.jpeg" srcset="images/thumbs/Team_group_photo_in_conference_room.jpeg 600w, images/Team_group_photo_in_conference_room.jpeg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Team photo in the conference room" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">Team photo in the conference room</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:2;--rot:1.5deg" data-caption="Two Certificates of Achievement" data-date="" data-place="">
-        <img src="images/Holding_two_Certificates_of_Achievement.jpeg" alt="Two Certificates of Achievement" loading="lazy" data-ph>
+        <img src="images/Holding_two_Certificates_of_Achievement.jpeg" srcset="images/thumbs/Holding_two_Certificates_of_Achievement.jpeg 600w, images/Holding_two_Certificates_of_Achievement.jpeg 961w" sizes="(max-width: 960px) 50vw, 400px" alt="Two Certificates of Achievement" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Two Certificates of Achievement</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="work" style="--r:3/4;--i:0;--rot:-3deg" data-caption="Street outreach with students · Creative IT Institute" data-date="" data-place="">
-        <img src="images/Creative_IT_Institute_street_outreach_with_students.jpg" alt="Street outreach with students · Creative IT Institute" loading="lazy" data-ph>
+        <img src="images/Creative_IT_Institute_street_outreach_with_students.jpg" srcset="images/thumbs/Creative_IT_Institute_street_outreach_with_students.jpg 600w, images/Creative_IT_Institute_street_outreach_with_students.jpg 696w" sizes="(max-width: 960px) 50vw, 400px" alt="Street outreach with students · Creative IT Institute" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Work</span>
           <span class="b-title">Street outreach with students · Creative IT Institute</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="life" style="--r:4/3;--i:1;--rot:2deg" data-caption="Class project team · BUBT" data-date="" data-place="">
-        <img src="images/BUBT_class_project_team_with_WASH_board.jpg" alt="Class project team · BUBT" loading="lazy" data-ph>
+        <img src="images/BUBT_class_project_team_with_WASH_board.jpg" srcset="images/thumbs/BUBT_class_project_team_with_WASH_board.jpg 600w, images/BUBT_class_project_team_with_WASH_board.jpg 1400w" sizes="(max-width: 960px) 50vw, 400px" alt="Class project team · BUBT" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Life</span>
           <span class="b-title">Class project team · BUBT</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:2;--rot:-1.5deg" data-caption="Rotaract conference, with an award" data-date="28 February" data-place="BMA Auditorium">
-        <img src="images/Rotaract_conference_BMA_Auditorium_28_Feb_with_award.jpeg" alt="Rotaract conference, with an award" loading="lazy" data-ph>
+        <img src="images/Rotaract_conference_BMA_Auditorium_28_Feb_with_award.jpeg" srcset="images/thumbs/Rotaract_conference_BMA_Auditorium_28_Feb_with_award.jpeg 600w, images/Rotaract_conference_BMA_Auditorium_28_Feb_with_award.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="Rotaract conference, with an award" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Rotaract conference, with an award</span>
@@ -260,28 +272,28 @@
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:0;--rot:2.5deg" data-caption="Microsoft event, with the speaker" data-date="" data-place="">
-        <img src="images/Microsoft_event_with_speaker.jpg" alt="Microsoft event, with the speaker" loading="lazy" data-ph>
+        <img src="images/Microsoft_event_with_speaker.jpg" srcset="images/thumbs/Microsoft_event_with_speaker.jpg 600w, images/Microsoft_event_with_speaker.jpg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="Microsoft event, with the speaker" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Microsoft event, with the speaker</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:1;--rot:-2deg" data-caption="At the Installation Ceremony" data-date="" data-place="">
-        <img src="images/Portrait_at_Installation_Ceremony_Board_of_Directors_backdrop.jpeg" alt="At the Installation Ceremony" loading="lazy" data-ph>
+        <img src="images/Portrait_at_Installation_Ceremony_Board_of_Directors_backdrop.jpeg" srcset="images/thumbs/Portrait_at_Installation_Ceremony_Board_of_Directors_backdrop.jpeg 600w, images/Portrait_at_Installation_Ceremony_Board_of_Directors_backdrop.jpeg 1050w" sizes="(max-width: 960px) 50vw, 400px" alt="At the Installation Ceremony" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">At the Installation Ceremony</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="events" style="--r:3/4;--i:2;--rot:1.5deg" data-caption="Appreciation crest · BUBT Business Club, Bizz Masters" data-date="" data-place="">
-        <img src="images/BUBT_Business_Club_appreciation_crest_Bizz_Master.jpeg" alt="Appreciation crest · BUBT Business Club, Bizz Masters" loading="lazy" data-ph>
+        <img src="images/BUBT_Business_Club_appreciation_crest_Bizz_Master.jpeg" srcset="images/thumbs/BUBT_Business_Club_appreciation_crest_Bizz_Master.jpeg 600w, images/BUBT_Business_Club_appreciation_crest_Bizz_Master.jpeg 1051w" sizes="(max-width: 960px) 50vw, 400px" alt="Appreciation crest · BUBT Business Club, Bizz Masters" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Events</span>
           <span class="b-title">Appreciation crest · BUBT Business Club, Bizz Masters</span>
         </span>
       </button>
       <button class="b-tile g-item ph reveal" type="button" data-g="life" style="--r:3/4;--i:0;--rot:-3deg" data-caption="With a friend, ID cards on" data-date="" data-place="">
-        <img src="images/With_friend_in_blazer_and_ID_cards.jpeg" alt="With a friend, ID cards on" loading="lazy" data-ph>
+        <img src="images/With_friend_in_blazer_and_ID_cards.jpeg" srcset="images/thumbs/With_friend_in_blazer_and_ID_cards.jpeg 600w, images/With_friend_in_blazer_and_ID_cards.jpeg 1051w" sizes="(max-width: 960px) 50vw, 400px" alt="With a friend, ID cards on" loading="lazy" data-ph>
         <span class="b-cap">
           <span class="g-kind">Life</span>
           <span class="b-title">With a friend, ID cards on</span>

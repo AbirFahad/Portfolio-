@@ -1263,9 +1263,12 @@ textarea { min-height: 130px; resize: vertical; }
    - a glowing "comet" ring spins around your icon (.ld-ring)
    - a thin dotted outer ring turns slowly the other way (.loader::after)
    - your icon blinks gently and glows
-   When the page has loaded, the ring and icon grow a little as the
+   When the page is ready, the ring and icon grow a little as the
    screen fades away. If scripts never run, it fades by itself after 6s.
+   It only shows on the first page of a visit: later pages get the
+   "ld-seen" mark (set in each page's <head>) and skip it.
    ===================================================== */
+.ld-seen .loader { display: none; }
 .loader {
   position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center;
   background: radial-gradient(circle at 50% 50%, var(--bg-2), var(--bg) 60%);
@@ -1458,4 +1461,63 @@ textarea { min-height: 130px; resize: vertical; }
   .bento .b-cap { left: 9px; right: 9px; bottom: 8px; font-size: .72rem; line-height: 1.25; }
   .bento .b-meta { display: none; }
   .bento .b-tile::before { background: linear-gradient(to top, rgba(4,8,12,.8), transparent 40%); }
+}
+
+/* =====================================================
+   PHONE IMPROVEMENTS (November 2026 audit: ideas A, B and C)
+   ===================================================== */
+
+/* B) PHONE MENU: all six page links are visible at once, in two rows of
+   three inside the notch, each big enough to tap with a thumb (about 40px
+   tall). The menu slides up out of the way while you scroll DOWN and comes
+   back when you scroll UP (js/main.js part 2 adds .nav-hidden). */
+@media (max-width: 860px) {
+  .nav .links {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+    overflow: visible; padding: 2px 0 4px;
+    -webkit-mask-image: none; mask-image: none;
+  }
+  .nav .links a.link {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 40px; padding: 6px 4px; font-size: .86rem; text-align: center;
+  }
+  .nav { transition: transform .35s ease, opacity .35s ease; }
+  .nav.nav-hidden { transform: translate(-50%, calc(-100% - 12px)); opacity: 0; }
+  .nav:focus-within { transform: translateX(-50%); opacity: 1; }   /* keyboard users always see it */
+  .hero { padding-top: 160px; }
+}
+
+/* A) PHONE HERO: your name comes first. The text column's pieces and the
+   photo are laid out as one list so we can choose the order on phones:
+   status pill, "Hi, I'm Fahad.", role, buttons, then the photo (a little
+   smaller), then Core tools. Your name and the buttons fit on the first
+   screen; the photo starts right below. */
+@media (max-width: 600px) {
+  .hero .grid { gap: 0; }
+  .hero .grid > div:first-child { display: contents; }
+  .hero .hello      { order: 1; justify-self: start; }
+  .hero h1          { order: 2; }
+  .hero .role       { order: 3; margin-bottom: 22px; }
+  .hero .btns       { order: 4; }
+  .hero .avatar-stage { order: 5; height: 330px; margin-top: 18px; }
+  .hero .core-tools { order: 6; margin-top: 8px; }
+}
+
+/* C) PHONE FOOTER: shorter. The intro sentence and the Quick links list are
+   hidden (the menu at the top already shows every page). Email, LinkedIn,
+   place and Download CV stay, as bigger buttons that are easy to tap. */
+@media (max-width: 600px) {
+  .foot-card { gap: 18px; padding: 24px 18px 18px; }
+  .foot-intro, .foot-card > nav.foot-col { display: none; }
+  .foot-status { margin-top: 12px; }
+  .foot-col h4 { margin-bottom: 10px; }
+  .foot-contact { display: flex; flex-wrap: wrap; gap: 8px; }
+  .foot-contact li + li { margin-top: 0; }
+  .foot-contact li {
+    min-height: 44px; padding: 6px 12px 6px 6px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--card); gap: 8px;
+  }
+  .foot-contact li a { gap: 8px; min-height: 32px; }
+  .foot-cv { margin-top: 14px; min-height: 44px; width: 100%; justify-content: center; }
+  .foot-bottom { padding-top: 14px; }
 }

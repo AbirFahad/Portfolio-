@@ -51,6 +51,28 @@
   row.scrollLeft = on.offsetLeft - (row.clientWidth - on.offsetWidth) / 2;
 })();
 
+/* 2b) PHONE MENU HIDES WHILE SCROLLING DOWN: on phones and tablets (up to
+   860px) the menu now shows all six links in two rows, so it is taller.
+   It slides up out of the way while you scroll down, and comes back as
+   soon as you scroll up, or when you're near the top of the page.
+   (The .nav-hidden look is in css/style.css, "PHONE IMPROVEMENTS".) */
+(function () {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  var phone = window.matchMedia('(max-width: 860px)');
+  var lastY = scrollY, waiting = false;
+  function check() {
+    waiting = false;
+    var y = scrollY;
+    if (!phone.matches || y < 120 || y < lastY - 4) nav.classList.remove('nav-hidden');
+    else if (y > lastY + 4) nav.classList.add('nav-hidden');
+    lastY = y;
+  }
+  addEventListener('scroll', function () {
+    if (!waiting) { waiting = true; requestAnimationFrame(check); }
+  }, { passive: true });
+})();
+
 /* 3) SCROLL PROGRESS BAR (thin bar down the left edge) + TIMELINE FILL */
 (function () {
   var bar = document.querySelector('.progress');
@@ -860,12 +882,17 @@
   });
 })();
 
-/* 25) LOADING SCREEN: your icon blinks inside a spinning ring while the page
-   loads, then the screen fades away. It always shows for at least half a
-   second (so it doesn't just flicker), and never longer than 4 seconds. */
+/* 25) LOADING SCREEN: your icon blinks inside a spinning ring, then the
+   screen fades away. It only shows on the FIRST page of a visit (later pages
+   open straight away), and it leaves as soon as the page is ready to read:
+   it no longer waits for every photo to download. It always shows for at
+   least half a second (so it doesn't just flicker). */
 (function () {
   var l = document.querySelector('.loader');
   if (!l) return;
+  // already seen in this visit: remove it at once
+  if (document.documentElement.classList.contains('ld-seen')) { l.parentNode.removeChild(l); return; }
+  try { sessionStorage.setItem('ldSeen', '1'); } catch (e) {}
   var start = Date.now(), gone = false;
   function hide() {
     if (gone) return;
@@ -875,7 +902,9 @@
       setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 600);
     }, Math.max(0, 500 - (Date.now() - start)));
   }
-  if (document.readyState === 'complete') hide();
-  else window.addEventListener('load', hide);
-  setTimeout(hide, 4000);                                         // safety: never stuck
+  // this script sits at the end of the page, so the page is already built:
+  // wait only for the fonts (at most 1.5 seconds), not for the photos
+  var fontsDone = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  Promise.race([fontsDone, new Promise(function (r) { setTimeout(r, 1500); })]).then(hide);
+  setTimeout(hide, 2500);                                         // safety: never stuck
 })();
