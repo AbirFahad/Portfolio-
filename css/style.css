@@ -2222,3 +2222,99 @@ textarea { min-height: 130px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   .nav a.link.cta, .nav-cta, .nav a.link.cta::after, .nav-cta::after { animation: none; }
 }
+
+
+/* =====================================================
+   LIGHT / DARK INSIDE THE PHONE MENU (owner asked, Nov 2026)
+   Computers keep the sun/moon button in the bar. On phones that button is
+   hidden and the menu panel gets a last row: icon, "Dark mode" / "Light
+   mode" and a small switch that slides (js part 1).
+   ===================================================== */
+.menu-theme { display: none; }
+@media (max-width: 860px) {
+  .nav .theme-btn { display: none; }
+  .menu-theme {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 50px; padding: 8px 12px;
+    border: 0; border-radius: 14px; background: transparent; color: var(--text); font: 500 .98rem var(--font-body);
+    cursor: pointer; text-align: left;
+    opacity: 0; transform: translateX(16px); transition: opacity .3s, transform .35s, background .2s; transition-delay: .27s;
+  }
+  .nav.open .menu-theme { opacity: 1; transform: none; }
+  .menu-theme:hover { background: var(--card); }
+  .menu-theme:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .mt-ic { width: 34px; height: 34px; flex: none; display: grid; place-items: center; border-radius: 11px; background: var(--card); border: 1px solid var(--line); }
+  .mt-switch { margin-left: auto; width: 40px; height: 22px; border-radius: 99px; background: var(--line); position: relative; transition: background .3s; }
+  .mt-switch i { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); transition: transform .3s; }
+  .menu-theme[aria-pressed="true"] .mt-switch { background: var(--accent); }
+  .menu-theme[aria-pressed="true"] .mt-switch i { transform: translateX(18px); }
+}
+
+/* =====================================================
+   FOOTER REFRESH (Nov 2026, owner's reference picture, not copied):
+   - two pills under the name: status + live Dhaka time (js part 11a)
+   - a call-to-action card: "Have a role or project in mind?" with the
+     mint-to-amber "Let's Work →" button
+   - "Explore" links; on phones they show again as a grid of small pills
+   ===================================================== */
+.foot-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.foot-pills .foot-status { margin: 0; }
+.foot-time b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.foot-cta {
+  margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 16px 16px 16px 18px; border-radius: 18px; max-width: 420px;
+  border: 1px solid rgba(var(--accent-rgb), .35);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), .10), rgba(255,179,64,.06));
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+}
+.foot-cta:hover, .foot-cta:focus-visible { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 14px 34px -18px rgba(var(--accent-rgb), .8); }
+.foot-cta-text b { display: block; color: var(--text); font-size: .95rem; }
+.foot-cta-text small { display: block; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+.foot-cta-btn {
+  flex: none; padding: 9px 16px; border-radius: 999px; font-weight: 700; font-size: .84rem; white-space: nowrap;
+  color: var(--talk-ink); background: var(--talk-grad); box-shadow: 0 6px 20px -6px var(--talk-glow);
+  transition: transform .25s;
+}
+.foot-cta:hover .foot-cta-btn { transform: translateX(3px); }
+
+@media (max-width: 600px) {
+  .foot-cta { max-width: none; }
+  .foot-card > nav.foot-col { display: block; }
+  .foot-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .foot-links li + li { margin-top: 0; }
+  .foot-links a {
+    display: flex; align-items: center; justify-content: center; min-height: 40px; padding: 6px 8px; text-align: center;
+    border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-size: .8rem;
+  }
+  .foot-links a::before { display: none; }
+  .foot-links a:hover, .foot-links a:focus-visible, .foot-links a[aria-current="page"] { padding-left: 8px; border-color: rgba(var(--accent-rgb), .5); color: var(--accent); }
+}
+
+/* =====================================================
+   HOME PANELS "SHOW MORE" (phones; js part 30): only the newest entry
+   shows, the next one peeks out under a soft fade, and a pill button opens
+   the rest in place.
+   ===================================================== */
+.xp-more { display: none; }
+@media (max-width: 600px) {
+  .xp-panel.xp-short .xp-list { position: relative; }
+  .xp-panel.xp-short:not(.xp-open) .xp-row:nth-child(n+3) { display: none; }
+  .xp-panel.xp-short:not(.xp-open) .xp-row:nth-child(2) { max-height: 64px; overflow: hidden; opacity: .55; pointer-events: none;
+    -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent); }
+  .xp-panel.xp-open .xp-row:nth-child(n+2) { animation: xp-in .45s ease-out both; }
+  .xp-panel.xp-open .xp-row:nth-child(3) { animation-delay: .08s; }
+  .xp-panel.xp-open .xp-row:nth-child(4) { animation-delay: .16s; }
+  @keyframes xp-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .xp-panel.xp-short .xp-more {
+    display: inline-flex; align-items: center; gap: 6px; margin: 10px auto 0; padding: 9px 18px; min-height: 40px;
+    border-radius: 999px; border: 1px solid rgba(var(--glow-rgb, var(--accent-rgb)), .45); background: var(--card);
+    color: var(--glow, var(--accent)); font: 600 .84rem var(--font-body); cursor: pointer; align-self: center;
+    transition: background .25s, transform .25s;
+  }
+  .xp-panel.xp-short .xp-more:hover { transform: translateY(-2px); }
+  .xp-panel.xp-short .xp-more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .xp-panel.edu .xp-more { border-color: rgba(255,179,64,.45); color: var(--accent-2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xp-panel.xp-open .xp-row { animation: none !important; }
+  .menu-theme, .mt-switch, .mt-switch i { transition: none; }
+}

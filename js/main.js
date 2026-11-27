@@ -25,19 +25,43 @@
   }, true);
 })();
 
-/* 1) THEME TOGGLE (remembers your choice) */
+/* 1) THEME TOGGLE (remembers your choice). Computers: the sun/moon button in
+   the menu bar. Phones: a "Light mode / Dark mode" row inside the menu panel
+   (added here), with a small switch that slides. Both stay in step. */
 (function () {
   var saved = null;
   try { saved = localStorage.getItem('theme'); } catch (e) {}
   if (saved) document.documentElement.setAttribute('data-theme', saved);
-  var btn = document.querySelector('.theme-btn');
-  function icon() { if (btn) btn.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? '🌙' : '☀️'; }
+  var panel = document.querySelector('.nav .links');
+  if (panel) {
+    var row = document.createElement('button');
+    row.type = 'button'; row.className = 'menu-theme';
+    row.innerHTML = '<span class="mt-ic" aria-hidden="true"></span><span class="mt-label"></span><span class="mt-switch" aria-hidden="true"><i></i></span>';
+    panel.appendChild(row);
+  }
+  var btns = document.querySelectorAll('.theme-btn, .menu-theme');
+  function isLight() { return document.documentElement.getAttribute('data-theme') === 'light'; }
+  function icon() {
+    btns.forEach(function (b) {
+      if (b.classList.contains('menu-theme')) {
+        b.querySelector('.mt-ic').textContent = isLight() ? '☀️' : '🌙';
+        b.querySelector('.mt-label').textContent = isLight() ? 'Light mode' : 'Dark mode';
+        b.setAttribute('aria-pressed', isLight() ? 'true' : 'false');
+        b.setAttribute('aria-label', 'Light mode');
+      } else {
+        b.textContent = isLight() ? '🌙' : '☀️';
+      }
+    });
+  }
   icon();
-  if (btn) btn.addEventListener('click', function () {
-    var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme', next); } catch (e) {}
-    icon();
+  btns.forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();                                   // keeps the phone menu open
+      var next = isLight() ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (err) {}
+      icon();
+    });
   });
 })();
 
@@ -255,6 +279,18 @@
   });
   strip.addEventListener('focusin', function () { paused = true; });
   strip.addEventListener('focusout', function () { paused = false; });
+})();
+
+/* 11a) FOOTER DHAKA TIME (every page): the small "9:29 AM in Dhaka" pill
+   in the footer, updated every 20 seconds. */
+(function () {
+  var spots = document.querySelectorAll('[data-dhaka-time]');
+  if (!spots.length) return;
+  function tick() {
+    var t = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: '2-digit' });
+    spots.forEach(function (s) { s.textContent = t; });
+  }
+  tick(); setInterval(tick, 20000);
 })();
 
 /* 11) LIVE DHAKA CLOCK + DAY ROUTE (contact page): the big time, a line
@@ -1282,4 +1318,38 @@
   var lastW = innerWidth;
   addEventListener('resize', function () { if (innerWidth !== lastW) { lastW = innerWidth; measure(); wake(); } });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); wake(); });
+})();
+
+/* 30) HOME PANELS "SHOW MORE" (phones, up to 600px; owner asked, Nov 2026):
+   the Experience and Education panels on Home show only their newest entry,
+   with a soft fade and a "Show N more" button. Tapping it opens the rest
+   right there (the rows slide in); "Show less" folds them again. Computers
+   always show everything. */
+(function () {
+  var panels = document.querySelectorAll('.xp-panel');
+  if (!panels.length) return;
+  var phone = window.matchMedia('(max-width: 600px)');
+  panels.forEach(function (panel) {
+    var rows = panel.querySelectorAll('.xp-row');
+    if (rows.length < 2) return;
+    var more = rows.length - 1;
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'xp-more';
+    btn.setAttribute('aria-expanded', 'false');
+    panel.appendChild(btn);
+    function label() {
+      var open = panel.classList.contains('xp-open');
+      btn.innerHTML = open ? 'Show less <span aria-hidden="true">↑</span>' : 'Show ' + more + ' more <span aria-hidden="true">↓</span>';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () {
+      var open = !panel.classList.contains('xp-open');
+      panel.classList.toggle('xp-open', open);
+      label();
+      if (!open) panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+    function apply() { panel.classList.toggle('xp-short', phone.matches); label(); }
+    apply();
+    if (phone.addEventListener) phone.addEventListener('change', apply);
+  });
 })();
