@@ -2520,7 +2520,7 @@ textarea { min-height: 130px; resize: vertical; }
    and the person sits at the bottom with a round photo in a coloured ring.
    The middle card sits a little lower on computers, so the row has rhythm.
    ===================================================== */
-.recs { padding-top: 40px; }
+.recs { padding-top: 10px; }   /* last section on Home, right after the LinkedIn posts */
 .rec-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 44px; align-items: start; }
 .rec {
   position: relative; margin: 0; display: flex; flex-direction: column; gap: 16px; padding: 26px 24px 22px;
