@@ -2510,3 +2510,58 @@ textarea { min-height: 130px; resize: vertical; }
 .post p { line-height: 1.45; }
 @media (max-width: 860px) { .post-img.cover span { font-size: 2.6rem; } }
 @media (prefers-reduced-motion: reduce) { .post:hover .post-img.cover span { transform: none; } }
+
+
+/* =====================================================
+   WHAT PEOPLE SAY (Home, Nov 2026): three recommendation cards, no slider.
+   Each card has its own colour (--rc): amber classmate, mint mentor,
+   violet teammate. A coloured strip runs along the top, a big faint quote
+   mark sits in the corner, the key line is highlighted like a marker pen,
+   and the person sits at the bottom with a round photo in a coloured ring.
+   The middle card sits a little lower on computers, so the row has rhythm.
+   ===================================================== */
+.recs { padding-top: 40px; }
+.rec-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 44px; align-items: start; }
+.rec {
+  position: relative; margin: 0; display: flex; flex-direction: column; gap: 16px; padding: 26px 24px 22px;
+  border-radius: 22px; border: 1px solid var(--line); background: var(--card); overflow: hidden;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .35s;
+}
+.rec:nth-child(2) { margin-top: 34px; }
+.rec::before {   /* coloured strip along the top */
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  background: linear-gradient(90deg, var(--rc), transparent 85%);
+}
+.rec::after {    /* big faint quote mark */
+  content: "\201C"; position: absolute; right: 16px; top: -6px; font: 700 7rem/1 var(--font-head);
+  color: rgba(var(--rc-rgb), .16); pointer-events: none;
+}
+.rec:hover { transform: translateY(-6px); border-color: rgba(var(--rc-rgb), .5); box-shadow: 0 24px 44px -26px rgba(var(--rc-rgb), .7); }
+.rec-tag {
+  align-self: flex-start; font: 600 .72rem var(--font-body); padding: 5px 11px; border-radius: 99px;
+  color: var(--rc); background: rgba(var(--rc-rgb), .1); border: 1px solid rgba(var(--rc-rgb), .35);
+}
+.rec blockquote { margin: 0; display: grid; gap: 10px; position: relative; z-index: 1; }
+.rec blockquote p { font-size: .92rem; line-height: 1.65; color: var(--muted); }
+.rec mark {
+  color: var(--text); font-weight: 600; padding: 0 2px; border-radius: 3px;
+  background: linear-gradient(transparent 58%, rgba(var(--rc-rgb), .35) 58%);
+}
+.rec-who { display: flex; align-items: center; gap: 14px; margin-top: auto; padding-top: 16px; border-top: 1px dashed var(--line); }
+.rec-who img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--rc); }
+.rec-who b { display: block; font-size: .95rem; color: var(--text); }
+.rec-who small { display: block; font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: 2px; }
+.rec-who em { display: block; font-style: normal; font-size: .72rem; color: var(--muted); opacity: .8; margin-top: 3px; }
+.rec-more { text-align: center; margin-top: 30px; }
+.rec-more a { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: .9rem; color: var(--accent); padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(var(--accent-rgb), .35); transition: background .25s, transform .25s; }
+.rec-more a:hover, .rec-more a:focus-visible { background: rgba(var(--accent-rgb), .1); transform: translateY(-2px); }
+.rec-more a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 960px) {
+  .rec-grid { grid-template-columns: minmax(0, 1fr); max-width: 620px; margin-inline: auto; }
+  .rec:nth-child(2) { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  .rec { padding: 22px 18px 18px; }
+  .rec blockquote p { font-size: .88rem; }
+}
+@media (prefers-reduced-motion: reduce) { .rec:hover { transform: none; } }
