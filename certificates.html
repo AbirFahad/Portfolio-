@@ -65,15 +65,14 @@
      Folder tabs on top (All + one per category, with a count) open one
      drawer at a time (js part 31). Every drawer is a <section class="drawer">
      with data-cat. Words are in content.md; only real facts, never invented.
-     CERTIFICATES & COURSES: the drawer is ready but hidden until the owner
-     sends the list (it has class "is-empty"; its tab hides too). To add one:
-     copy the commented card inside it, fill it in, and remove "is-empty". -->
+     CERTIFICATES & COURSES: from the owner's certificate files. A drawer with
+     class "is-empty" (no cards) hides itself and its tab. -->
 <section class="cab-sec">
   <div class="wrap">
     <div class="cab-tabs reveal" role="tablist" aria-label="Categories">
       <button role="tab" class="cab-tab on" data-cat="all" aria-selected="true"><span aria-hidden="true">🗄️</span> All</button>
       <button role="tab" class="cab-tab" data-cat="degrees" aria-selected="false"><span aria-hidden="true">🎓</span> Degrees &amp; diplomas <b>4</b></button>
-      <button role="tab" class="cab-tab" data-cat="certs" aria-selected="false"><span aria-hidden="true">📜</span> Certificates <b>0</b></button>
+      <button role="tab" class="cab-tab" data-cat="certs" aria-selected="false"><span aria-hidden="true">📜</span> Certificates <b>5</b></button>
       <button role="tab" class="cab-tab" data-cat="hard" aria-selected="false"><span aria-hidden="true">🛠️</span> Hard skills <b>6</b></button>
       <button role="tab" class="cab-tab" data-cat="soft" aria-selected="false"><span aria-hidden="true">🤝</span> Soft skills <b>5</b></button>
       <button role="tab" class="cab-tab" data-cat="know" aria-selected="false"><span aria-hidden="true">📚</span> Knowledge <b>3</b></button>
@@ -117,13 +116,49 @@
       </section>
 
       <!-- CERTIFICATES & COURSES: hidden until the owner sends the list -->
-      <section class="drawer is-empty" data-cat="certs" aria-labelledby="d-cert">
+      <section class="drawer" data-cat="certs" aria-labelledby="d-cert">
         <h2 class="drawer-h" id="d-cert"><span aria-hidden="true">📜</span> Certificates &amp; courses</h2>
         <div class="paper-grid">
-          <!-- copy this card for each certificate:
+          <!-- From the owner's certificate files (Nov 2026). To add one, copy a card. -->
+          <article class="paper reveal">
+            <span class="paper-seal" aria-hidden="true">🌍</span>
+            <small class="paper-kind">Leadership program · Oct 2025</small>
+            <h3>Aspire Leaders Program 2025</h3>
+            <p>Aspire Institute</p>
+            <div class="paper-foot"><span class="stamp-mini">Completed</span><span class="badge">40 hours of coursework</span></div>
+          </article>
+          <article class="paper reveal d1">
+            <span class="paper-seal" aria-hidden="true">🗣️</span>
+            <small class="paper-kind">Course · May 2024</small>
+            <h3>Workplace Communication Essentials</h3>
+            <p>Passport to Earning Bangladesh (Generation Unlimited)</p>
+            <div class="paper-foot"><span class="stamp-mini">Completed</span></div>
+          </article>
+          <article class="paper reveal d2">
+            <span class="paper-seal" aria-hidden="true">💼</span>
+            <small class="paper-kind">Training · Feb 2024</small>
+            <h3>Business Development (on-the-job training)</h3>
+            <p>GAO Tek Inc. · three-month internship program</p>
+            <div class="paper-foot"><span class="stamp-mini">Completed</span><span class="badge">Team leader</span></div>
+          </article>
+          <article class="paper reveal">
+            <span class="paper-seal" aria-hidden="true">🎤</span>
+            <small class="paper-kind">Seminar · Feb 2024</small>
+            <h3>Career Talk 3.0 with Shahnawaz Hossain Jay</h3>
+            <p>ESAB BUBT Unit FACE</p>
+            <div class="paper-foot"><span class="stamp-mini">Participated</span></div>
+          </article>
+          <article class="paper reveal d1">
+            <span class="paper-seal" aria-hidden="true">📊</span>
+            <small class="paper-kind">Course · Oct 2022</small>
+            <h3>Complete Excel Mastery: Beginner to Advanced</h3>
+            <p>Udemy</p>
+            <div class="paper-foot"><span class="stamp-mini">Completed</span><span class="badge">13.5 hours</span></div>
+          </article>
+          <!-- copy this card for each new certificate:
           <article class="paper">
             <span class="paper-seal" aria-hidden="true">📜</span>
-            <small class="paper-kind">Course · YEAR</small>
+            <small class="paper-kind">Course · MONTH YEAR</small>
             <h3>CERTIFICATE NAME</h3>
             <p>WHO GAVE IT</p>
             <div class="paper-foot"><span class="stamp-mini">Completed</span></div>
@@ -135,7 +170,7 @@
       <section class="drawer" data-cat="hard" aria-labelledby="d-hard">
         <h2 class="drawer-h" id="d-hard"><span aria-hidden="true">🛠️</span> Hard skills</h2>
         <div class="skill-grid">
-          <article class="sk reveal"><span class="sk-ic" aria-hidden="true">📊</span><div><h3>Excel</h3><p>VLOOKUP, INDEX-MATCH, pivots. My own S&amp;OP workbook covers 140+ SKUs.</p></div></article>
+          <article class="sk reveal"><span class="sk-ic" aria-hidden="true">📊</span><div><h3>Excel</h3><p>VLOOKUP, INDEX-MATCH, pivots. My own S&amp;OP workbook covers 140+ SKUs. Udemy course: Complete Excel Mastery.</p></div></article>
           <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">📈</span><div><h3>Power BI <em>learning</em></h3><p>Learning it right now (see the Skills page).</p></div></article>
           <article class="sk reveal d2"><span class="sk-ic" aria-hidden="true">🔮</span><div><h3>Forecasting</h3><p>Forecasts checked against linear regression and exponential smoothing.</p></div></article>
           <article class="sk reveal"><span class="sk-ic" aria-hidden="true">📦</span><div><h3>Material planning</h3><p>Raw material and packaging needs from BOMs, lead times and MOQs.</p></div></article>
@@ -149,7 +184,7 @@
         <h2 class="drawer-h" id="d-soft"><span aria-hidden="true">🤝</span> Soft skills</h2>
         <div class="skill-grid">
           <article class="sk reveal"><span class="sk-ic" aria-hidden="true">🎤</span><div><h3>Leadership</h3><p><span class="proof">Shown as</span> Technical Team Lead, TEDx Dhanmondi.</p></div></article>
-          <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">✍️</span><div><h3>Communication</h3><p><span class="proof">Shown as</span> LinkedIn posts for students and young professionals.</p></div></article>
+          <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">✍️</span><div><h3>Communication</h3><p><span class="proof">Shown as</span> LinkedIn posts for students and young professionals; Workplace Communication Essentials course.</p></div></article>
           <article class="sk reveal d2"><span class="sk-ic" aria-hidden="true">🤝</span><div><h3>Negotiation</h3><p><span class="proof">Shown as</span> supplier price revisions at Rani Food.</p></div></article>
           <article class="sk reveal"><span class="sk-ic" aria-hidden="true">🌍</span><div><h3>Teamwork &amp; service</h3><p><span class="proof">Shown as</span> International Service Director, Rotaract Club of Dhaka Dynamic.</p></div></article>
           <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">🧩</span><div><h3>Case solving</h3><p><span class="proof">Shown as</span> runner-up twice at Bizz Masters Season 1; 70% scholarship at the ISCEA Global Case Competition 2025.</p></div></article>
