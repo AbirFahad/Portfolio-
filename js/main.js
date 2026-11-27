@@ -59,7 +59,8 @@
       e.stopPropagation();                                   // keeps the phone menu open
       var next = isLight() ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (err) {}
+      // remember it only if the visitor allowed "Preferences" in the cookie notice (js part 32)
+      try { var c = JSON.parse(localStorage.getItem('consent') || 'null'); if (c && c.prefs) localStorage.setItem('theme', next); } catch (err) {}
       icon();
     });
   });
@@ -1401,4 +1402,97 @@
     });
   }, { threshold: 0.6 });
   nums.forEach(function (n) { io.observe(n); });
+})();
+
+
+/* 32) COOKIES & PRIVACY NOTICE (every page, Nov 2026). The site sets no
+   tracking or advertising cookies. It only keeps small notes in the
+   browser: the light/dark choice (only if the visitor allows
+   "Preferences"), the answer to this notice, and a per-visit note so the
+   loading screen shows once. The notice slides up at the bottom with three
+   buttons: Accept all / Essential only / Customize (a switch for
+   Preferences). "Cookie settings" in every footer opens it again. The
+   answer is saved as "consent" ({prefs:true|false}). js part 1 reads it. */
+(function () {
+  function read() { try { return JSON.parse(localStorage.getItem('consent') || 'null'); } catch (e) { return null; } }
+  function save(prefs) {
+    try {
+      localStorage.setItem('consent', JSON.stringify({ prefs: prefs, at: new Date().toISOString().slice(0, 10) }));
+      if (!prefs) localStorage.removeItem('theme');                 // forget the saved light/dark choice
+      else localStorage.setItem('theme', document.documentElement.getAttribute('data-theme') || 'dark');
+    } catch (e) {}
+  }
+  var box = document.createElement('div');
+  box.className = 'consent';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-live', 'polite');
+  box.setAttribute('aria-label', 'Cookies and privacy');
+  box.innerHTML =
+    '<div class="cs-main">' +
+      '<span class="cs-ic" aria-hidden="true">🍪</span>' +
+      '<div class="cs-text"><b>Cookies? Barely any.</b>' +
+      '<p>This site doesn’t track you or show ads. It only keeps small notes in your browser, like your light/dark choice. Fonts and tool icons load from Google.</p></div>' +
+    '</div>' +
+    '<div class="cs-more" hidden>' +
+      '<label class="cs-row"><span><b>Essential</b><small>Remembers your answer here and shows the loading screen once per visit.</small></span><span class="cs-always">Always on</span></label>' +
+      '<label class="cs-row"><span><b>Preferences</b><small>Remembers light or dark mode on this device.</small></span><input type="checkbox" class="cs-pref" checked><span class="cs-switch" aria-hidden="true"><i></i></span></label>' +
+    '</div>' +
+    '<div class="cs-btns">' +
+      '<button type="button" class="btn primary cs-all">Accept all</button>' +
+      '<button type="button" class="btn cs-ess">Essential only</button>' +
+      '<button type="button" class="cs-link cs-cust" aria-expanded="false">Customize</button>' +
+    '</div>';
+  document.body.appendChild(box);
+  var more = box.querySelector('.cs-more'), cust = box.querySelector('.cs-cust'), pref = box.querySelector('.cs-pref');
+
+  function open() {
+    var c = read(); pref.checked = c ? c.prefs !== false : true;
+    box.classList.add('show');
+    document.dispatchEvent(new CustomEvent('consent:open'));
+  }
+  function close(prefs) {
+    save(prefs);
+    box.classList.remove('show');
+    more.hidden = true; cust.textContent = 'Customize'; cust.setAttribute('aria-expanded', 'false');
+    document.dispatchEvent(new CustomEvent('consent:done'));
+  }
+  box.querySelector('.cs-all').addEventListener('click', function () { close(true); });
+  box.querySelector('.cs-ess').addEventListener('click', function () { close(false); });
+  cust.addEventListener('click', function () {
+    if (more.hidden) { more.hidden = false; cust.textContent = 'Save my choice'; cust.setAttribute('aria-expanded', 'true'); }
+    else close(pref.checked);
+  });
+
+  // "Cookie settings" link in every footer's bottom line
+  document.querySelectorAll('.foot-bottom').forEach(function (fb) {
+    var a = document.createElement('button');
+    a.type = 'button'; a.className = 'foot-cookie'; a.textContent = 'Cookie settings';
+    a.addEventListener('click', open);
+    fb.appendChild(a);
+  });
+
+  window.__consentPending = !read();
+  if (window.__consentPending) setTimeout(open, 1200);   // after the page has settled
+})();
+
+/* 33) PHONE TIP (phones only, once): a small note suggesting a computer
+   for the full experience (bigger animations, the import map, the
+   certificate viewer), with an OK button. Waits until the cookie notice
+   is answered so the two never stack. Remembered in sessionStorage (shows
+   again on a new visit) so it never nags within one visit. */
+(function () {
+  if (!window.matchMedia('(max-width: 760px)').matches) return;
+  try { if (sessionStorage.getItem('pcTip')) return; } catch (e) {}
+  var tip = document.createElement('div');
+  tip.className = 'pc-tip'; tip.setAttribute('role', 'status');
+  tip.innerHTML = '<span class="pt-ic" aria-hidden="true">💻</span><p><b>Tip:</b> this portfolio looks its best on a computer, with the full animations and wider views.</p><button type="button" class="btn primary pt-ok">OK</button>';
+  document.body.appendChild(tip);
+  function show() { setTimeout(function () { tip.classList.add('show'); }, 900); }
+  tip.querySelector('.pt-ok').addEventListener('click', function () {
+    tip.classList.remove('show');
+    try { sessionStorage.setItem('pcTip', '1'); } catch (e) {}
+    setTimeout(function () { tip.remove(); }, 400);
+  });
+  if (window.__consentPending) document.addEventListener('consent:done', show, { once: true });
+  else show();
 })();
