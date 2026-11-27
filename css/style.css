@@ -2569,3 +2569,58 @@ textarea { min-height: 130px; resize: vertical; }
   .rec blockquote p { font-size: .88rem; }
 }
 @media (prefers-reduced-motion: reduce) { .rec:hover { transform: none; } }
+
+
+/* =====================================================
+   LEADERSHIP PASSPORT (Home, end of Wins & achievements, Nov 2026)
+   A wide glass card like a passport page: a faint dotted "visa" pattern,
+   a heading line with the count, a link to the Experience page, and six
+   stamps (org initials in a double inked ring, each turned a little,
+   colour --sc). Hover / focus a stamp: it presses flat, grows and fills
+   with ink. Phones: stamps in a 3-column grid.
+   ===================================================== */
+.lead-pass {
+  margin-top: 22px; position: relative; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr); gap: 28px; align-items: center;
+  padding: 28px 30px; border-radius: 24px; border: 1px solid var(--line);
+  background:
+    radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.3px) 0 0 / 16px 16px,
+    linear-gradient(135deg, rgba(var(--accent-3-rgb), .08), rgba(var(--accent-rgb), .05)), var(--card);
+}
+.lead-pass::after {   /* perforated edge, like a passport page */
+  content: ""; position: absolute; top: 14px; bottom: 14px; left: 10px; width: 4px;
+  background: radial-gradient(circle, var(--line) 1.6px, transparent 2px) 0 0 / 4px 12px;
+}
+.lp-kicker { display: flex; align-items: center; gap: 12px; font: 700 .74rem var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--accent-3); }
+.lp-kicker::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(var(--accent-3-rgb), .5), transparent); }
+.lp-line { margin: 12px 0 16px; color: var(--muted); line-height: 1.6; font-size: .95rem; }
+.lp-line b { color: var(--text); }
+.lp-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--accent); }
+.lp-link span { transition: transform .25s; }
+.lp-link:hover span, .lp-link:focus-visible span { transform: translateX(4px); }
+.lp-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+.lp-stamps { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.lp-stamps li { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.lp-stamp {
+  width: 84px; height: 84px; border-radius: 50%; display: grid; place-content: center; gap: 2px;
+  color: var(--sc); border: 2.5px solid var(--sc); outline: 1px dashed var(--sc); outline-offset: -8px;
+  transform: rotate(var(--rot)); opacity: .9;
+  transition: transform .35s cubic-bezier(.3,1.5,.5,1), background .3s, color .3s, opacity .3s;
+}
+.lp-stamp b { font: 800 1.05rem/1 var(--font-head); letter-spacing: .02em; }
+.lp-stamp i { font: 600 .56rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; font-style: normal; opacity: .85; }
+.lp-stamps li:hover .lp-stamp { transform: rotate(0deg) scale(1.08); background: var(--sc); color: #0b1016; opacity: 1; }
+.lp-cap { font-size: .7rem; line-height: 1.35; color: var(--muted); }
+.lp-cap b { display: block; font-size: .74rem; color: var(--text); font-weight: 600; margin-bottom: 2px; }
+
+@media (max-width: 1100px) {
+  .lead-pass { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .lead-pass { padding: 22px 18px 22px 24px; gap: 20px; }
+  .lp-stamps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 8px; }
+  .lp-stamp { width: 70px; height: 70px; }
+  .lp-stamp b { font-size: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) { .lp-stamps li:hover .lp-stamp { transform: rotate(var(--rot)); } }
