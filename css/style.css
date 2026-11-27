@@ -1801,6 +1801,7 @@ textarea { min-height: 130px; resize: vertical; }
 .ct-main small { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .ct-main span { font-weight: 600; overflow-wrap: anywhere; }
 .ct-main em { font-style: normal; font-size: .76rem; color: var(--accent); }
+.ct-main em.ct-note-amber { color: var(--accent-2); }   /* email card: when I reply, in amber */
 .ct-go { color: var(--muted); font-size: 1.1rem; transition: transform .3s, color .3s; }
 .ct-card:hover .ct-go { color: var(--accent); transform: translate(2px, -2px); }
 .ct-copy {
@@ -2365,14 +2366,17 @@ textarea { min-height: 130px; resize: vertical; }
   font: inherit; cursor: pointer; transition: background .25s, border-color .25s;
 }
 .vi-item:hover { background: var(--card); border-color: var(--line); }
-.vi-item.on { background: rgba(var(--accent-rgb), .1); border-color: rgba(var(--accent-rgb), .45); }
+/* the chosen row: filled with cyan, dark text (owner asked, Nov 2026) */
+.vi-item.on { background: #22d3ee; border-color: #22d3ee; color: #04111a; box-shadow: 0 10px 26px -14px rgba(34, 211, 238, .9); }
+.vi-item.on .vi-text small { color: rgba(4, 17, 26, .7); }
 .vi-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .vi-date { font: 600 .72rem/1.2 var(--font-body); color: var(--muted); font-variant-numeric: tabular-nums; }
-.vi-item.on .vi-date { color: var(--accent); }
+.vi-item.on .vi-date { color: #04111a; }
 .vi-text b { display: block; font-size: .88rem; font-weight: 600; line-height: 1.3; }
 .vi-text small { display: block; font-size: .75rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
 .vi-go { color: var(--muted); font-size: 1.2rem; transition: transform .25s, color .25s; }
-.vi-item:hover .vi-go, .vi-item.on .vi-go { color: var(--accent); transform: translateX(3px); }
+.vi-item:hover .vi-go { color: var(--accent); transform: translateX(3px); }
+.vi-item.on .vi-go { color: #04111a; transform: translateX(3px); }
 
 .vault-view {
   position: sticky; top: 90px; padding: 18px; border-radius: 24px; border: 1px solid var(--line); background: var(--card);
