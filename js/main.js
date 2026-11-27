@@ -41,14 +41,30 @@
   });
 })();
 
-/* 2) PHONE MENU: on phones the page links sit in a row under "AF." (no
-   menu button). If the row is wider than the screen it slides sideways;
-   here we slide it so the current page's link is in the middle. */
+/* 2) PHONE MENU (up to 860px): the menu icon (three lines) opens a panel
+   that drops down from the notch with the pages as big rows; the icon turns
+   into an X. It closes when you pick a page, tap outside it, or press Esc.
+   The "Let's Talk" button always stays in the bar. Computers keep the
+   normal row of links. */
 (function () {
-  var row = document.querySelector('.nav .links');
-  var on = row && row.querySelector('.link.active');
-  if (!on || row.scrollWidth <= row.clientWidth) return;
-  row.scrollLeft = on.offsetLeft - (row.clientWidth - on.offsetWidth) / 2;
+  var nav = document.querySelector('.nav');
+  var btn = nav && nav.querySelector('.menu-btn');
+  var panel = nav && nav.querySelector('.links');
+  if (!btn || !panel) return;
+  var links = Array.prototype.slice.call(panel.querySelectorAll('a'));
+  links.forEach(function (a, i) { a.style.setProperty('--k', i); });   // for the one-by-one slide in
+  function setOpen(open, byKeyboard) {
+    nav.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open && byKeyboard) { var first = panel.querySelector('a:not(.cta)'); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60); }
+  }
+  // e.detail is 0 when the button was pressed with the keyboard: only then jump to the first link
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!nav.classList.contains('open'), e.detail === 0); });
+  links.forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+  document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); btn.focus(); } });
+  addEventListener('resize', function () { if (innerWidth > 860 && nav.classList.contains('open')) setOpen(false); });
 })();
 
 /* 3) SCROLL PROGRESS BAR (thin bar down the left edge) + TIMELINE FILL */
