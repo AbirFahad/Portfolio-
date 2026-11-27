@@ -57,231 +57,150 @@
   <div class="wrap">
     <span class="tag reveal">Certificates</span>
     <h1 class="title reveal d1" data-anim="paper">The paperwork.</h1>
-    <p class="sub reveal d2">Every certificate I've earned, filed by category. Tap one to see it full size.</p>
-    <!-- quick numbers (count up when they come into view, js part 31) -->
-    <ul class="cert-stats reveal d3">
-      <li><b data-count="15">15</b><span>Certificates</span></li>
-      <li><b data-count="11">11</b><span>Organisations</span></li>
-      <li><b data-count="6">6</b><span>Courses &amp; training</span></li>
-      <li><b data-count="2">2</b><span>Runner-up awards</span></li>
-    </ul>
+    <p class="sub reveal d2">Every certificate I've earned, in one place. Pick one from the index to look at it closely.</p>
+    <p class="vault-facts reveal d3"><span><b>15</b> certificates</span><span><b>11</b> organisations</span><span><b>Oct 2022 – Dec 2025</b></span></p>
   </div>
 </header>
 
-<!-- ===== ALL CERTIFICATES (Nov 2026, from the owner's certificate files) =====
-     Category tabs on top (with counts) filter the groups below (js part 31).
-     Each card: the certificate picture (preview from images/thumbs/certs/,
-     full size from images/certs/; tap opens the shared photo viewer, js part
-     13), then title, who gave it, date and a small badge.
-     TO ADD ONE: make the two pictures (1400px and a 640px preview), copy a
-     <article class="cert-card"> block into the right group and change the
-     words, then update the counts in the tab, the group heading and the stats.
-     Original PDFs: Portfolio/archive/original-certificates/. -->
-<section class="cert-sec">
-  <div class="wrap">
-    <div class="cert-tabs reveal" role="tablist" aria-label="Certificate categories">
-      <button role="tab" class="cert-tab on" data-cat="all" aria-selected="true">All <b>15</b></button>
-      <button role="tab" class="cert-tab" data-cat="courses" aria-selected="false"><span aria-hidden="true">📚</span> Courses &amp; training <b>6</b></button>
-      <button role="tab" class="cert-tab" data-cat="leader" aria-selected="false"><span aria-hidden="true">🤝</span> Leadership &amp; volunteering <b>4</b></button>
-      <button role="tab" class="cert-tab" data-cat="comp" aria-selected="false"><span aria-hidden="true">🏆</span> Competitions <b>3</b></button>
-      <button role="tab" class="cert-tab" data-cat="events" aria-selected="false"><span aria-hidden="true">🎤</span> Events &amp; seminars <b>2</b></button>
+<!-- ===== THE VAULT (Nov 2026; replaced a tabs + card-grid layout that looked
+     too much like another site): an INDEX on the left (grouped by category,
+     each row: date, title, who gave it) and a big VIEWER on the right that
+     shows the chosen certificate with its details, previous/next and "Open
+     full size". On phones the viewer is hidden: tapping a row opens the
+     certificate right under it. js part 31.
+     Pictures: images/certs/ (1400px) + images/thumbs/certs/ (640px).
+     TO ADD ONE: make both pictures, copy a <li><button class="vi-item"> row
+     into the right group, fill in its data-… values and the visible text,
+     renumber data-i in order, and update the counts. -->
+<section class="vault-sec">
+  <div class="wrap vault">
+    <nav class="vault-index reveal" aria-label="Certificate index">
+      <div class="vi-group">
+        <h2 class="vi-h"><span aria-hidden="true">📚</span> Courses &amp; training <b>6</b></h2>
+        <ol class="vi-list">
+          <li><button type="button" class="vi-item" data-i="0" data-slug="iscea-pg-diploma-scm" data-title="Post Graduate Diploma in Supply Chain Management" data-issuer="ISCEA (International Supply Chain Education Alliance)" data-date="Dec 2025" data-badge="" data-cat="Courses &amp; training" aria-controls="vaultView">
+            <span class="vi-date">Dec 2025</span>
+            <span class="vi-text"><b>Post Graduate Diploma in Supply Chain Management</b><small>ISCEA (International Supply Chain Education Alliance)</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="1" data-slug="aspire-leaders-program-2025" data-title="2025 Aspire Leaders Program" data-issuer="Aspire Institute" data-date="Oct 2025" data-badge="40 hours" data-cat="Courses &amp; training" aria-controls="vaultView">
+            <span class="vi-date">Oct 2025</span>
+            <span class="vi-text"><b>2025 Aspire Leaders Program</b><small>Aspire Institute</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="2" data-slug="creative-it-rise-above-all" data-title="Rise Above All: Harness Your Leadership &amp; Communication Power" data-issuer="Creative IT Institute" data-date="Dec 2024" data-badge="" data-cat="Courses &amp; training" aria-controls="vaultView">
+            <span class="vi-date">Dec 2024</span>
+            <span class="vi-text"><b>Rise Above All: Harness Your Leadership &amp; Communication Power</b><small>Creative IT Institute</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="3" data-slug="workplace-communication-essentials" data-title="Workplace Communication Essentials" data-issuer="Passport to Earning Bangladesh" data-date="May 2024" data-badge="" data-cat="Courses &amp; training" aria-controls="vaultView">
+            <span class="vi-date">May 2024</span>
+            <span class="vi-text"><b>Workplace Communication Essentials</b><small>Passport to Earning Bangladesh</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="4" data-slug="gao-tek-business-development" data-title="Training in Business Development" data-issuer="GAO Tek Inc." data-date="Feb 2024" data-badge="Team leader" data-cat="Courses &amp; training" aria-controls="vaultView">
+            <span class="vi-date">Feb 2024</span>
+            <span class="vi-text"><b>Training in Business Development</b><small>GAO Tek Inc.</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="5" data-slug="udemy-complete-excel-mastery" data-title="Complete Excel Mastery: Beginner to Advanced" data-issuer="Udemy" data-date="Oct 2022" data-badge="13.5 hours" data-cat="Courses &amp; training" aria-controls="vaultView">
+            <span class="vi-date">Oct 2022</span>
+            <span class="vi-text"><b>Complete Excel Mastery: Beginner to Advanced</b><small>Udemy</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+        </ol>
+      </div>
+      <div class="vi-group">
+        <h2 class="vi-h"><span aria-hidden="true">🤝</span> Leadership &amp; volunteering <b>4</b></h2>
+        <ol class="vi-list">
+          <li><button type="button" class="vi-item" data-i="6" data-slug="creative-it-campus-ambassador" data-title="Campus Ambassador" data-issuer="Creative IT Institute" data-date="Jun 2025" data-badge="Mar 2024 – Jun 2025" data-cat="Leadership &amp; volunteering" aria-controls="vaultView">
+            <span class="vi-date">Jun 2025</span>
+            <span class="vi-text"><b>Campus Ambassador</b><small>Creative IT Institute</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="7" data-slug="rotaract-international-service-director" data-title="International Service Director, Board of Directors" data-issuer="Rotaract Club of Dhaka Dynamic" data-date="2024–25" data-badge="" data-cat="Leadership &amp; volunteering" aria-controls="vaultView">
+            <span class="vi-date">2024–25</span>
+            <span class="vi-text"><b>International Service Director, Board of Directors</b><small>Rotaract Club of Dhaka Dynamic</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="8" data-slug="rotaract-membership-2024-25" data-title="Certificate of Membership" data-issuer="Rotaract Club of Dhaka Dynamic" data-date="2024–25" data-badge="" data-cat="Leadership &amp; volunteering" aria-controls="vaultView">
+            <span class="vi-date">2024–25</span>
+            <span class="vi-text"><b>Certificate of Membership</b><small>Rotaract Club of Dhaka Dynamic</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="9" data-slug="interactive-cares-event-ambassador" data-title="Event Ambassador, Idea Innovation 5.0" data-issuer="Interactive Cares" data-date="" data-badge="" data-cat="Leadership &amp; volunteering" aria-controls="vaultView">
+            <span class="vi-date">—</span>
+            <span class="vi-text"><b>Event Ambassador, Idea Innovation 5.0</b><small>Interactive Cares</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+        </ol>
+      </div>
+      <div class="vi-group">
+        <h2 class="vi-h"><span aria-hidden="true">🏆</span> Competitions <b>3</b></h2>
+        <ol class="vi-list">
+          <li><button type="button" class="vi-item" data-i="10" data-slug="hult-prize-oncampus-2025" data-title="Hult Prize OnCampus Program 2024–25" data-issuer="Hult Prize Foundation · BUBT" data-date="Feb 2025" data-badge="Video editor" data-cat="Competitions" aria-controls="vaultView">
+            <span class="vi-date">Feb 2025</span>
+            <span class="vi-text"><b>Hult Prize OnCampus Program 2024–25</b><small>Hult Prize Foundation · BUBT</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="11" data-slug="bizz-masters-ad-maker-runner-up" data-title="Ad Maker" data-issuer="BUBT Business Club · Bizz Masters Season 1" data-date="" data-badge="1st runner-up" data-cat="Competitions" aria-controls="vaultView">
+            <span class="vi-date">—</span>
+            <span class="vi-text"><b>Ad Maker</b><small>BUBT Business Club · Bizz Masters Season 1</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="12" data-slug="bizz-masters-next-presenter-runner-up" data-title="Next Presenter" data-issuer="BUBT Business Club · Bizz Masters Season 1" data-date="" data-badge="1st runner-up" data-cat="Competitions" aria-controls="vaultView">
+            <span class="vi-date">—</span>
+            <span class="vi-text"><b>Next Presenter</b><small>BUBT Business Club · Bizz Masters Season 1</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+        </ol>
+      </div>
+      <div class="vi-group">
+        <h2 class="vi-h"><span aria-hidden="true">🎤</span> Events &amp; seminars <b>2</b></h2>
+        <ol class="vi-list">
+          <li><button type="button" class="vi-item" data-i="13" data-slug="creative-it-ai-digital-marketing-organizer" data-title="The AI Revolution in Digital Marketing (workshop &amp; industrial visit)" data-issuer="Creative IT Institute · BUBT Business Club" data-date="Oct 2024" data-badge="Organizer" data-cat="Events &amp; seminars" aria-controls="vaultView">
+            <span class="vi-date">Oct 2024</span>
+            <span class="vi-text"><b>The AI Revolution in Digital Marketing (workshop &amp; industrial visit)</b><small>Creative IT Institute · BUBT Business Club</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+          <li><button type="button" class="vi-item" data-i="14" data-slug="esab-career-talk-3" data-title="Career Talk 3.0 with Shahnawaz Hossain Jay" data-issuer="ESAB BUBT Unit FACE" data-date="Feb 2024" data-badge="" data-cat="Events &amp; seminars" aria-controls="vaultView">
+            <span class="vi-date">Feb 2024</span>
+            <span class="vi-text"><b>Career Talk 3.0 with Shahnawaz Hossain Jay</b><small>ESAB BUBT Unit FACE</small></span>
+            <span class="vi-go" aria-hidden="true">›</span>
+          </button></li>
+        </ol>
+      </div>
+    </nav>
+
+    <div class="vault-view reveal d1" id="vaultView" aria-live="polite">
+      <div class="vv-frame">
+        <img class="vv-img" src="images/certs/iscea-pg-diploma-scm.jpg" srcset="images/thumbs/certs/iscea-pg-diploma-scm.jpg 640w, images/certs/iscea-pg-diploma-scm.jpg 1400w" sizes="(max-width: 1100px) 60vw, 720px" alt="Certificate: Post Graduate Diploma in Supply Chain Management" decoding="async">
+      </div>
+      <div class="vv-info">
+        <span class="vv-cat">Courses &amp; training</span>
+        <h3 class="vv-title">Post Graduate Diploma in Supply Chain Management</h3>
+        <p class="vv-issuer">ISCEA (International Supply Chain Education Alliance)</p>
+        <div class="vv-meta"><span class="vv-date">📅 Dec 2025</span><span class="vv-badge" hidden></span></div>
+      </div>
+      <div class="vv-nav">
+        <button type="button" class="vv-btn vv-prev" aria-label="Previous certificate">←</button>
+        <span class="vv-count">1 / 15</span>
+        <button type="button" class="vv-btn vv-next" aria-label="Next certificate">→</button>
+        <a class="vv-open" href="images/certs/iscea-pg-diploma-scm.jpg" target="_blank" rel="noopener">Open full size <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
+  </div>
 
-      <section class="cert-group" data-cat="courses" aria-labelledby="cg-courses">
-        <h2 class="cert-group-h" id="cg-courses"><span aria-hidden="true">📚</span> Courses &amp; training <b>6</b></h2>
-        <div class="cert-grid">
-          <article class="cert-card reveal" data-cat="courses" style="--i:0">
-            <button class="b-tile cert-shot" type="button" data-caption="Post Graduate Diploma in Supply Chain Management · ISCEA (International Supply Chain Education Alliance)" data-date="Dec 2025" data-place="" aria-label="View certificate: Post Graduate Diploma in Supply Chain Management">
-              <img src="images/certs/iscea-pg-diploma-scm.jpg" srcset="images/thumbs/certs/iscea-pg-diploma-scm.jpg 640w, images/certs/iscea-pg-diploma-scm.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Post Graduate Diploma in Supply Chain Management" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Post Graduate Diploma in Supply Chain Management</h3>
-              <p>ISCEA (International Supply Chain Education Alliance)</p>
-              <div class="cc-meta"><span class="cc-date">📅 Dec 2025</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="courses" style="--i:1">
-            <button class="b-tile cert-shot" type="button" data-caption="2025 Aspire Leaders Program · Aspire Institute" data-date="Oct 2025" data-place="" aria-label="View certificate: 2025 Aspire Leaders Program">
-              <img src="images/certs/aspire-leaders-program-2025.jpg" srcset="images/thumbs/certs/aspire-leaders-program-2025.jpg 640w, images/certs/aspire-leaders-program-2025.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: 2025 Aspire Leaders Program" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>2025 Aspire Leaders Program</h3>
-              <p>Aspire Institute</p>
-              <div class="cc-meta"><span class="cc-date">📅 Oct 2025</span><span class="cc-badge">40 hours</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="courses" style="--i:2">
-            <button class="b-tile cert-shot" type="button" data-caption="Rise Above All: Harness Your Leadership &amp; Communication Power · Creative IT Institute" data-date="Dec 2024" data-place="" aria-label="View certificate: Rise Above All: Harness Your Leadership &amp; Communication Power">
-              <img src="images/certs/creative-it-rise-above-all.jpg" srcset="images/thumbs/certs/creative-it-rise-above-all.jpg 640w, images/certs/creative-it-rise-above-all.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Rise Above All: Harness Your Leadership &amp; Communication Power" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Rise Above All: Harness Your Leadership &amp; Communication Power</h3>
-              <p>Creative IT Institute</p>
-              <div class="cc-meta"><span class="cc-date">📅 Dec 2024</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="courses" style="--i:3">
-            <button class="b-tile cert-shot" type="button" data-caption="Workplace Communication Essentials · Passport to Earning Bangladesh" data-date="May 2024" data-place="" aria-label="View certificate: Workplace Communication Essentials">
-              <img src="images/certs/workplace-communication-essentials.jpg" srcset="images/thumbs/certs/workplace-communication-essentials.jpg 640w, images/certs/workplace-communication-essentials.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Workplace Communication Essentials" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Workplace Communication Essentials</h3>
-              <p>Passport to Earning Bangladesh</p>
-              <div class="cc-meta"><span class="cc-date">📅 May 2024</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="courses" style="--i:0">
-            <button class="b-tile cert-shot" type="button" data-caption="Training in Business Development · GAO Tek Inc." data-date="Feb 2024" data-place="" aria-label="View certificate: Training in Business Development">
-              <img src="images/certs/gao-tek-business-development.jpg" srcset="images/thumbs/certs/gao-tek-business-development.jpg 640w, images/certs/gao-tek-business-development.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Training in Business Development" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Training in Business Development</h3>
-              <p>GAO Tek Inc.</p>
-              <div class="cc-meta"><span class="cc-date">📅 Feb 2024</span><span class="cc-badge">Team leader</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="courses" style="--i:1">
-            <button class="b-tile cert-shot" type="button" data-caption="Complete Excel Mastery: Beginner to Advanced · Udemy" data-date="Oct 2022" data-place="" aria-label="View certificate: Complete Excel Mastery: Beginner to Advanced">
-              <img src="images/certs/udemy-complete-excel-mastery.jpg" srcset="images/thumbs/certs/udemy-complete-excel-mastery.jpg 640w, images/certs/udemy-complete-excel-mastery.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Complete Excel Mastery: Beginner to Advanced" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Complete Excel Mastery: Beginner to Advanced</h3>
-              <p>Udemy</p>
-              <div class="cc-meta"><span class="cc-date">📅 Oct 2022</span><span class="cc-badge">13.5 hours</span></div>
-            </div>
-          </article>
-        </div>
-      </section>
-      <section class="cert-group" data-cat="leader" aria-labelledby="cg-leader">
-        <h2 class="cert-group-h" id="cg-leader"><span aria-hidden="true">🤝</span> Leadership &amp; volunteering <b>4</b></h2>
-        <div class="cert-grid">
-          <article class="cert-card reveal" data-cat="leader" style="--i:0">
-            <button class="b-tile cert-shot" type="button" data-caption="Campus Ambassador · Creative IT Institute" data-date="Jun 2025" data-place="" aria-label="View certificate: Campus Ambassador">
-              <img src="images/certs/creative-it-campus-ambassador.jpg" srcset="images/thumbs/certs/creative-it-campus-ambassador.jpg 640w, images/certs/creative-it-campus-ambassador.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Campus Ambassador" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Campus Ambassador</h3>
-              <p>Creative IT Institute</p>
-              <div class="cc-meta"><span class="cc-date">📅 Jun 2025</span><span class="cc-badge">Mar 2024 – Jun 2025</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="leader" style="--i:1">
-            <button class="b-tile cert-shot" type="button" data-caption="International Service Director, Board of Directors · Rotaract Club of Dhaka Dynamic" data-date="Rotary Year 2024–25" data-place="" aria-label="View certificate: International Service Director, Board of Directors">
-              <img src="images/certs/rotaract-international-service-director.jpg" srcset="images/thumbs/certs/rotaract-international-service-director.jpg 640w, images/certs/rotaract-international-service-director.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: International Service Director, Board of Directors" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>International Service Director, Board of Directors</h3>
-              <p>Rotaract Club of Dhaka Dynamic</p>
-              <div class="cc-meta"><span class="cc-date">📅 Rotary Year 2024–25</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="leader" style="--i:2">
-            <button class="b-tile cert-shot" type="button" data-caption="Certificate of Membership · Rotaract Club of Dhaka Dynamic" data-date="Rotary Year 2024–25" data-place="" aria-label="View certificate: Certificate of Membership">
-              <img src="images/certs/rotaract-membership-2024-25.jpg" srcset="images/thumbs/certs/rotaract-membership-2024-25.jpg 640w, images/certs/rotaract-membership-2024-25.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Certificate of Membership" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Certificate of Membership</h3>
-              <p>Rotaract Club of Dhaka Dynamic</p>
-              <div class="cc-meta"><span class="cc-date">📅 Rotary Year 2024–25</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="leader" style="--i:3">
-            <button class="b-tile cert-shot" type="button" data-caption="Event Ambassador, Idea Innovation 5.0 · Interactive Cares" data-date="" data-place="" aria-label="View certificate: Event Ambassador, Idea Innovation 5.0">
-              <img src="images/certs/interactive-cares-event-ambassador.jpg" srcset="images/thumbs/certs/interactive-cares-event-ambassador.jpg 640w, images/certs/interactive-cares-event-ambassador.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Event Ambassador, Idea Innovation 5.0" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Event Ambassador, Idea Innovation 5.0</h3>
-              <p>Interactive Cares</p>
-              <div class="cc-meta"></div>
-            </div>
-          </article>
-        </div>
-      </section>
-      <section class="cert-group" data-cat="comp" aria-labelledby="cg-comp">
-        <h2 class="cert-group-h" id="cg-comp"><span aria-hidden="true">🏆</span> Competitions <b>3</b></h2>
-        <div class="cert-grid">
-          <article class="cert-card reveal" data-cat="comp" style="--i:0">
-            <button class="b-tile cert-shot" type="button" data-caption="Hult Prize OnCampus Program 2024–25 · Hult Prize Foundation · BUBT" data-date="Feb 2025" data-place="" aria-label="View certificate: Hult Prize OnCampus Program 2024–25">
-              <img src="images/certs/hult-prize-oncampus-2025.jpg" srcset="images/thumbs/certs/hult-prize-oncampus-2025.jpg 640w, images/certs/hult-prize-oncampus-2025.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Hult Prize OnCampus Program 2024–25" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Hult Prize OnCampus Program 2024–25</h3>
-              <p>Hult Prize Foundation · BUBT</p>
-              <div class="cc-meta"><span class="cc-date">📅 Feb 2025</span><span class="cc-badge">Video editor</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="comp" style="--i:1">
-            <button class="b-tile cert-shot" type="button" data-caption="Ad Maker · BUBT Business Club · Bizz Masters Season 1" data-date="" data-place="" aria-label="View certificate: Ad Maker">
-              <img src="images/certs/bizz-masters-ad-maker-runner-up.jpg" srcset="images/thumbs/certs/bizz-masters-ad-maker-runner-up.jpg 640w, images/certs/bizz-masters-ad-maker-runner-up.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Ad Maker" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Ad Maker</h3>
-              <p>BUBT Business Club · Bizz Masters Season 1</p>
-              <div class="cc-meta"><span class="cc-badge">1st runner-up</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="comp" style="--i:2">
-            <button class="b-tile cert-shot" type="button" data-caption="Next Presenter · BUBT Business Club · Bizz Masters Season 1" data-date="" data-place="" aria-label="View certificate: Next Presenter">
-              <img src="images/certs/bizz-masters-next-presenter-runner-up.jpg" srcset="images/thumbs/certs/bizz-masters-next-presenter-runner-up.jpg 640w, images/certs/bizz-masters-next-presenter-runner-up.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Next Presenter" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Next Presenter</h3>
-              <p>BUBT Business Club · Bizz Masters Season 1</p>
-              <div class="cc-meta"><span class="cc-badge">1st runner-up</span></div>
-            </div>
-          </article>
-        </div>
-      </section>
-      <section class="cert-group" data-cat="events" aria-labelledby="cg-events">
-        <h2 class="cert-group-h" id="cg-events"><span aria-hidden="true">🎤</span> Events &amp; seminars <b>2</b></h2>
-        <div class="cert-grid">
-          <article class="cert-card reveal" data-cat="events" style="--i:0">
-            <button class="b-tile cert-shot" type="button" data-caption="The AI Revolution in Digital Marketing (workshop &amp; industrial visit) · Creative IT Institute · BUBT Business Club" data-date="Oct 2024" data-place="" aria-label="View certificate: The AI Revolution in Digital Marketing (workshop &amp; industrial visit)">
-              <img src="images/certs/creative-it-ai-digital-marketing-organizer.jpg" srcset="images/thumbs/certs/creative-it-ai-digital-marketing-organizer.jpg 640w, images/certs/creative-it-ai-digital-marketing-organizer.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: The AI Revolution in Digital Marketing (workshop &amp; industrial visit)" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>The AI Revolution in Digital Marketing (workshop &amp; industrial visit)</h3>
-              <p>Creative IT Institute · BUBT Business Club</p>
-              <div class="cc-meta"><span class="cc-date">📅 Oct 2024</span><span class="cc-badge">Organizer</span></div>
-            </div>
-          </article>
-          <article class="cert-card reveal" data-cat="events" style="--i:1">
-            <button class="b-tile cert-shot" type="button" data-caption="Career Talk 3.0 with Shahnawaz Hossain Jay · ESAB BUBT Unit FACE" data-date="Feb 2024" data-place="" aria-label="View certificate: Career Talk 3.0 with Shahnawaz Hossain Jay">
-              <img src="images/certs/esab-career-talk-3.jpg" srcset="images/thumbs/certs/esab-career-talk-3.jpg 640w, images/certs/esab-career-talk-3.jpg 1400w" sizes="(max-width: 600px) 92vw, 340px" alt="Certificate: Career Talk 3.0 with Shahnawaz Hossain Jay" loading="lazy" decoding="async" data-ph>
-              <span class="cc-zoom" aria-hidden="true">⤢ View</span>
-            </button>
-            <div class="cc-body">
-              <h3>Career Talk 3.0 with Shahnawaz Hossain Jay</h3>
-              <p>ESAB BUBT Unit FACE</p>
-              <div class="cc-meta"><span class="cc-date">📅 Feb 2024</span></div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-    <!-- ACADEMIC RECORD: degrees without a certificate picture on the site yet -->
-    <section class="cert-group cert-academic" data-cat="all-only" aria-labelledby="cg-acad">
-      <h2 class="cert-group-h" id="cg-acad"><span aria-hidden="true">🎓</span> Academic record</h2>
+  <!-- ACADEMIC RECORD: degrees without a certificate picture on the site yet -->
+  <div class="wrap">
+    <div class="cert-academic">
+      <h2 class="vi-h"><span aria-hidden="true">🎓</span> Academic record</h2>
       <ul class="acad-list">
         <li><b>BBA in Marketing</b><span>Bangladesh University of Business and Technology (BUBT) · 2022 – 2026</span><em>CGPA 3.54</em></li>
         <li><b>HSC, Science</b><span>Mohammadpur Preparatory School &amp; College · 2021</span><em>GPA 4.61 / 5</em></li>
         <li><b>SSC, Science</b><span>BCSIR High School · 2019</span><em>GPA 4.58 / 5</em></li>
       </ul>
-    </section>
+    </div>
   </div>
 </section>
 

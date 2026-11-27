@@ -1355,55 +1355,63 @@
   });
 })();
 
-/* 31) CERTIFICATES PAGE: the category tabs show one group at a time ("All"
-   shows every group plus the Academic record). Cards hidden by a tab are
-   also skipped by the photo viewer (it ignores hidden tiles). Arrow keys
-   move between tabs. The stat numbers count up once when they come into view. */
+/* 31) CERTIFICATES VAULT: the index on the left and the big viewer on the
+   right. Clicking a row (or ← / → in the viewer, or the arrow keys while a
+   row has focus) shows that certificate in the viewer. On phones (up to
+   860px) there is no viewer: a row opens its certificate right under it
+   (tap again to close). */
 (function () {
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.cert-tab'));
-  var groups = Array.prototype.slice.call(document.querySelectorAll('.cert-group'));
-  if (tabs.length) {
-    function show(cat) {
-      tabs.forEach(function (t) {
-        var on = t.dataset.cat === cat;
-        t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1;
-      });
-      groups.forEach(function (g) {
-        var vis = cat === 'all' ? true : g.dataset.cat === cat;
-        g.hidden = !vis;
-        g.querySelectorAll('.b-tile').forEach(function (b) { b.hidden = false; b.closest('.cert-card') && (b.hidden = !vis); });
-        g.classList.remove('in-view');
-        if (vis) { void g.offsetWidth; g.classList.add('in-view'); g.querySelectorAll('.reveal').forEach(function (r) { r.classList.add('in'); }); }
-      });
-    }
-    tabs.forEach(function (t) {
-      t.addEventListener('click', function () { show(t.dataset.cat); });
-      t.addEventListener('keydown', function (e) {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        var k = tabs.indexOf(t), next = tabs[(k + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
-        next.focus(); show(next.dataset.cat);
-      });
-    });
-    show('all');
+  var items = Array.prototype.slice.call(document.querySelectorAll('.vi-item'));
+  var view = document.getElementById('vaultView');
+  if (!items.length || !view) return;
+  var phone = window.matchMedia('(max-width: 860px)');
+  var img = view.querySelector('.vv-img'), cat = view.querySelector('.vv-cat'), title = view.querySelector('.vv-title');
+  var issuer = view.querySelector('.vv-issuer'), date = view.querySelector('.vv-date'), badge = view.querySelector('.vv-badge');
+  var count = view.querySelector('.vv-count'), open = view.querySelector('.vv-open');
+  var current = 0;
+  function full(it) { return 'images/certs/' + it.dataset.slug + '.jpg'; }
+  function thumb(it) { return 'images/thumbs/certs/' + it.dataset.slug + '.jpg'; }
+  function show(i, focusRow) {
+    current = (i + items.length) % items.length;
+    var it = items[current];
+    items.forEach(function (x, k) { x.classList.toggle('on', k === current); x.setAttribute('aria-current', k === current ? 'true' : 'false'); });
+    if (focusRow) it.focus();
+    view.classList.add('is-changing');
+    setTimeout(function () {
+      img.src = full(it); img.srcset = thumb(it) + ' 640w, ' + full(it) + ' 1400w'; img.alt = 'Certificate: ' + it.dataset.title;
+      cat.textContent = it.dataset.cat; title.textContent = it.dataset.title; issuer.textContent = it.dataset.issuer;
+      date.textContent = it.dataset.date ? '📅 ' + it.dataset.date : ''; date.hidden = !it.dataset.date;
+      badge.textContent = it.dataset.badge; badge.hidden = !it.dataset.badge;
+      count.textContent = (current + 1) + ' / ' + items.length; open.href = full(it);
+      view.classList.remove('is-changing');
+    }, 180);
   }
-  var nums = document.querySelectorAll('.cert-stats [data-count]');
-  if (!nums.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (!en.isIntersecting) return;
-      io.unobserve(en.target);
-      var el = en.target, end = +el.dataset.count, start = null;
-      (function frame(t) {
-        if (start === null) start = t;
-        var p = Math.min(1, (t - start) / 900);
-        el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) requestAnimationFrame(frame);
-      })(performance.now());
+  function peek(it) {
+    var li = it.parentNode, old = li.querySelector('.vi-peek');
+    document.querySelectorAll('.vi-peek').forEach(function (p) { if (p !== old) { p.remove(); } });
+    items.forEach(function (x) { if (x !== it) x.classList.remove('on'); });
+    if (old) { old.remove(); it.classList.remove('on'); return; }
+    it.classList.add('on');
+    var box = document.createElement('div');
+    box.className = 'vi-peek';
+    box.innerHTML = '<img alt="" decoding="async"><div><span class="vv-badge" hidden></span><a target="_blank" rel="noopener">Open full size ↗</a></div>';
+    var im = box.querySelector('img'); im.src = thumb(it); im.alt = 'Certificate: ' + it.dataset.title;
+    var b = box.querySelector('.vv-badge'); b.textContent = it.dataset.badge; b.hidden = !it.dataset.badge;
+    box.querySelector('a').href = full(it);
+    li.appendChild(box);
+  }
+  items.forEach(function (it, i) {
+    it.addEventListener('click', function () { if (phone.matches) peek(it); else show(i); });
+    it.addEventListener('keydown', function (e) {
+      if (phone.matches) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); show(i + 1, true); }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1, true); }
     });
-  }, { threshold: 0.6 });
-  nums.forEach(function (n) { io.observe(n); });
+  });
+  view.querySelector('.vv-prev').addEventListener('click', function () { show(current - 1); });
+  view.querySelector('.vv-next').addEventListener('click', function () { show(current + 1); });
+  if (!phone.matches) show(0);
 })();
-
 
 /* 32) COOKIES & PRIVACY NOTICE (every page, Nov 2026). The site sets no
    tracking or advertising cookies. It only keeps small notes in the
@@ -1495,4 +1503,60 @@
   });
   if (window.__consentPending) document.addEventListener('consent:done', show, { once: true });
   else show();
+})();
+
+
+/* 34) WHAT PEOPLE SAY ON PHONES (up to 760px): the three cards become one
+   row you can swipe, one card at a time, with dots under it. It moves to
+   the next card by itself every 6 seconds; touching it pauses that for a
+   while. Computers keep the three cards side by side. No auto-move with
+   "reduce motion". */
+(function () {
+  var grid = document.querySelector('.rec-grid');
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.rec'));
+  var phone = window.matchMedia('(max-width: 760px)');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dots = document.createElement('div');
+  dots.className = 'rec-dots'; dots.setAttribute('role', 'tablist'); dots.setAttribute('aria-label', 'Recommendations');
+  cards.forEach(function (c, i) {
+    var d = document.createElement('button');
+    d.type = 'button'; d.setAttribute('aria-label', 'Show recommendation ' + (i + 1));
+    d.addEventListener('click', function () { go(i); pause(); });
+    dots.appendChild(d);
+  });
+  grid.parentNode.insertBefore(dots, grid.nextSibling);
+  var current = 0, timer = null, resumeAt = 0;
+  function go(i) {
+    current = (i + cards.length) % cards.length;
+    grid.scrollTo({ left: cards[current].offsetLeft - cards[0].offsetLeft, behavior: calm ? 'auto' : 'smooth' });
+    mark();
+  }
+  function mark() { Array.prototype.forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === current); d.setAttribute('aria-current', i === current ? 'true' : 'false'); }); }
+  function pause() { resumeAt = Date.now() + 12000; }
+  // keep the dots right when the visitor swipes by hand
+  var t;
+  grid.addEventListener('scroll', function () {
+    clearTimeout(t);
+    t = setTimeout(function () {
+      var mid = grid.scrollLeft + cards[0].offsetWidth / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) { var cm = c.offsetLeft - cards[0].offsetLeft + c.offsetWidth / 2, dd = Math.abs(cm - mid); if (dd < bd) { bd = dd; best = i; } });
+      current = best; mark();
+    }, 120);
+  }, { passive: true });
+  ['touchstart', 'pointerdown', 'mouseenter'].forEach(function (ev) { grid.addEventListener(ev, pause, { passive: true }); });
+  function start() {
+    clearInterval(timer);
+    if (!phone.matches) { dots.hidden = true; return; }
+    dots.hidden = false; mark();
+    if (calm) return;
+    timer = setInterval(function () {
+      if (document.hidden || Date.now() < resumeAt) return;
+      var r = grid.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;           // only while it's on screen
+      go(current + 1);
+    }, 6000);
+  }
+  start();
+  if (phone.addEventListener) phone.addEventListener('change', start);
 })();
