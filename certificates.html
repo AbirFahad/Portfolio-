@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d12">
 <title>Certificates · Abdullah Al Fahad</title>
 <!-- LINK PREVIEW: the text and picture shown when this page is shared on
      LinkedIn, WhatsApp, Facebook or Google. Words are in content.md.
@@ -17,6 +18,7 @@
 <meta property="og:image:alt" content="Abdullah Al Fahad in a dark suit and blue tie.">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48">
 <link rel="stylesheet" href="css/style.css">
@@ -55,41 +57,115 @@
   <div class="wrap">
     <span class="tag reveal">Certificates</span>
     <h1 class="title reveal d1" data-anim="paper">The paperwork.</h1>
-    <p class="sub reveal d2">Degrees and courses behind the planning.</p>
+    <p class="sub reveal d2">Degrees, skills and know-how, filed by category. Pick a folder.</p>
   </div>
 </header>
 
-<!-- ===== CERTIFICATE CARDS =====
-     One card per certificate or degree, using the same tile style as the Skills page.
-     To add one: copy a <div class="tile ..."> ... </div> block and change the words.
-     Add a year with: <span class="badge">2025</span> -->
-<section style="padding-top:10px">
+<!-- ===== THE FILE CABINET (Nov 2026) =====
+     Folder tabs on top (All + one per category, with a count) open one
+     drawer at a time (js part 31). Every drawer is a <section class="drawer">
+     with data-cat. Words are in content.md; only real facts, never invented.
+     CERTIFICATES & COURSES: the drawer is ready but hidden until the owner
+     sends the list (it has class "is-empty"; its tab hides too). To add one:
+     copy the commented card inside it, fill it in, and remove "is-empty". -->
+<section class="cab-sec">
   <div class="wrap">
-    <div class="tiles">
-      <div class="tile glass reveal d1">
-        <span class="emoji">📜</span>
-        <h3>Post Graduate Diploma in Supply Chain Management</h3>
-        <p>ISCEA Bangladesh</p>
-        <div class="badges"><span class="badge">Supply chain</span><span class="badge">70% scholarship (Global Case Comp 2025)</span></div>
-      </div>
-      <div class="tile glass reveal d2">
-        <span class="emoji">🎓</span>
-        <h3>BBA in Marketing</h3>
-        <p>Bangladesh University of Business and Technology (BUBT)</p>
-        <div class="badges"><span class="badge">Marketing</span><span class="badge">Bizz Masters runner-up x2</span></div>
-      </div>
-      <div class="tile glass reveal d3">
-        <span class="emoji">🏫</span>
-        <h3>HSC in Science</h3>
-        <p>Mohammadpur Preparatory School &amp; College</p>
-        <div class="badges"><span class="badge">Science</span><span class="badge">Higher Secondary</span></div>
-      </div>
-      <div class="tile glass reveal d1">
-        <span class="emoji">🏫</span>
-        <h3>SSC in Science</h3>
-        <p>BCSIR High School</p>
-        <div class="badges"><span class="badge">Science</span><span class="badge">Secondary</span></div>
-      </div>
+    <div class="cab-tabs reveal" role="tablist" aria-label="Categories">
+      <button role="tab" class="cab-tab on" data-cat="all" aria-selected="true"><span aria-hidden="true">🗄️</span> All</button>
+      <button role="tab" class="cab-tab" data-cat="degrees" aria-selected="false"><span aria-hidden="true">🎓</span> Degrees &amp; diplomas <b>4</b></button>
+      <button role="tab" class="cab-tab" data-cat="certs" aria-selected="false"><span aria-hidden="true">📜</span> Certificates <b>0</b></button>
+      <button role="tab" class="cab-tab" data-cat="hard" aria-selected="false"><span aria-hidden="true">🛠️</span> Hard skills <b>6</b></button>
+      <button role="tab" class="cab-tab" data-cat="soft" aria-selected="false"><span aria-hidden="true">🤝</span> Soft skills <b>5</b></button>
+      <button role="tab" class="cab-tab" data-cat="know" aria-selected="false"><span aria-hidden="true">📚</span> Knowledge <b>3</b></button>
+    </div>
+
+    <div class="cabinet">
+
+      <!-- DEGREES & DIPLOMAS: paper certificates with a seal and a grade stamp -->
+      <section class="drawer" data-cat="degrees" aria-labelledby="d-deg">
+        <h2 class="drawer-h" id="d-deg"><span aria-hidden="true">🎓</span> Degrees &amp; diplomas</h2>
+        <div class="paper-grid">
+          <article class="paper reveal">
+            <span class="paper-seal" aria-hidden="true">🎓</span>
+            <small class="paper-kind">Post Graduate Diploma · 2026</small>
+            <h3>Supply Chain Management</h3>
+            <p>International Supply Chain Education Alliance (ISCEA), Bangladesh</p>
+            <div class="paper-foot"><span class="stamp-mini">Passed</span><span class="badge">70% scholarship · Global Case Comp 2025</span></div>
+          </article>
+          <article class="paper reveal d1">
+            <span class="paper-seal" aria-hidden="true">🎓</span>
+            <small class="paper-kind">Bachelor's · 2022 – 2026</small>
+            <h3>BBA in Marketing</h3>
+            <p>Bangladesh University of Business and Technology (BUBT)</p>
+            <div class="paper-foot"><span class="stamp-mini">CGPA 3.54</span><span class="badge">Bizz Masters runner-up x2</span></div>
+          </article>
+          <article class="paper reveal d2">
+            <span class="paper-seal" aria-hidden="true">🏫</span>
+            <small class="paper-kind">HSC · 2021</small>
+            <h3>Higher Secondary, Science</h3>
+            <p>Mohammadpur Preparatory School &amp; College</p>
+            <div class="paper-foot"><span class="stamp-mini">GPA 4.61 / 5</span></div>
+          </article>
+          <article class="paper reveal d3">
+            <span class="paper-seal" aria-hidden="true">🏫</span>
+            <small class="paper-kind">SSC · 2019</small>
+            <h3>Secondary, Science</h3>
+            <p>BCSIR High School</p>
+            <div class="paper-foot"><span class="stamp-mini">GPA 4.58 / 5</span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- CERTIFICATES & COURSES: hidden until the owner sends the list -->
+      <section class="drawer is-empty" data-cat="certs" aria-labelledby="d-cert">
+        <h2 class="drawer-h" id="d-cert"><span aria-hidden="true">📜</span> Certificates &amp; courses</h2>
+        <div class="paper-grid">
+          <!-- copy this card for each certificate:
+          <article class="paper">
+            <span class="paper-seal" aria-hidden="true">📜</span>
+            <small class="paper-kind">Course · YEAR</small>
+            <h3>CERTIFICATE NAME</h3>
+            <p>WHO GAVE IT</p>
+            <div class="paper-foot"><span class="stamp-mini">Completed</span></div>
+          </article> -->
+        </div>
+      </section>
+
+      <!-- HARD SKILLS: tool cards with where the skill is used -->
+      <section class="drawer" data-cat="hard" aria-labelledby="d-hard">
+        <h2 class="drawer-h" id="d-hard"><span aria-hidden="true">🛠️</span> Hard skills</h2>
+        <div class="skill-grid">
+          <article class="sk reveal"><span class="sk-ic" aria-hidden="true">📊</span><div><h3>Excel</h3><p>VLOOKUP, INDEX-MATCH, pivots. My own S&amp;OP workbook covers 140+ SKUs.</p></div></article>
+          <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">📈</span><div><h3>Power BI <em>learning</em></h3><p>Learning it right now (see the Skills page).</p></div></article>
+          <article class="sk reveal d2"><span class="sk-ic" aria-hidden="true">🔮</span><div><h3>Forecasting</h3><p>Forecasts checked against linear regression and exponential smoothing.</p></div></article>
+          <article class="sk reveal"><span class="sk-ic" aria-hidden="true">📦</span><div><h3>Material planning</h3><p>Raw material and packaging needs from BOMs, lead times and MOQs.</p></div></article>
+          <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">🧾</span><div><h3>Purchase documents</h3><p>Supplier RFQs, PIs, POs and price revisions.</p></div></article>
+          <article class="sk reveal d2"><span class="sk-ic" aria-hidden="true">🖥️</span><div><h3>ERP</h3><p>DreamApps ERP++ and Hermes ERP.</p></div></article>
+        </div>
+      </section>
+
+      <!-- SOFT SKILLS: each one with the real role that shows it -->
+      <section class="drawer" data-cat="soft" aria-labelledby="d-soft">
+        <h2 class="drawer-h" id="d-soft"><span aria-hidden="true">🤝</span> Soft skills</h2>
+        <div class="skill-grid">
+          <article class="sk reveal"><span class="sk-ic" aria-hidden="true">🎤</span><div><h3>Leadership</h3><p><span class="proof">Shown as</span> Technical Team Lead, TEDx Dhanmondi.</p></div></article>
+          <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">✍️</span><div><h3>Communication</h3><p><span class="proof">Shown as</span> LinkedIn posts for students and young professionals.</p></div></article>
+          <article class="sk reveal d2"><span class="sk-ic" aria-hidden="true">🤝</span><div><h3>Negotiation</h3><p><span class="proof">Shown as</span> supplier price revisions at Rani Food.</p></div></article>
+          <article class="sk reveal"><span class="sk-ic" aria-hidden="true">🌍</span><div><h3>Teamwork &amp; service</h3><p><span class="proof">Shown as</span> International Service Director, Rotaract Club of Dhaka Dynamic.</p></div></article>
+          <article class="sk reveal d1"><span class="sk-ic" aria-hidden="true">🧩</span><div><h3>Case solving</h3><p><span class="proof">Shown as</span> runner-up twice at Bizz Masters Season 1; 70% scholarship at the ISCEA Global Case Competition 2025.</p></div></article>
+        </div>
+      </section>
+
+      <!-- KNOWLEDGE: index cards with the terms I work with -->
+      <section class="drawer" data-cat="know" aria-labelledby="d-know">
+        <h2 class="drawer-h" id="d-know"><span aria-hidden="true">📚</span> Knowledge</h2>
+        <div class="know-grid">
+          <article class="idx reveal"><h3>🚢 Imports &amp; trade</h3><ul><li>Incoterms</li><li>Letter of Credit (LC)</li><li>Bill of Lading (B/L)</li><li>TT / DP / DA payments</li><li>Demurrage</li></ul></article>
+          <article class="idx reveal d1"><h3>🗓️ Planning</h3><ul><li>S&amp;OP</li><li>Demand forecasting</li><li>BOM-based requirements</li><li>Lead times &amp; MOQs</li><li>Shortage analysis</li></ul></article>
+          <article class="idx reveal d2"><h3>🏭 Packaging materials</h3><ul><li>Foil making (LDPE, printing, lamination)</li><li>MCPP</li><li>Pouch making</li><li>Seen first-hand at KR Flexipack &amp; Mahtab</li></ul></article>
+        </div>
+      </section>
+
     </div>
   </div>
 </section>

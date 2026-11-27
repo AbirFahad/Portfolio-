@@ -1,0 +1,4 @@
+# Search engines may read every page of this site.
+# When the domain is known, tools/set-domain.py adds the "Sitemap:" line below.
+User-agent: *
+Allow: /

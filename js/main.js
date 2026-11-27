@@ -1353,3 +1353,38 @@
     if (phone.addEventListener) phone.addEventListener('change', apply);
   });
 })();
+
+/* 31) CERTIFICATES FILE CABINET: the folder tabs show one drawer at a time
+   ("All" shows every drawer). A drawer with class "is-empty" (no cards yet)
+   and its tab stay hidden. Arrow keys move between tabs. */
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.cab-tab'));
+  var drawers = Array.prototype.slice.call(document.querySelectorAll('.drawer'));
+  if (!tabs.length) return;
+  tabs.forEach(function (t) {
+    var d = document.querySelector('.drawer[data-cat="' + t.dataset.cat + '"]');
+    if (d && d.classList.contains('is-empty')) t.hidden = true;
+  });
+  function show(cat) {
+    tabs.forEach(function (t) {
+      var on = t.dataset.cat === cat;
+      t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1;
+    });
+    drawers.forEach(function (d) {
+      var vis = cat === 'all' || d.dataset.cat === cat;
+      d.hidden = !vis;
+      d.classList.remove('in-view');
+      if (vis) { void d.offsetWidth; d.classList.add('in-view'); d.querySelectorAll('.reveal').forEach(function (r) { r.classList.add('in'); }); }
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t.dataset.cat); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var vis = tabs.filter(function (x) { return !x.hidden; }), k = vis.indexOf(t);
+      var next = vis[(k + (e.key === 'ArrowRight' ? 1 : vis.length - 1)) % vis.length];
+      next.focus(); show(next.dataset.cat);
+    });
+  });
+  show('all');
+})();
