@@ -1838,19 +1838,33 @@ textarea { min-height: 130px; resize: vertical; }
 .ct-day p { margin: 8px 0 0; font-weight: 600; font-size: .92rem; }
 .ct-day > small { display: block; margin-top: 10px; color: var(--muted); font-size: .78rem; }
 .day-track { position: relative; margin-top: 30px; }
+/* the day's colours blend into each other like the sky: night blue, sunrise
+   orange, morning gold, daytime mint, sunset coral, then night blue again */
 .day-bar {
-  position: relative; height: 10px; border-radius: 99px; overflow: hidden;
-  background: linear-gradient(90deg, #3a5288 0 20.8%, #ffb340 20.8% 50%, #3ef0c0 50% 70.8%, #ff8a65 70.8% 83.3%, #3a5288 83.3% 100%);
+  position: relative; height: 12px; border-radius: 99px; overflow: hidden;
+  background: linear-gradient(90deg, #2f4377 0%, #3d5296 15%, #ff9a5c 22%, #ffc25a 32%, #ffd98a 44%,
+              #3ef0c0 52%, #2fd6a8 66%, #ff8a65 74%, #e66f58 80%, #3d5296 88%, #2f4377 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
 }
-.day-rest { position: absolute; top: 0; bottom: 0; left: var(--p, 50%); right: 0; background: rgba(8, 13, 18, .72); transition: left 1s; }
-[data-theme="light"] .day-rest { background: rgba(244, 247, 249, .75); }
+/* the part of the day still to come is softly dimmed (not blacked out) */
+.day-rest { position: absolute; top: 0; bottom: 0; left: var(--p, 50%); right: 0; background: rgba(8, 13, 18, .58); transition: left 1s; }
+[data-theme="light"] .day-rest { background: rgba(244, 247, 249, .62); }
+/* a small glowing dot marks "now" on the bar */
+.day-track::after {
+  content: ""; position: absolute; top: 3px; left: var(--p, 50%); width: 6px; height: 6px; margin-left: -3px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,.25), 0 0 12px 3px rgba(255,255,255,.6); transition: left 1s;
+}
 .day-truck {
   position: absolute; top: -24px; left: var(--p, 50%); font-size: 1.15rem; line-height: 1;
   transform: translateX(-50%) scaleX(-1); transition: left 1s;
   animation: day-bump 1.4s ease-in-out infinite;
 }
 @keyframes day-bump { 50% { margin-top: -2px; } }
-.day-ticks { display: flex; justify-content: space-between; margin-top: 6px; font-size: .66rem; color: var(--muted); letter-spacing: .05em; }
+/* 12 AM / 6 AM / 12 PM / 6 PM / 12 AM, each under its exact spot on the bar */
+.day-ticks { position: relative; height: 16px; margin-top: 7px; font-size: .66rem; color: var(--muted); letter-spacing: .03em; }
+.day-ticks span { position: absolute; left: var(--x); transform: translateX(-50%); white-space: nowrap; }
+.day-ticks span:first-child { transform: none; }
+.day-ticks span:last-child { transform: translateX(-100%); }
 
 /* the form */
 .ct-form { padding: 28px; border-radius: 22px; display: grid; gap: 14px; }
