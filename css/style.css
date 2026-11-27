@@ -2474,3 +2474,39 @@ textarea { min-height: 130px; resize: vertical; }
   .consent, .pc-tip { transition: none; }
   .cs-ic { animation: none; }
 }
+
+
+/* =====================================================
+   LINKEDIN POSTS POLISH (Nov 2026)
+   - each card: picture (or a typographic cover), a topic chip + month,
+     title and one line, then the link
+   - cards without a picture show a "cover": their emblem (S&OP, 90, 🍅...)
+     big on a soft dotted pattern, instead of the camera placeholder
+   - a small hint line under the intro replaces the old instructions
+   ===================================================== */
+.post-hint { margin-top: 10px; font-size: .74rem; letter-spacing: .04em; color: var(--muted); opacity: .8; }
+.post { justify-content: flex-start; gap: 12px; }
+.post .go { margin-top: auto; }
+.post-img { margin-bottom: 4px; }
+.post-img.cover {
+  display: grid; place-items: center; position: relative; overflow: hidden;
+  background:
+    radial-gradient(rgba(255,255,255,.14) 1px, transparent 1.4px) 0 0 / 14px 14px,
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.12), transparent 60%);
+}
+.post-img.cover span {
+  font-family: var(--font-head); font-weight: 700; font-size: 3.2rem; letter-spacing: -.03em; line-height: 1;
+  color: #fff; text-shadow: 0 6px 24px rgba(0,0,0,.35);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.post:hover .post-img.cover span { transform: scale(1.08) rotate(-3deg); }
+.p-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.p-topic {
+  font: 600 .68rem var(--font-body); letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 99px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18);
+}
+.p-date { font-size: .74rem; opacity: .75; }
+.post h4 { font-size: 1.15rem; line-height: 1.25; }
+.post p { line-height: 1.45; }
+@media (max-width: 860px) { .post-img.cover span { font-size: 2.6rem; } }
+@media (prefers-reduced-motion: reduce) { .post:hover .post-img.cover span { transform: none; } }

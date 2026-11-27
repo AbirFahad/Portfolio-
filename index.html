@@ -474,13 +474,18 @@
      post-8.jpg (in card order, left to right). Landscape pictures work best.
      Until a picture is there, the card's <img> says data-src="..." instead of
      src="...", so the browser doesn't ask for a file that isn't there, and the
-     card shows a soft placeholder with a camera. ONCE YOU ADD A PICTURE:
-     change data-src="img/posts/post-N.jpg" to src="img/posts/post-N.jpg". -->
+     Cards without a picture show a "cover" with their emblem (big emoji or
+     word). ONCE YOU HAVE A PICTURE: save it as img/posts/post-N.jpg and swap
+     the cover <div> for <div class="post-img"><img src="img/posts/post-N.jpg" alt=""></div>.
+     Each card has a topic chip and, when known, the month it was posted (.p-meta).
+     Cards whose post has no direct link say "Find it on LinkedIn" (they open
+     the recent-activity page). -->
 <section class="carousel-sec">
   <div class="wrap" style="text-align:center">
     <span class="tag reveal">Latest LinkedIn content</span>
     <h2 class="title reveal d1" data-anim="sheen">Stuff I post.</h2>
-    <p class="sub reveal d2" style="margin-inline:auto">Hover to pause, use the arrows to slide, tap a card to read it.</p>
+    <p class="sub reveal d2" style="margin-inline:auto">Short notes on supply chain, planning and early-career growth, written for students and young professionals.</p>
+    <p class="post-hint reveal d2">Hover to pause · use the arrows · tap a card to read it</p>
   </div>
   <!-- FRAME around the strip: RGB light flows along the top edge (left to
        right) and the bottom edge (right to left). See .post-frame in css/style.css. -->
@@ -491,77 +496,77 @@
       <!-- Newest posts (from LinkedIn, Oct-Nov 2026) -->
       <a class="post tone-3" href="https://www.linkedin.com/feed/update/urn:li:activity:7525809989538476032/" target="_blank" rel="noopener">
         <div class="post-img ph"><img src="img/posts/post-claude.jpg" srcset="img/posts/post-claude-600.jpg 600w, img/posts/post-claude.jpg 1272w" sizes="320px" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">AI</div>
+        <div class="p-meta"><span class="p-topic">AI &amp; tools</span><span class="p-date">Nov 2026</span></div>
         <div><h4>Claude Design is coming</h4><p>From a text tool to a full creative workspace.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-5" href="https://www.linkedin.com/feed/update/urn:li:activity:7519978669843607552/" target="_blank" rel="noopener">
         <div class="post-img ph"><img src="mahtab.jpg" srcset="images/thumbs/mahtab.jpg 600w, mahtab.jpg 1280w" sizes="320px" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">Visit</div>
+        <div class="p-meta"><span class="p-topic">Factory visit</span><span class="p-date">Oct 2026</span></div>
         <div><h4>Inside Mahtab Flexible Printing</h4><p>A foil quality visit that became a process lesson.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-2" href="https://www.linkedin.com/feed/update/urn:li:activity:7516789283224211456/" target="_blank" rel="noopener">
         <div class="post-img ph"><img src="images/headshot.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">News</div>
+        <div class="p-meta"><span class="p-topic">Career news</span><span class="p-date">Oct 2026</span></div>
         <div><h4>New role: Executive, Supply Chain</h4><p>Starting as Executive, Supply Chain Management at Rani Food Industries.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-4" href="https://www.linkedin.com/feed/update/urn:li:activity:7516370117450952704/" target="_blank" rel="noopener">
         <div class="post-img ph"><img src="images/KR_Flexpack_factory_floor_process_flowchart.jpeg" srcset="images/thumbs/KR_Flexpack_factory_floor_process_flowchart.jpeg 600w, images/KR_Flexpack_factory_floor_process_flowchart.jpeg 1050w" sizes="320px" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">Visit</div>
+        <div class="p-meta"><span class="p-topic">Factory visit</span><span class="p-date">Oct 2026</span></div>
         <div><h4>Foil making, A to Z at KR Flexipack</h4><p>What no classroom or ERP screen can replace.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-1" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-1.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">S&amp;OP</div>
+        <div class="post-img cover" aria-hidden="true"><span>S&amp;OP</span><!-- picture: put img/posts/post-1.jpg in place and use <img src="img/posts/post-1.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Supply chain</span></div>
         <div><h4>Sales and Operations Planning, explained like a human</h4><p>Why the monthly meeting matters more than the spreadsheet.</p></div>
-        <div class="go">Read on LinkedIn →</div>
+        <div class="go">Find it on LinkedIn →</div>
       </a>
       <a class="post tone-2" href="https://lnkd.in/p/gcQ9DZaA" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-2.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">90</div>
+        <div class="post-img cover" aria-hidden="true"><span>90</span><!-- picture: put img/posts/post-2.jpg in place and use <img src="img/posts/post-2.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Career</span></div>
         <div><h4>The first 90 days framework</h4><p>How to land in a new role and not drown.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-3" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-3.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">🤝</div>
+        <div class="post-img cover" aria-hidden="true"><span>🤝</span><!-- picture: put img/posts/post-3.jpg in place and use <img src="img/posts/post-3.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Career</span></div>
         <div><h4>Networking without the cringe</h4><p>Real talk for freshers who hate small talk.</p></div>
-        <div class="go">Read on LinkedIn →</div>
+        <div class="go">Find it on LinkedIn →</div>
       </a>
       <a class="post tone-6" href="https://lnkd.in/p/gukyWyep" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-4.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">CGPA</div>
+        <div class="post-img cover" aria-hidden="true"><span>CGPA</span><!-- picture: put img/posts/post-4.jpg in place and use <img src="img/posts/post-4.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Career</span></div>
         <div><h4>Average CGPA, good job</h4><p>Why interviews beat grades in 2026.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-4" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-5.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">25</div>
+        <div class="post-img cover" aria-hidden="true"><span>25</span><!-- picture: put img/posts/post-5.jpg in place and use <img src="img/posts/post-5.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Productivity</span></div>
         <div><h4>Cornell Notes</h4><p>The note system that actually sticks.</p></div>
-        <div class="go">Read on LinkedIn →</div>
+        <div class="go">Find it on LinkedIn →</div>
       </a>
       <a class="post tone-5" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-6.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">🍅</div>
+        <div class="post-img cover" aria-hidden="true"><span>🍅</span><!-- picture: put img/posts/post-6.jpg in place and use <img src="img/posts/post-6.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Productivity</span></div>
         <div><h4>Pomodoro, but make it work</h4><p>Focus tricks I use at my desk.</p></div>
-        <div class="go">Read on LinkedIn →</div>
+        <div class="go">Find it on LinkedIn →</div>
       </a>
       <a class="post tone-2" href="https://lnkd.in/p/gKc2zkNy" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-7.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">🔄</div>
+        <div class="post-img cover" aria-hidden="true"><span>🔄</span><!-- picture: put img/posts/post-7.jpg in place and use <img src="img/posts/post-7.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Mindset</span></div>
         <div><h4>Think in reverse</h4><p>Inversion: find how you'd fail, then avoid it.</p></div>
         <div class="go">Read on LinkedIn →</div>
       </a>
       <a class="post tone-6" href="https://www.linkedin.com/in/abdullah-al-fahad1/recent-activity/all/" target="_blank" rel="noopener">
-        <div class="post-img ph"><img data-src="img/posts/post-8.jpg" alt="" loading="lazy" decoding="async" data-ph></div>
-        <div class="num">📦</div>
+        <div class="post-img cover" aria-hidden="true"><span>📦</span><!-- picture: put img/posts/post-8.jpg in place and use <img src="img/posts/post-8.jpg" alt=""> here --></div>
+        <div class="p-meta"><span class="p-topic">Supply chain</span></div>
         <div><h4>What supply chain really is</h4><p>Hint: it is not just trucks.</p></div>
-        <div class="go">Read on LinkedIn →</div>
+        <div class="go">Find it on LinkedIn →</div>
       </a>
-    </div>
+</div>
   </div>
   </div>
   <!-- ARROWS: slide the cards one step left or right (js/main.js part 10).
