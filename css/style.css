@@ -2321,92 +2321,90 @@ textarea { min-height: 130px; resize: vertical; }
 
 
 /* =====================================================
-   CERTIFICATES: THE FILE CABINET (Nov 2026)
-   Folder tabs (with counts) on top; each category is a "drawer".
-   - Degrees & certificates: paper cards with a seal and a grade stamp
-   - Hard / soft skills: cards with an icon tile (soft skills say where the
-     skill shows: "Shown as ...")
-   - Knowledge: index cards with ruled lines
-   js part 31 switches drawers; "All" shows every drawer one after another.
+   CERTIFICATES PAGE (Nov 2026, from the owner's certificate files)
+   - stat tiles under the title (numbers count up, js part 31)
+   - category tabs with counts: All / Courses & training / Leadership &
+     volunteering / Competitions / Events & seminars
+   - groups of picture cards: the certificate (preview picture, shown whole
+     on a paper-coloured backing), then title, issuer, date and a badge.
+     Tapping the picture opens it full size in the photo viewer (js part 13).
+   - "Academic record" strip at the end (only in the All view)
    ===================================================== */
-.cab-sec { padding-top: 10px; }
-.cab-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: -1px; position: relative; z-index: 1; }
-.cab-tab {
-  display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px 12px; min-height: 44px; cursor: pointer;
-  font: 600 .86rem var(--font-body); color: var(--muted); background: var(--bg-2);
-  border: 1px solid var(--line); border-bottom: 0; border-radius: 14px 14px 0 0;
-  transition: color .25s, background .25s, transform .25s;
+.cert-stats { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 34px; max-width: 880px; }
+.cert-stats li {
+  padding: 18px 16px; border-radius: 18px; text-align: center; border: 1px solid var(--line); background: var(--card);
+  transition: transform .3s, border-color .3s;
 }
-.cab-tab b { font-size: .72rem; padding: 1px 7px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); }
-.cab-tab:hover { color: var(--text); transform: translateY(-2px); }
-.cab-tab.on { color: var(--text); background: var(--card); box-shadow: inset 0 2px 0 var(--accent); }
-.cab-tab.on b { color: var(--on-accent); background: var(--accent-fill); border-color: transparent; }
-.cab-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.cab-tab[hidden] { display: none; }
-.cabinet { border: 1px solid var(--line); border-radius: 0 22px 22px 22px; background: var(--card); padding: 28px; display: grid; gap: 34px; }
-.cabinet > .drawer { padding: 0; }   /* drawers are <section>s: drop the page's big section spacing */
-.drawer[hidden], .drawer.is-empty { display: none; }
-.drawer.in-view { animation: drawer-in .45s cubic-bezier(.2,.8,.2,1) both; }
-@keyframes drawer-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-.drawer-h { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; margin-bottom: 16px; }
-.drawer-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
+.cert-stats li:hover { transform: translateY(-3px); border-color: rgba(var(--accent-rgb), .45); }
+.cert-stats b { display: block; font-family: var(--font-head); font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1; letter-spacing: -.03em;
+  background: var(--name-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cert-stats span { display: block; margin-top: 8px; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
-/* paper certificates */
-.paper-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-.paper {
-  position: relative; padding: 22px 20px 18px; border-radius: 16px; overflow: hidden;
-  background: linear-gradient(170deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-  border: 1px solid var(--line); transition: transform .3s, border-color .3s;
+.cert-sec { padding-top: 10px; }
+.cert-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 34px; }
+.cert-tab {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 8px 16px; cursor: pointer;
+  border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted);
+  font: 600 .86rem var(--font-body); transition: color .25s, background .25s, border-color .25s, transform .25s;
 }
-.paper::before {   /* a thin double frame, like a printed certificate */
-  content: ""; position: absolute; inset: 7px; border: 1px dashed rgba(255,179,64,.25); border-radius: 11px; pointer-events: none;
-}
-.paper:hover { transform: translateY(-4px) rotate(-.4deg); border-color: rgba(255,179,64,.5); }
-.paper-seal {
-  position: absolute; right: 14px; top: 14px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 1rem;
-  background: radial-gradient(circle at 35% 30%, #ffd98a, var(--accent-2) 60%, #b86a00);
-  box-shadow: 0 0 0 3px rgba(255,179,64,.18);
-}
-.paper-kind { display: block; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px; padding-right: 46px; }
-.paper h3 { font-size: 1.08rem; line-height: 1.25; padding-right: 40px; }
-.paper p { color: var(--muted); font-size: .85rem; margin-top: 6px; line-height: 1.45; }
-.paper-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
-.stamp-mini {
-  display: inline-block; font: 700 .7rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
-  border: 2px solid var(--accent); border-radius: 6px; padding: 5px 8px; transform: rotate(-4deg);
-}
+.cert-tab b { font-size: .72rem; padding: 1px 7px; border-radius: 99px; background: rgba(255,255,255,.06); }
+.cert-tab:hover { color: var(--text); transform: translateY(-2px); }
+.cert-tab.on { color: var(--on-accent); background: var(--accent-fill); border-color: transparent; box-shadow: 0 8px 22px -10px rgba(var(--accent-rgb), .8); }
+.cert-tab.on b { background: rgba(0,0,0,.15); }
+.cert-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* hard and soft skills */
-.skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-.sk { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.025); transition: transform .3s, border-color .3s; }
-.sk:hover { transform: translateY(-3px); border-color: rgba(var(--accent-rgb), .5); }
-.sk-ic { width: 42px; height: 42px; flex: none; display: grid; place-items: center; font-size: 1.15rem; border-radius: 13px; background: rgba(var(--accent-rgb), .1); border: 1px solid rgba(var(--accent-rgb), .25); }
-.sk h3 { font-size: 1rem; }
-.sk h3 em { font-style: normal; font-size: .68rem; font-weight: 600; color: var(--accent-2); border: 1px solid rgba(255,179,64,.4); border-radius: 99px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
-.sk p { color: var(--muted); font-size: .85rem; line-height: 1.45; margin-top: 4px; }
-.proof { color: var(--accent); font-weight: 600; }
-[data-cat="soft"] .sk-ic { background: rgba(255,179,64,.1); border-color: rgba(255,179,64,.3); }
+.cert-sec .cert-group { padding: 0; margin-bottom: 44px; }
+.cert-group[hidden] { display: none; }
+.cert-group.in-view { animation: cert-in .45s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes cert-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.cert-group-h { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; margin-bottom: 18px; }
+.cert-group-h b { font: 600 .72rem var(--font-body); padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+.cert-group-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
 
-/* knowledge index cards: ruled lines and a red margin line */
-.know-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.idx {
-  padding: 16px 18px 12px 30px; border-radius: 14px; position: relative; border: 1px solid var(--line);
-  background: repeating-linear-gradient(transparent 0 31px, rgba(255,255,255,.06) 31px 32px), rgba(255,255,255,.03);
-  transition: transform .3s;
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 18px; }
+.cert-card {
+  display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--card);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .35s;
 }
-.idx::before { content: ""; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: rgba(255,138,101,.45); }
-.idx:hover { transform: rotate(-.6deg) translateY(-3px); }
-.idx h3 { font-size: 1rem; margin-bottom: 6px; line-height: 32px; }
-.idx ul { list-style: none; }
-.idx li { line-height: 32px; font-size: .88rem; color: var(--text); }
-[data-theme="light"] .paper { background: linear-gradient(170deg, #fff, #fbf8f1); }
-[data-theme="light"] .idx { background: repeating-linear-gradient(transparent 0 31px, rgba(10,25,40,.08) 31px 32px), #fff; }
+.cert-card:hover { transform: translateY(-5px); border-color: rgba(var(--accent-rgb), .45); box-shadow: 0 22px 40px -24px rgba(0,0,0,.8); }
+/* the certificate picture: shown whole (never cropped) on a paper-coloured backing */
+.cert-card .cert-shot { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: 0; background: #f3efe6; }
+.cert-card .cert-shot img { object-fit: contain; padding: 10px; }
+.cert-card .cert-shot::before { background: linear-gradient(to top, rgba(4,8,12,.55), transparent 60%); }
+.cc-zoom {
+  position: absolute; right: 10px; bottom: 10px; z-index: 2; font: 600 .74rem var(--font-body); color: #fff;
+  padding: 5px 10px; border-radius: 99px; background: rgba(4,8,12,.6); backdrop-filter: blur(4px);
+  opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s;
+}
+.cert-card:hover .cc-zoom, .cert-shot:focus-visible .cc-zoom { opacity: 1; transform: none; }
+.cc-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.cc-body h3 { font-size: 1rem; line-height: 1.3; }
+.cc-body p { color: var(--muted); font-size: .84rem; line-height: 1.4; }
+.cc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: auto; padding-top: 10px; }
+.cc-date { font-size: .8rem; color: var(--text); }
+.cc-badge { font: 600 .7rem var(--font-body); padding: 3px 9px; border-radius: 99px; color: var(--accent); border: 1px solid rgba(var(--accent-rgb), .4); background: rgba(var(--accent-rgb), .08); }
+.cert-card[data-cat="comp"] .cc-badge { color: var(--accent-2); border-color: rgba(255,179,64,.45); background: rgba(255,179,64,.08); }
 
+/* academic record */
+.acad-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.acad-list li { display: grid; gap: 2px; padding: 14px 16px; border-radius: 14px; border: 1px dashed rgba(255,179,64,.35); background: rgba(255,179,64,.04); }
+.acad-list b { font-size: .95rem; }
+.acad-list span { color: var(--muted); font-size: .82rem; }
+.acad-list em { font-style: normal; font-weight: 600; font-size: .8rem; color: var(--accent-2); margin-top: 4px; }
+
+@media (max-width: 860px) { .cert-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) {
-  .cab-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-top: 4px; }
-  .cab-tabs::-webkit-scrollbar { display: none; }
-  .cab-tab { flex: none; padding: 9px 12px 11px; font-size: .8rem; }
-  .cabinet { padding: 18px 14px; border-radius: 0 0 18px 18px; gap: 26px; }
-  .paper-grid, .skill-grid, .know-grid { grid-template-columns: minmax(0, 1fr); }
+  .cert-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; padding: 2px 2px 6px; margin-bottom: 24px; }
+  .cert-tabs::-webkit-scrollbar { display: none; }
+  .cert-tab { flex: none; }
+  .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .cc-body { padding: 10px 11px 12px; }
+  .cc-body h3 { font-size: .84rem; }
+  .cc-body p { font-size: .74rem; }
+  .cc-date { font-size: .72rem; }
+  .cc-badge { font-size: .64rem; }
+  .cert-card .cert-shot img { padding: 6px; }
+  .cc-zoom { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .drawer.in-view { animation: none; } .paper:hover, .sk:hover, .idx:hover, .cab-tab:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .cert-group.in-view { animation: none; } .cert-card:hover, .cert-tab:hover, .cert-stats li:hover { transform: none; } }
+

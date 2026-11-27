@@ -1354,37 +1354,51 @@
   });
 })();
 
-/* 31) CERTIFICATES FILE CABINET: the folder tabs show one drawer at a time
-   ("All" shows every drawer). A drawer with class "is-empty" (no cards yet)
-   and its tab stay hidden. Arrow keys move between tabs. */
+/* 31) CERTIFICATES PAGE: the category tabs show one group at a time ("All"
+   shows every group plus the Academic record). Cards hidden by a tab are
+   also skipped by the photo viewer (it ignores hidden tiles). Arrow keys
+   move between tabs. The stat numbers count up once when they come into view. */
 (function () {
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.cab-tab'));
-  var drawers = Array.prototype.slice.call(document.querySelectorAll('.drawer'));
-  if (!tabs.length) return;
-  tabs.forEach(function (t) {
-    var d = document.querySelector('.drawer[data-cat="' + t.dataset.cat + '"]');
-    if (d && d.classList.contains('is-empty')) t.hidden = true;
-  });
-  function show(cat) {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.cert-tab'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.cert-group'));
+  if (tabs.length) {
+    function show(cat) {
+      tabs.forEach(function (t) {
+        var on = t.dataset.cat === cat;
+        t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1;
+      });
+      groups.forEach(function (g) {
+        var vis = cat === 'all' ? true : g.dataset.cat === cat;
+        g.hidden = !vis;
+        g.querySelectorAll('.b-tile').forEach(function (b) { b.hidden = false; b.closest('.cert-card') && (b.hidden = !vis); });
+        g.classList.remove('in-view');
+        if (vis) { void g.offsetWidth; g.classList.add('in-view'); g.querySelectorAll('.reveal').forEach(function (r) { r.classList.add('in'); }); }
+      });
+    }
     tabs.forEach(function (t) {
-      var on = t.dataset.cat === cat;
-      t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1;
+      t.addEventListener('click', function () { show(t.dataset.cat); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        var k = tabs.indexOf(t), next = tabs[(k + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        next.focus(); show(next.dataset.cat);
+      });
     });
-    drawers.forEach(function (d) {
-      var vis = cat === 'all' || d.dataset.cat === cat;
-      d.hidden = !vis;
-      d.classList.remove('in-view');
-      if (vis) { void d.offsetWidth; d.classList.add('in-view'); d.querySelectorAll('.reveal').forEach(function (r) { r.classList.add('in'); }); }
-    });
+    show('all');
   }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { show(t.dataset.cat); });
-    t.addEventListener('keydown', function (e) {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      var vis = tabs.filter(function (x) { return !x.hidden; }), k = vis.indexOf(t);
-      var next = vis[(k + (e.key === 'ArrowRight' ? 1 : vis.length - 1)) % vis.length];
-      next.focus(); show(next.dataset.cat);
+  var nums = document.querySelectorAll('.cert-stats [data-count]');
+  if (!nums.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      var el = en.target, end = +el.dataset.count, start = null;
+      (function frame(t) {
+        if (start === null) start = t;
+        var p = Math.min(1, (t - start) / 900);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(frame);
+      })(performance.now());
     });
-  });
-  show('all');
+  }, { threshold: 0.6 });
+  nums.forEach(function (n) { io.observe(n); });
 })();
