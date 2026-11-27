@@ -2176,3 +2176,34 @@ textarea { min-height: 130px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   .nav .links, .nav .links a.link, .menu-btn span { transition: none; }
 }
+
+
+/* =====================================================
+   "LET'S WORK" BUTTON EXTRAS (owner asked, Nov 2026): a soft glowing ring
+   pulses out from the button every 2.6s, and a thin band of light sweeps
+   across it every 5s. Both are gentle so the button still reads cleanly.
+   Nothing moves with "reduce motion".
+   ===================================================== */
+.nav a.link.cta, .nav-cta { position: relative; overflow: hidden; isolation: isolate; animation: work-pulse 2.6s ease-out infinite; }
+.nav a.link.cta::after, .nav-cta::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; z-index: -1; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: skewX(-20deg); animation: work-shine 5s ease-in-out infinite;
+}
+@keyframes work-pulse {
+  0%   { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 0 rgba(120, 90, 255, .45); }
+  70%  { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 9px rgba(120, 90, 255, 0); }
+  100% { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 0 rgba(120, 90, 255, 0); }
+}
+@keyframes work-shine { 0%, 62% { left: -60%; } 82%, 100% { left: 130%; } }
+.nav a.link.cta:hover, .nav-cta:hover { animation-play-state: paused; }
+
+/* MINT MENU ICON (owner's choice): filled mint square with dark lines */
+@media (max-width: 860px) {
+  .menu-btn { background: var(--accent-fill); border-color: transparent; color: var(--on-accent); box-shadow: 0 6px 18px -8px rgba(var(--accent-rgb), .8); }
+  .menu-btn:hover { filter: brightness(1.06); }
+  .nav.open .menu-btn { border-color: transparent; color: var(--on-accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav a.link.cta, .nav-cta, .nav a.link.cta::after, .nav-cta::after { animation: none; }
+}
