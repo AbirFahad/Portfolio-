@@ -2600,17 +2600,22 @@ textarea { min-height: 130px; resize: vertical; }
 .lp-link:hover span, .lp-link:focus-visible span { transform: translateX(4px); }
 .lp-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
-.lp-stamps { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
-.lp-stamps li { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.lp-stamps { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.lp-stamps li { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+/* the stamped logo tile: white, rounded, a dashed ring in the org's colour, slightly turned */
 .lp-stamp {
-  width: 84px; height: 84px; border-radius: 50%; display: grid; place-content: center; gap: 2px;
-  color: var(--sc); border: 2.5px solid var(--sc); outline: 1px dashed var(--sc); outline-offset: -8px;
-  transform: rotate(var(--rot)); opacity: .9;
-  transition: transform .35s cubic-bezier(.3,1.5,.5,1), background .3s, color .3s, opacity .3s;
+  width: 84px; height: 84px; border-radius: 22px; overflow: hidden; display: grid; place-content: center;
+  background: #fff; outline: 2px dashed var(--sc); outline-offset: 4px;
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,.6);
+  transform: rotate(var(--rot)); transition: transform .35s cubic-bezier(.3,1.5,.5,1), box-shadow .3s;
 }
-.lp-stamp b { font: 800 1.05rem/1 var(--font-head); letter-spacing: .02em; }
-.lp-stamp i { font: 600 .56rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; font-style: normal; opacity: .85; }
-.lp-stamps li:hover .lp-stamp { transform: rotate(0deg) scale(1.08); background: var(--sc); color: #0b1016; opacity: 1; }
+.lp-stamp img { width: 100%; height: 100%; object-fit: contain; }
+.lp-word { font-family: var(--font-head); line-height: 1; }
+.lp-word b { font-size: 1.35rem; font-weight: 800; color: #e62b1e; letter-spacing: -.02em; }
+.lp-word b i { font-style: normal; color: #111; }
+.lp-word small { display: block; margin-top: 3px; font: 600 .58rem var(--font-body); letter-spacing: .06em; color: #111; text-transform: uppercase; }
+.lp-stamps li:hover .lp-stamp { transform: rotate(0deg) translateY(-4px) scale(1.06); box-shadow: 0 16px 30px -12px var(--sc); }
+.lp-short { display: none; }
 .lp-cap { font-size: .7rem; line-height: 1.35; color: var(--muted); }
 .lp-cap b { display: block; font-size: .74rem; color: var(--text); font-weight: 600; margin-bottom: 2px; }
 
@@ -2619,8 +2624,12 @@ textarea { min-height: 130px; resize: vertical; }
 }
 @media (max-width: 600px) {
   .lead-pass { padding: 22px 18px 22px 24px; gap: 20px; }
-  .lp-stamps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 8px; }
-  .lp-stamp { width: 70px; height: 70px; }
-  .lp-stamp b { font-size: .9rem; }
+  .lp-stamps { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }   /* all five in one row */
+  .lp-stamps li { gap: 9px; }
+  .lp-stamp { width: 52px; height: 52px; border-radius: 14px; outline-offset: 3px; }
+  .lp-word b { font-size: .9rem; }
+  .lp-word small { font-size: .42rem; }
+  .lp-cap { display: none; }
+  .lp-short { display: block; font-size: .62rem; line-height: 1.2; color: var(--text); font-weight: 600; }
 }
 @media (prefers-reduced-motion: reduce) { .lp-stamps li:hover .lp-stamp { transform: rotate(var(--rot)); } }
