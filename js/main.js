@@ -933,7 +933,7 @@
 /* 26) TITLE ANIMATIONS: every page title (and some Home headings) has
    data-anim="..." and plays its own short animation ONCE, the first time it
    comes into view, after the loading screen and the fade-up have finished,
-   then plays again every 4 to 5 seconds while it is on screen (see LOOP below).
+   then plays again every 7 to 8 seconds while it is on screen (see LOOP below).
    The looks are in css/style.css, "TITLE ANIMATIONS". The words shown on
    the stamp, the scan tag and the QC counter are in content.md.
    With "reduce motion" on, nothing moves and the finished title shows. */
@@ -1146,12 +1146,12 @@
     })();
   }
   // LOOP (owner asked, Nov 2026): after the first play, each title plays
-  // again every 4 to 5 seconds, depending on how long it is: 4s plus 60ms per
-  // letter, never more than 5s (so "Let's talk." ~4.7s, longer headings 5s).
+  // again every 7 to 8 seconds, depending on how long it is: 7s plus 60ms per
+  // letter, never more than 8s (so "Let's talk." ~7.6s, longer headings 8s).
   // Only while it is on screen and the tab is open.
   // Before each replay the title is put back exactly as it was before its
   // first play (saved in el._orig / el._cls).
-  function loopMs(el) { var n = el.textContent.replace(/\s+/g, '').length; return Math.max(4000, Math.min(5000, 4000 + n * 60)); }
+  function loopMs(el) { var n = el.textContent.replace(/\s+/g, '').length; return Math.max(7000, Math.min(8000, 7000 + n * 60)); }
   // titles that replay with a lighter animation after the first full one
   var REPLAY = {
     // Skills "The toolkit.": each word pops up one after another
@@ -1252,17 +1252,17 @@
 
   function frame(now) {
     var b = sec.getBoundingClientRect(), vh = innerHeight;
-    // 0 when the band's middle is just below the screen, 1 when it reaches 20% from the top:
-    // a long stretch of scrolling, so the tags travel slowly and in step with you
-    var target = clamp01((vh * 1.05 - (b.top + b.height / 2)) / (vh * 0.85));
-    // follow the scroll smoothly (no jumps when you flick the wheel)
-    eased = eased === null ? target : eased + (target - eased) * 0.09;
+    // 0 when the band's middle is at the bottom of the screen, 1 when it reaches
+    // the MIDDLE of the screen (owner asked: all tags in place by half way)
+    var target = clamp01((vh - (b.top + b.height / 2)) / (vh * 0.5));
+    // follow the scroll smoothly but closely (a light ease, so it doesn't feel laggy)
+    eased = eased === null ? target : eased + (target - eased) * 0.2;
     if (Math.abs(target - eased) < 0.0005) eased = target;
     var p = eased;
     var t = (now - t0) / 1000, W = b.width;
     var RX = Math.min(W * 0.42, 540), RY = Math.max(60, b.height * 0.42), allHome = true;   // ring stays close to the band
     tags.forEach(function (tag, i) {
-      var g = ease(clamp01((p - i * 0.025) / 0.66));         // each tag leaves the ring a moment after the last
+      var g = ease(clamp01((p - i * 0.02) / 0.74));          // each tag leaves the ring a moment after the last
       if (g < 1) allHome = false;
       var a = (i / n) * Math.PI * 2 + t * 0.07, z = Math.sin(a), depth = (z + 1) / 2;
       var rx = Math.cos(a) * RX, ry = z * RY - 0.06 * rx;     // tilted ring around the band's middle
