@@ -933,7 +933,7 @@
 /* 26) TITLE ANIMATIONS: every page title (and some Home headings) has
    data-anim="..." and plays its own short animation ONCE, the first time it
    comes into view, after the loading screen and the fade-up have finished,
-   then plays again every 9 seconds while it is on screen (see LOOP below).
+   then plays again every 4 to 5 seconds while it is on screen (see LOOP below).
    The looks are in css/style.css, "TITLE ANIMATIONS". The words shown on
    the stamp, the scan tag and the QC counter are in content.md.
    With "reduce motion" on, nothing moves and the finished title shows. */
@@ -1027,8 +1027,8 @@
         var c = chars[k]; c.classList.add('typed');
         var b = box(c); moveBlock(b.right + 3, b);
         k++;
-        if (k >= total) { clearInterval(typing); setTimeout(scan, 600); }
-      }, 75);
+        if (k >= total) { clearInterval(typing); setTimeout(scan, 350); }
+      }, 60);
       // 2) scanning: the gate passes each letter, it fills in with a ✓
       function scan() {
         block.classList.remove('on');
@@ -1053,9 +1053,9 @@
             count.textContent = 'QC ' + total + '/' + total + ' passed ✓';
             count.classList.add('pass');
             setTimeout(function () { gate.classList.remove('on'); el.classList.remove('t-qc-run'); }, 400);
-            setTimeout(function () { count.classList.remove('on'); }, 2600);
+            setTimeout(function () { count.classList.remove('on'); }, 1300);
           }
-        }, 110);
+        }, 90);
       }
     },
     // Home "Wins & achievements.": barcode stripes, laser reveals the words
@@ -1146,11 +1146,12 @@
     })();
   }
   // LOOP (owner asked, Nov 2026): after the first play, each title plays
-  // again every LOOP_MS, but only while it is on screen and the tab is open.
+  // again every 4 to 5 seconds, depending on how long it is: 4s plus 60ms per
+  // letter, never more than 5s (so "Let's talk." ~4.7s, longer headings 5s).
+  // Only while it is on screen and the tab is open.
   // Before each replay the title is put back exactly as it was before its
   // first play (saved in el._orig / el._cls).
-  var LOOP_MS = 9000;
-  var LOOP = { qc: 11000, drop: 5000 };   // Home name takes longer; Skills pops come more often
+  function loopMs(el) { var n = el.textContent.replace(/\s+/g, '').length; return Math.max(4000, Math.min(5000, 4000 + n * 60)); }
   // titles that replay with a lighter animation after the first full one
   var REPLAY = {
     // Skills "The toolkit.": each word pops up one after another
@@ -1165,11 +1166,12 @@
   }
   function start(el, play) {
     el._orig = el.innerHTML; el._cls = el.className;
+    var ms = loopMs(el);                                    // measure before the animation adds extra words
     play(el);
     setInterval(function () {
       if (!el._visible || document.hidden) return;
       reset(el); (REPLAY[el.dataset.anim] || play)(el);
-    }, LOOP[el.dataset.anim] || LOOP_MS);
+    }, ms);
   }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
