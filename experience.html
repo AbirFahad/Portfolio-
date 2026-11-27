@@ -51,7 +51,7 @@
 <!-- ===== EXPERIENCE PAGE (résumé layout, Nov 2026) =====
      Left: a side menu that follows you down the page (lights up the part
      you're reading, js part 14) + Download CV and Print buttons.
-     Right: big name, summary, work, education, key highlights.
+     Right: big name, summary, key highlights, work, education.
      Keep the work and education entries in step with the Home panels.
      DATES: dashed outline (class="ph-date") = placeholder, none left now. -->
 <section class="cv-page">
@@ -61,9 +61,9 @@
     <aside class="cv-side">
       <nav class="cv-nav" aria-label="On this page">
         <a href="#summary" class="on">Summary</a>
+        <a href="#highlights">Key highlights</a>
         <a href="#work">Work experience</a>
         <a href="#education">Education</a>
-        <a href="#highlights">Key highlights</a>
       </nav>
       <div class="cv-actions">
         <!-- Download CV: put your CV in the site folder named cv.pdf -->
@@ -93,6 +93,53 @@
           <p>Supply chain executive at Rani Food Industries Ltd. in Dhaka, promoted from Management Trainee Officer in October 2026. I plan raw materials and packaging and run S&amp;OP across <b>140+ SKUs</b> in <b>5 categories</b>: biscuits, cakes, toast, cookies and culinary.</p>
           <p>Before Rani, I led a hub QR scan project at Pathao across 6 hubs that lifted the scan rate from <b>about 15% to 43%</b>. I hold a BBA in Marketing from BUBT and a Post Graduate Diploma in Supply Chain Management from ISCEA, where I won a <b>70% scholarship</b>.</p>
         </div>
+      </div>
+
+      <!-- KEY HIGHLIGHTS (moved here from the Certificates page, Nov 2026)
+           Same card style as "Wins & achievements" on Home (colour per card
+           from its c-* class; hover fills the card, js part 21).
+           To add one: copy an <li class="award ..."> block and change the words. -->
+      <div class="cv-block" id="highlights">
+        <h2 class="cv-h reveal" data-anim="stamp">Key highlights.</h2>
+        <p class="sub reveal d1">Leadership, volunteering and recognition.</p>
+        <ul class="award-grid even compact reveal d2">
+        <li class="award glass c-coral" style="--d:0.0s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🎤</span><span class="award-kind">Leadership</span></div>
+          <span class="award-stat">Team Lead</span>
+          <strong class="award-title">TEDx Dhanmondi</strong>
+          <span class="award-sub">Technical Team Lead.</span>
+        </li>
+        <li class="award glass c-amber" style="--d:1.3s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🏆</span><span class="award-kind">Recognition</span></div>
+          <span class="award-stat">Executive</span>
+          <strong class="award-title">Hult Prize</strong>
+          <span class="award-sub">Executive Recognition.</span>
+        </li>
+        <li class="award glass c-sky" style="--d:2.6s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🌍</span><span class="award-kind">Volunteering</span></div>
+          <span class="award-stat">Service Director</span>
+          <strong class="award-title">Rotaract Club of Dhaka Dynamic</strong>
+          <span class="award-sub">International Service Director.</span>
+        </li>
+        <li class="award glass c-mint" style="--d:3.9s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">💻</span><span class="award-kind">Ambassador</span></div>
+          <span class="award-stat">Campus Ambassador</span>
+          <strong class="award-title">Creative IT Institute</strong>
+          <span class="award-sub">Promoting digital skills among students.</span>
+        </li>
+        <li class="award glass c-violet" style="--d:5.2s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">🤝</span><span class="award-kind">Collaboration</span></div>
+          <span class="award-stat">AgentX</span>
+          <strong class="award-title">With NetCom Learning</strong>
+          <span class="award-sub">Worked on the AgentX competition, promoting digital skills and youth engagement.</span>
+        </li>
+        <li class="award glass c-pink" style="--d:6.5s">
+          <div class="award-top"><span class="award-icon" aria-hidden="true">💼</span><span class="award-kind">Club</span></div>
+          <span class="award-stat">General Member</span>
+          <strong class="award-title">BUBT Business Club</strong>
+          <span class="award-sub">Member of the university business club.</span>
+        </li>
+        </ul>
       </div>
 
       <!-- WORK -->
@@ -191,52 +238,6 @@
         </ol>
       </div>
 
-      <!-- KEY HIGHLIGHTS (moved here from the Certificates page, Nov 2026)
-           Same card style as "Wins & achievements" on Home (colour per card
-           from its c-* class; hover fills the card, js part 21).
-           To add one: copy an <li class="award ..."> block and change the words. -->
-      <div class="cv-block" id="highlights">
-        <h2 class="cv-h reveal" data-anim="stamp">Key highlights.</h2>
-        <p class="sub reveal d1">Leadership, volunteering and recognition.</p>
-        <ul class="award-grid even compact reveal d2">
-        <li class="award glass c-coral" style="--d:0.0s">
-          <div class="award-top"><span class="award-icon" aria-hidden="true">🎤</span><span class="award-kind">Leadership</span></div>
-          <span class="award-stat">Team Lead</span>
-          <strong class="award-title">TEDx Dhanmondi</strong>
-          <span class="award-sub">Technical Team Lead.</span>
-        </li>
-        <li class="award glass c-amber" style="--d:1.3s">
-          <div class="award-top"><span class="award-icon" aria-hidden="true">🏆</span><span class="award-kind">Recognition</span></div>
-          <span class="award-stat">Executive</span>
-          <strong class="award-title">Hult Prize</strong>
-          <span class="award-sub">Executive Recognition.</span>
-        </li>
-        <li class="award glass c-sky" style="--d:2.6s">
-          <div class="award-top"><span class="award-icon" aria-hidden="true">🌍</span><span class="award-kind">Volunteering</span></div>
-          <span class="award-stat">Service Director</span>
-          <strong class="award-title">Rotaract Club of Dhaka Dynamic</strong>
-          <span class="award-sub">International Service Director.</span>
-        </li>
-        <li class="award glass c-mint" style="--d:3.9s">
-          <div class="award-top"><span class="award-icon" aria-hidden="true">💻</span><span class="award-kind">Ambassador</span></div>
-          <span class="award-stat">Campus Ambassador</span>
-          <strong class="award-title">Creative IT Institute</strong>
-          <span class="award-sub">Promoting digital skills among students.</span>
-        </li>
-        <li class="award glass c-violet" style="--d:5.2s">
-          <div class="award-top"><span class="award-icon" aria-hidden="true">🤝</span><span class="award-kind">Collaboration</span></div>
-          <span class="award-stat">AgentX</span>
-          <strong class="award-title">With NetCom Learning</strong>
-          <span class="award-sub">Worked on the AgentX competition, promoting digital skills and youth engagement.</span>
-        </li>
-        <li class="award glass c-pink" style="--d:6.5s">
-          <div class="award-top"><span class="award-icon" aria-hidden="true">💼</span><span class="award-kind">Club</span></div>
-          <span class="award-stat">General Member</span>
-          <strong class="award-title">BUBT Business Club</strong>
-          <span class="award-sub">Member of the university business club.</span>
-        </li>
-        </ul>
-      </div>
     </div>
 
   </div>

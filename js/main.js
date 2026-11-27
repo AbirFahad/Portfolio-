@@ -282,7 +282,7 @@
 })();
 
 /* 11a) FOOTER DHAKA TIME (every page): the small "9:29 AM in Dhaka" pill
-   in the footer, updated every 20 seconds. */
+   in the footer, checked every second so it is always exact. */
 (function () {
   var spots = document.querySelectorAll('[data-dhaka-time]');
   if (!spots.length) return;
@@ -290,13 +290,13 @@
     var t = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: '2-digit' });
     spots.forEach(function (s) { s.textContent = t; });
   }
-  tick(); setInterval(tick, 20000);
+  tick(); setInterval(tick, 1000);   // every second, so it always shows the exact minute
 })();
 
 /* 11) LIVE DHAKA CLOCK + DAY ROUTE (contact page): the big time, a line
    about the time of day, the date, and the 24-hour route bar (the truck
    moves to the current time; the part of the day still to come is dimmed).
-   Everything follows the time in Dhaka and updates every 10 seconds. */
+   Everything follows the time in Dhaka and is checked every second. */
 (function () {
   var el = document.getElementById('dhakaTime');
   if (!el) return;
@@ -317,7 +317,7 @@
     line.textContent = "It's " + time + ' here, ' + phase + ' in Dhaka.';
     date.textContent = 'Dhaka, Bangladesh · ' + now.toLocaleDateString('en-GB', { timeZone: 'Asia/Dhaka', weekday: 'long', day: 'numeric', month: 'short' });
   }
-  tick(); setInterval(tick, 10000);
+  tick(); setInterval(tick, 1000);   // every second, so it changes exactly when the minute does
 })();
 
 /* 12) CONTACT FORM: opens the visitor's email app (no server needed).
