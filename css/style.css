@@ -2092,18 +2092,19 @@ textarea { min-height: 130px; resize: vertical; }
 
 /* =====================================================
    "LET'S TALK" BUTTON (Nov 2026, owner's reference picture): the Contact
-   link is now "Let's Talk", a blue-to-violet gradient pill with white text
+   link is now "Let's Work", a mint-to-amber gradient pill (site colours) with dark text
    and a soft glow, on every page. It's the page where clients get in
    touch, so it stands out from the other links.
    ===================================================== */
-:root { --talk-grad: linear-gradient(135deg, #3d6cff, #8a3dff); --talk-glow: rgba(110, 80, 255, .55); }
+:root { --talk-grad: linear-gradient(120deg, #3ef0c0, #ffb340); --talk-glow: rgba(62, 240, 192, .5); --talk-ink: #04110d; }   /* site colours: mint to amber, like "Fahad." */
+[data-theme="light"] { --talk-grad: linear-gradient(120deg, #2fd9a9, #f0a020); --talk-glow: rgba(10, 163, 124, .45); }
 .nav a.link.cta, .nav-cta {
-  color: #fff; font-weight: 700; background: var(--talk-grad);
+  color: var(--talk-ink); font-weight: 700; background: var(--talk-grad);
   box-shadow: 0 6px 20px -6px var(--talk-glow); transition: transform .25s, box-shadow .25s, filter .25s;
 }
-.nav a.link.cta { margin-left: 6px; white-space: nowrap; }
-.nav a.link.cta:hover, .nav-cta:hover { color: #fff; background: var(--talk-grad); transform: translateY(-2px); box-shadow: 0 10px 26px -6px var(--talk-glow); filter: brightness(1.08); }
-.nav a.link.cta.active, .nav-cta.active { color: #fff; background: var(--talk-grad); box-shadow: 0 0 0 2px rgba(255,255,255,.35), 0 8px 24px -6px var(--talk-glow); }
+.nav a.link.cta { margin-left: 6px; white-space: nowrap; display: inline-block; vertical-align: middle; line-height: 1.2; }   /* inline-block so the shine stays inside the pill */
+.nav a.link.cta:hover, .nav-cta:hover { color: var(--talk-ink); background: var(--talk-grad); transform: translateY(-2px); box-shadow: 0 10px 26px -6px var(--talk-glow); filter: brightness(1.08); }
+.nav a.link.cta.active, .nav-cta.active { color: var(--talk-ink); background: var(--talk-grad); box-shadow: 0 0 0 2px rgba(255,255,255,.35), 0 8px 24px -6px var(--talk-glow); }
 /* computers: the menu bar takes the width it needs, so Let's Talk never drops to a second line */
 @media (min-width: 861px) { .nav { width: max-content; } .nav .links { white-space: nowrap; } }
 .nav-cta { display: none; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: .8rem; white-space: nowrap; }
@@ -2191,9 +2192,9 @@ textarea { min-height: 130px; resize: vertical; }
   transform: skewX(-20deg); animation: work-shine 5s ease-in-out infinite;
 }
 @keyframes work-pulse {
-  0%   { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 0 rgba(120, 90, 255, .45); }
-  70%  { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 9px rgba(120, 90, 255, 0); }
-  100% { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 0 rgba(120, 90, 255, 0); }
+  0%   { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 0 rgba(var(--accent-rgb), .45); }
+  70%  { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 9px rgba(var(--accent-rgb), 0); }
+  100% { box-shadow: 0 6px 20px -6px var(--talk-glow), 0 0 0 0 rgba(var(--accent-rgb), 0); }
 }
 @keyframes work-shine { 0%, 62% { left: -60%; } 82%, 100% { left: 130%; } }
 .nav a.link.cta:hover, .nav-cta:hover { animation-play-state: paused; }
