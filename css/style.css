@@ -2645,7 +2645,71 @@ textarea { min-height: 130px; resize: vertical; }
   .lp-cap { display: none; }
   .lp-short { display: block; font-size: .62rem; line-height: 1.2; color: var(--text); font-weight: 600; }
 }
-@media (prefers-reduced-motion: reduce) { .lp-stamps li:hover .lp-stamp { transform: rotate(var(--rot)); } }
+/* LEADERSHIP CARD, ALIVE (Nov 2026; owner felt it looked flat next to the
+   Wins cards). Always on: a soft light sweeps across the card every 7s, and
+   a glowing dot travels along a dashed "journey" line behind the logos; as
+   it reaches each logo, that logo gets STAMPED (a quick press + an ink ring
+   in the club's colour). Hover the card: it lifts and glows violet, and the
+   logos rise one after another. Uses the separate "scale"/"translate"
+   properties so the logo's own turn and hover still work. */
+.lead-pass { transition: opacity .8s, transform .5s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .4s; }
+.lead-pass > * { position: relative; z-index: 1; }
+.lead-pass::before {   /* the sweeping light */
+  content: ""; position: absolute; inset: -40% auto -40% -30%; width: 22%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
+  transform: rotate(18deg); animation: lp-shine 7s ease-in-out infinite;
+}
+@keyframes lp-shine { 0%, 55% { left: -30%; } 85%, 100% { left: 120%; } }
+.lead-pass:hover {
+  transform: translateY(-6px); border-color: rgba(var(--accent-3-rgb), .5);
+  box-shadow: 0 26px 50px -30px rgba(var(--accent-3-rgb), .7), 0 0 0 1px rgba(var(--accent-3-rgb), .15);
+}
+
+.lp-stamps { position: relative; }
+.lp-stamps::before, .lp-stamps::after { content: ""; position: absolute; pointer-events: none; }
+.lp-stamps::before {   /* the dashed journey line, at the middle of the logos */
+  top: 41px; left: 10%; right: 10%; height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(var(--accent-rgb), .45) 0 6px, transparent 6px 12px);
+}
+.lp-stamps::after {    /* the travelling dot: one logo every 1.5s, then fades */
+  top: 36px; left: 10%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px 3px rgba(var(--accent-rgb), .7);
+  animation: lp-dot 7.5s linear infinite;
+}
+@keyframes lp-dot { 0% { left: 10%; opacity: 1; } 80% { left: 90%; opacity: 1; } 90%, 100% { left: 90%; opacity: 0; } }
+.lp-stamps li { position: relative; z-index: 1; }
+.lp-stamp { animation: lp-thump 7.5s ease-out infinite; transition: transform .35s cubic-bezier(.3,1.5,.5,1), box-shadow .3s, translate .35s; }
+@keyframes lp-thump { 0% { scale: 1; } 3% { scale: 1.14; } 6% { scale: .94; } 9%, 100% { scale: 1; } }
+.lp-stamps li::before {   /* the ink ring that spreads out when a logo is stamped */
+  content: ""; position: absolute; top: 0; left: 50%; width: 84px; height: 84px; margin-left: -42px;
+  border-radius: 22px; border: 2px solid var(--sc); opacity: 0; z-index: -1; pointer-events: none;
+  animation: lp-ink 7.5s ease-out infinite;
+}
+@keyframes lp-ink { 0% { opacity: .9; scale: 1; } 14% { opacity: 0; scale: 1.7; } 100% { opacity: 0; scale: 1.7; } }
+.lp-stamps li:nth-child(2) .lp-stamp, .lp-stamps li:nth-child(2)::before { animation-delay: 1.5s; }
+.lp-stamps li:nth-child(3) .lp-stamp, .lp-stamps li:nth-child(3)::before { animation-delay: 3s; }
+.lp-stamps li:nth-child(4) .lp-stamp, .lp-stamps li:nth-child(4)::before { animation-delay: 4.5s; }
+.lp-stamps li:nth-child(5) .lp-stamp, .lp-stamps li:nth-child(5)::before { animation-delay: 6s; }
+/* hover the card: the logos rise one after another */
+.lead-pass:hover .lp-stamp { translate: 0 -5px; }
+.lp-stamps li:nth-child(2) .lp-stamp { transition-delay: 0s, 0s, .05s; }
+.lp-stamps li:nth-child(3) .lp-stamp { transition-delay: 0s, 0s, .1s; }
+.lp-stamps li:nth-child(4) .lp-stamp { transition-delay: 0s, 0s, .15s; }
+.lp-stamps li:nth-child(5) .lp-stamp { transition-delay: 0s, 0s, .2s; }
+.lp-stamps li:hover .lp-stamp { box-shadow: 0 18px 34px -10px var(--sc), 0 0 0 4px rgba(255,255,255,.06); }
+[data-theme="light"] .lead-pass::before { background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent); }
+@media (max-width: 600px) {
+  .lp-stamps::before { top: 23px; left: 10%; right: 10%; }
+  .lp-stamps::after { top: 19px; width: 10px; height: 10px; margin-left: -5px; }
+  .lp-stamps li::before { width: 52px; height: 52px; margin-left: -26px; border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-stamps li:hover .lp-stamp { transform: rotate(var(--rot)); }
+  .lead-pass::before, .lp-stamps::after, .lp-stamps li::before { animation: none; display: none; }
+  .lp-stamp { animation: none; }
+  .lead-pass:hover, .lead-pass:hover .lp-stamp { transform: none; translate: none; }
+  .lead-pass:hover .lp-stamp { transform: rotate(var(--rot)); }
+}
 
 
 /* WHAT PEOPLE SAY ON PHONES (js part 34): one card at a time in a row you
